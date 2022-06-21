@@ -40,17 +40,11 @@ public class Rectangle extends Shape{
             Vec2 l2 = new Vec2(rect.x, rect.y), r2 = new Vec2(rect.x + rect.width, rect.y + rect.height);
             Vec2 l1 = new Vec2(x, y), r1 = new Vec2(x + width, y + height);
 
-            System.out.println(l1.x + "/" + r2.x + "/" + l2.x + "/" + r1.x);
-            System.out.println(r1.y + "/" + l2.y + "/" + r2.y + "/" + l1.y);
+            if (l1.x > r2.x || l2.x > r1.x) 
+                return false;   
 
-            if (l1.x > r2.x || l2.x > r1.x) {
+            if (r1.y < l2.y || r2.y < l1.y) 
                 return false;
-            }
-     
-            // If one rectangle is above other
-            if (r1.y < l2.y || r2.y < l1.y) {
-                return false;
-            }
      
             return true;
 
