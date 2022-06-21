@@ -4,11 +4,12 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
+import Engine.Utils.Window;
+
 import java.io.File;
 
 public class Sprite {
     
-    public static final String RelativeResourcePath = "/Users/heldersimoes/Documents/program/pasta sem nome 2/my-app/src/main/java/Assets/Sprites";
     public static final String RelativeEngineResourcePath = "/Users/heldersimoes/Documents/program/pasta sem nome 2/my-app/src/main/java/Engine/Assets";
     //Image data
     public int width, height;
@@ -28,7 +29,7 @@ public class Sprite {
 
         try{
 
-            File src = new File(RelativeResourcePath + "/" + path);
+            File src = new File(Window.RelativeResourcePath + "/" + path);
             BufferedImage img = ImageIO.read(src);
 
             return new Sprite(img);
@@ -42,7 +43,7 @@ public class Sprite {
 
         try{
 
-            File src = new File(RelativeResourcePath + "/" + path);
+            File src = new File(Window.RelativeResourcePath + "Sprites/" + path);
 
             BufferedImage img = ImageIO.read(src);
 
@@ -57,7 +58,7 @@ public class Sprite {
 
         try{
 
-            File src = new File(RelativeEngineResourcePath + "/" + path);
+            File src = new File(RelativeEngineResourcePath + "Sprites/" + path);
 
             BufferedImage img = ImageIO.read(src);
 

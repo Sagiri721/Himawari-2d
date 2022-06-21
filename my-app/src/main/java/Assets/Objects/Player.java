@@ -7,6 +7,7 @@ import Engine.Entity.Object;
 import Engine.Gfx.Animation;
 import Engine.Gfx.Sprite;
 import Engine.Input.Input;
+import Engine.Sound.Sound;
 import Engine.Utils.StdBehaviour;
 import Engine.Utils.Geom.Vec2;
 
@@ -68,6 +69,9 @@ public class Player extends Object implements StdBehaviour{
             }
         
             animator.PlayAnimation();
+
+            if(Input.mousePressed[0])
+            new Sound("bruh.wav").play();
         }
     }
 

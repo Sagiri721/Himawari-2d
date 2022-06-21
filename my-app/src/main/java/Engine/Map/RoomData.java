@@ -4,14 +4,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import Engine.Utils.Window;
+
 public class RoomData {
     
     private File tileLayer;
     private int[][] tiles = new int[1000][1000];
 
     private int effectiveWidth, effectiveHeight;
-
-    public static final String RelativeResourcePath = "/Users/heldersimoes/Documents/program/pasta sem nome 2/my-app/src/main/java/Assets/Rooms/";
 
     public int getTile(int x, int y){
 
@@ -23,7 +23,7 @@ public class RoomData {
 
     public RoomData(String path){
 
-        tileLayer = new File(RelativeResourcePath + path);
+        tileLayer = new File(Window.RelativeResourcePath + "Rooms/" + path);
 
         Scanner reader;
         try {

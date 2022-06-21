@@ -9,6 +9,8 @@ import Engine.Input.MouseReader;
 import Engine.Utils.Geom.Vec2;
 
 public class Window extends JFrame{
+
+    public static String RelativeResourcePath = "/Users/heldersimoes/Documents/program/pasta sem nome 2/my-app/src/main/java/Assets/"; 
     
     //Static data
     public static int width, height;
