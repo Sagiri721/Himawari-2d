@@ -27,25 +27,41 @@ public class RoomHandler {
 
         if(hasRooms()){
 
-            for(int i = 0; i < currentRoom.roomData.getHeight(); i++){
-               for(int j = 0; j < currentRoom.roomData.getWidth(); j++) {
+            if(Camera.getInstance() == null){
 
-                    if(Camera.getInstance() == null){
-                       
+                for(int i = 0; i < currentRoom.roomData.getHeight(); i++){
+                    for(int j = 0; j < currentRoom.roomData.getWidth(); j++) {
+
                         g.drawImage(currentRoom.tileset.getFrame(currentRoom.roomData.getTile(j, i)), 
                         j * currentRoom.tileset.width, 
                         i * currentRoom.tileset.height, 
                         null);
-                    }else{
+
+                    }
+                }
+            }else{
+
+                /**
+                 * To save a loor of memory, we need to just draw the camera viewport and not the entore map
+                 */
+
+                for(int i = (int) Camera.getViewPortOffset().x; i < Camera.ViewPort.x + (int) Camera.getViewPortOffset().x; i++){
+                    for(int j = (int) Camera.getViewPortOffset().y; j < Camera.ViewPort.y + (int) Camera.getViewPortOffset().y; j++) {
+
+                        if(j > currentRoom.roomData.getWidth())
+                            break;
 
                         g.drawImage(currentRoom.tileset.getFrame(currentRoom.roomData.getTile(j, i)), 
                         (int) (j * currentRoom.tileset.width - Camera.position.position.x + Camera.getOffset().x), 
                         (int) (i * currentRoom.tileset.height - Camera.position.position.y + Camera.getOffset().y), 
-                        null);
+                null);
                     }
-               }
+
+                    if(i > currentRoom.roomData.getHeight()){
+                        break;
+                    }
+                }
             }
-            
         }
     }
 }

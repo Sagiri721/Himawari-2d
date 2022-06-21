@@ -1,6 +1,9 @@
 package Engine.Components;
 
 import Engine.Entity.Object;
+import Engine.Map.RoomHandler;
+import Engine.Utils.GameMaths;
+import Engine.Utils.Window;
 import Engine.Utils.Geom.Vec2;
 
 public class Camera extends Component{
@@ -10,6 +13,8 @@ public class Camera extends Component{
 
     public static Camera gameCamera = null;  
     public static Camera getInstance() { return gameCamera; } 
+
+    public static Vec2 ViewPort = null;
 
     private static Vec2 offset = new Vec2();
 
@@ -22,6 +27,8 @@ public class Camera extends Component{
 
         gameCamera = this;
 
+        ViewPort = calculateViewPort();
+
     }
 
     public static Vec2 getOffset(){ return offset; }
@@ -30,5 +37,30 @@ public class Camera extends Component{
         
         Camera.offset = offset;
         position.position.sumWith(offset);
+    }
+
+    public static Vec2 calculateViewPort(){ 
+
+        int w = Window.width;
+        int h = Window.height;
+
+
+        int cRoomTileSizeX = RoomHandler.getCurrentRoom().tileset.width;
+        int cRoomTileSizeY = RoomHandler.getCurrentRoom().tileset.height;
+
+        Vec2 viewport = new Vec2((int)(w / cRoomTileSizeX), (int)(h / cRoomTileSizeY));
+        
+        return viewport;
+    }
+
+    public static Vec2 getViewPortOffset() {
+
+        int cRoomTileSizeX = RoomHandler.getCurrentRoom().tileset.width;
+        int cRoomTileSizeY = RoomHandler.getCurrentRoom().tileset.height;
+
+        Vec2 viewPos = new Vec2(GameMaths.clamp((position.position.y - offset.y) / cRoomTileSizeY, 0, RoomHandler.currentRoom.roomData.getHeight()), 
+        GameMaths.clamp((position.position.x - offset.x) / cRoomTileSizeX, 0, RoomHandler.currentRoom.roomData.getWidth()));
+
+        return viewPos;
     }
 }

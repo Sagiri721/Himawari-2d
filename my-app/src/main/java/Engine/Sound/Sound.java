@@ -16,9 +16,10 @@ public class Sound {
     private Clip clip;
     private AudioInputStream inputStream;
 
-    long microLength;
+    public boolean looping = false;
+    public long microLength;
 
-    public Sound(String path){
+    public Sound(String path, boolean looping){
 
         try {
             
@@ -27,6 +28,11 @@ public class Sound {
             clip.open(inputStream);
 
             microLength = clip.getMicrosecondLength();
+
+            if(looping)
+                clip.loop(Clip.LOOP_CONTINUOUSLY);
+
+            this.looping = looping;
 
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
@@ -44,5 +50,13 @@ public class Sound {
          
             
         }).start();
+    }
+
+    public void stop() {
+
+        if(!looping)
+            return;
+
+        clip.stop();
     }
 }

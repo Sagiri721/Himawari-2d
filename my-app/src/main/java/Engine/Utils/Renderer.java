@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -13,6 +14,7 @@ import Engine.Components.Camera;
 import Engine.Components.ImageRenderer;
 import Engine.Components.Transform;
 import Engine.Entity.Object;
+import Engine.Gfx.ImageUtil;
 import Engine.Input.Input;
 import Engine.Map.RoomHandler;
 
@@ -68,20 +70,28 @@ public class Renderer extends JPanel implements ActionListener{
                     //Normal rendering
                     Transform t = (Transform) o.getComponent("Transform");
 
-                    if(t != null)
-                        g2d.drawImage(r.getImage(), (int) t.position.x, (int) t.position.y, 
+                    if(t != null){
+
+                        BufferedImage fnImg = ImageUtil.rotate(r.getImage(), (double) t.angle);
+
+                        g2d.drawImage(fnImg, (int) t.position.x, (int) t.position.y, 
                         r.getImage().getWidth() * (int) t.scale.x, r.getImage().getHeight() * (int) t.scale.y, 
                         null);
+                    }
 
                 }else{
                     //Combined with camera
                     //Normal rendering
                     Transform t = (Transform) o.getComponent("Transform");
 
-                    if(t != null)
-                        g2d.drawImage(r.getImage(), (int) (t.position.x - Camera.position.position.x + Camera.getOffset().x), (int) (t.position.y - Camera.position.position.y + Camera.getOffset().y), 
+                    if(t != null){
+
+                        BufferedImage fnImg = ImageUtil.rotate(r.getImage(), (double) t.angle);
+
+                        g2d.drawImage(fnImg, (int) (t.position.x - Camera.position.position.x + Camera.getOffset().x), (int) (t.position.y - Camera.position.position.y + Camera.getOffset().y), 
                         r.getImage().getWidth() * (int) t.scale.x, r.getImage().getHeight() * (int) t.scale.y, 
                         null);
+                    }
                 }
             }
         }

@@ -2,7 +2,6 @@ package Engine.Components;
 
 import Engine.Gfx.ImageUtil;
 import Engine.Gfx.Sprite;
-import Engine.Utils.Geom.Rectangle;
 import Engine.Utils.Geom.Vec2;
 
 import java.awt.image.BufferedImage;

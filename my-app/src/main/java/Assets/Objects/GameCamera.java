@@ -21,6 +21,7 @@ public class GameCamera extends Object implements StdBehaviour{
     @Override
     public void Start() {
         transformCamera = new Transform();
+
         Object player = Object.FindObject("Player");
 
         Camera camera = new Camera(transformCamera, player);

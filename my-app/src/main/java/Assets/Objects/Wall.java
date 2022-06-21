@@ -6,11 +6,7 @@ import Engine.Utils.StdBehaviour;
 import Engine.Utils.Geom.Vec2;
 import Engine.Components.*;
 
-import Engine.*;
-
 import java.awt.Graphics2D;
-
-import Assets.*;
 
 public class Wall extends Object implements StdBehaviour{
 

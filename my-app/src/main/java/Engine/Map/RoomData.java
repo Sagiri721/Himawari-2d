@@ -9,7 +9,7 @@ import Engine.Utils.Window;
 public class RoomData {
     
     private File tileLayer;
-    private int[][] tiles = new int[1000][1000];
+    private int[][] tiles = new int[9999][9999];
 
     private int effectiveWidth, effectiveHeight;
 

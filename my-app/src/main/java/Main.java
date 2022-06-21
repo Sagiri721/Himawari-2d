@@ -18,13 +18,13 @@ public class Main {
         window.changeBackground(Color.black);
         window.initWindow(500, 500, "Nice Game!");
 
-        Wall wall = new Wall();
-
-        Player player = new Player();
-        GameCamera cam = new GameCamera();
-
         Sprite image = new Sprite("Grass.png");
         TileSet tileSet = new TileSet(image, 16, 16);
-        Room map = new Room("fields", tileSet, new RoomData("room0.txt"));
+        new Room("fields", tileSet, new RoomData("room0.txt"));
+
+        new Wall();
+
+        Player player = new Player();
+        new GameCamera();
     }
 }
