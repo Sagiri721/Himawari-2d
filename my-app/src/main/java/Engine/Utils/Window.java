@@ -1,16 +1,19 @@
 package Engine.Utils;
 
 import java.awt.Color;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
 import javax.swing.JFrame;
 
+import Engine.Components.Camera;
 import Engine.Input.KeyboardReader;
 import Engine.Input.MouseReader;
 import Engine.Utils.Geom.Vec2;
 
-public class Window extends JFrame{
+public class Window extends JFrame implements ComponentListener{
 
-    public static String RelativeResourcePath = "/Users/heldersimoes/Documents/program/pasta sem nome 2/my-app/src/main/java/Assets/"; 
+    public static String RelativeResourcePath = System.getProperty("user.dir") + "/my-app/src/main/java/Assets/"; 
     
     //Static data
     public static int width, height;
@@ -20,6 +23,7 @@ public class Window extends JFrame{
 
     private static Color background = null;
 
+    public static boolean focus = true;
     private static Window window;
 
     //Local class data
@@ -63,6 +67,8 @@ public class Window extends JFrame{
         setVisible(true);
 
         Window.window = this;
+
+        addComponentListener(this);
     }
 
     public void changeBackground(Color backColor){
@@ -72,4 +78,34 @@ public class Window extends JFrame{
     }
 
     public static Vec2 getViewportCenter() { return new Vec2(Window.window.getWidth() / 2, Window.window.getHeight() / 2); }
+
+    @Override
+    public void componentResized(ComponentEvent e) {
+
+        if(Camera.getInstance() != null)
+        {
+            width = getWidth();
+            height = getHeight();
+
+            Camera.calculateViewPort();
+        }
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+
+        
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+
+        focus = true;
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
+
+        focus = false;
+    }
 }

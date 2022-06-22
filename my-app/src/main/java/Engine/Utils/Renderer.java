@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import Engine.Components.Animator;
 import Engine.Components.Camera;
 import Engine.Components.ImageRenderer;
 import Engine.Components.Transform;
@@ -52,48 +53,55 @@ public class Renderer extends JPanel implements ActionListener{
 
     public void renderImages(Graphics2D g2d){
 
-        for (Object o : Object.objects){
+        for(int i = 0; i <= Object.maxLayer; i++){
 
-            ImageRenderer r = (ImageRenderer) o.getComponent("ImageRenderer");
+            for (Object o : Object.objects){
 
-            //Draw every sprite that needs to be drawn
-            if(r != null && r.visible && r.hasImage())
-            {
-                /**
-                 * If the game has a camera, we want to draw every sprite according to the cameras perspective
-                 * Otherwise we just draw the sprites in their world positions
-                 */
+                if(o.getLayer() == i){
 
-                if(Camera.getInstance() == null)
-                {
+                    ImageRenderer r = (ImageRenderer) o.getComponent("ImageRenderer");
 
-                    //Normal rendering
-                    Transform t = (Transform) o.getComponent("Transform");
+                    //Draw every sprite that needs to be drawn
+                    if(r != null && r.visible && r.hasImage())
+                    {
+                        /**
+                         * If the game has a camera, we want to draw every sprite according to the cameras perspective
+                         * Otherwise we just draw the sprites in their world positions
+                         */
 
-                    if(t != null){
+                        if(Camera.getInstance() == null)
+                        {
 
-                        BufferedImage fnImg = ImageUtil.rotate(r.getImage(), (double) t.angle);
+                            //Normal rendering
+                            Transform t = (Transform) o.getComponent("Transform");
 
-                        g2d.drawImage(fnImg, (int) t.position.x, (int) t.position.y, 
-                        r.getImage().getWidth() * (int) t.scale.x, r.getImage().getHeight() * (int) t.scale.y, 
-                        null);
-                    }
+                            if(t != null){
 
-                }else{
-                    //Combined with camera
-                    //Normal rendering
-                    Transform t = (Transform) o.getComponent("Transform");
+                                BufferedImage fnImg = ImageUtil.rotate(r.getImage(), (double) t.angle);
 
-                    if(t != null){
+                                g2d.drawImage(fnImg, (int) t.position.x, (int) t.position.y, 
+                                r.getImage().getWidth() * (int) t.scale.x, r.getImage().getHeight() * (int) t.scale.y, 
+                                null);
+                            }
 
-                        BufferedImage fnImg = ImageUtil.rotate(r.getImage(), (double) t.angle);
+                        }else{
+                            //Combined with camera
+                            //Normal rendering
+                            Transform t = (Transform) o.getComponent("Transform");
 
-                        g2d.drawImage(fnImg, (int) (t.position.x - Camera.position.position.x + Camera.getOffset().x), (int) (t.position.y - Camera.position.position.y + Camera.getOffset().y), 
-                        r.getImage().getWidth() * (int) t.scale.x, r.getImage().getHeight() * (int) t.scale.y, 
-                        null);
+                            if(t != null){
+
+                                BufferedImage fnImg = ImageUtil.rotate(r.getImage(), (double) t.angle);
+
+                                g2d.drawImage(fnImg, (int) (t.position.x - Camera.position.position.x + Camera.getOffset().x), (int) (t.position.y - Camera.position.position.y + Camera.getOffset().y), 
+                                r.getImage().getWidth() * (int) t.scale.x, r.getImage().getHeight() * (int) t.scale.y, 
+                                null);
+                            }
+                        }
                     }
                 }
             }
+
         }
 
         //Give the programmer an opportunity to draw it's own graphics
@@ -128,6 +136,13 @@ public class Renderer extends JPanel implements ActionListener{
             
             //Run user code every frame
             object.Update(deltaTime);
+        }
+
+        for(Object object : Object.objects) {
+
+            //Run the necessary component updates
+            Animator a = (Animator) object.getComponent("Animator");
+            if(a != null) { a.PlayAnimation(); }
         }
 
         counter++;

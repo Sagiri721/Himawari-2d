@@ -33,6 +33,7 @@ public class RoomData {
             while(reader.hasNextLine()){
 
                 String[] data = reader.nextLine().split(" ");
+
                 for(int i = 0; i < data.length; i++) { tiles[i][line] = Integer.parseInt(data[i]); }
                 line++;
             
@@ -43,7 +44,7 @@ public class RoomData {
 
             effectiveHeight = line;
 
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e ) {
             e.printStackTrace();
         }
     }

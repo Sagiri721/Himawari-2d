@@ -24,7 +24,7 @@ public class Main {
 
         new Wall();
 
-        Player player = new Player();
+        new Player();
         new GameCamera();
     }
 }

@@ -49,6 +49,8 @@ public class Player extends Object implements StdBehaviour{
         collider = new RectCollider(transform, new Vec2(64,64));
 
         updateable = true;
+
+        setLayer(6);
     }
 
     //Called every frame
@@ -66,11 +68,6 @@ public class Player extends Object implements StdBehaviour{
             if(dir.equals(Vec2.ZERO)){
                 animator.pause();
             }
-        
-            animator.PlayAnimation();
-
-            if(Input.mousePressed(0))
-                transform.angle += 1f;
         }
     }
 

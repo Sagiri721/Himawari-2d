@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Engine.Components.Camera;
+import Engine.Utils.Geom.Vec2;
 
 import java.awt.Graphics2D;
 
@@ -22,6 +23,8 @@ public class RoomHandler {
     public static Room getRoom(int index){return rooms.get(index);}
 
     public static int roomCount(){return rooms.size();}
+
+    public static Vec2 viewportOffset = new Vec2(2,0);
 
     public static void render(Graphics2D g) {
 
@@ -42,14 +45,15 @@ public class RoomHandler {
             }else{
 
                 /**
-                 * To save a loor of memory, we need to just draw the camera viewport and not the entore map
+                 * To save a loot of memory, we need to just draw the camera viewport and not the entire map
                  */
 
-                for(int i = (int) Camera.getViewPortOffset().x; i < Camera.ViewPort.x + (int) Camera.getViewPortOffset().x; i++){
-                    for(int j = (int) Camera.getViewPortOffset().y; j < Camera.ViewPort.y + (int) Camera.getViewPortOffset().y; j++) {
+                for(int i = (int) Camera.getViewPortOffset().x; i < Camera.ViewPort.x + (int) Camera.getViewPortOffset().x + viewportOffset.y; i++){
+                    for(int j = (int) Camera.getViewPortOffset().y; j < Camera.ViewPort.y + (int) Camera.getViewPortOffset().y + viewportOffset.x; j++) {
 
-                        if(j > currentRoom.roomData.getWidth())
+                        if(j > currentRoom.roomData.getWidth()){
                             break;
+                        }
 
                         g.drawImage(currentRoom.tileset.getFrame(currentRoom.roomData.getTile(j, i)), 
                         (int) (j * currentRoom.tileset.width - Camera.position.position.x + Camera.getOffset().x), 

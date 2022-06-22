@@ -23,12 +23,13 @@ public class Wall extends Object implements StdBehaviour{
         Sprite sprite = new Sprite("square.png");
 
         ImageRenderer rend = new ImageRenderer(sprite);
-        collider = new RectCollider(transform, rend.getDimensions());
+        //collider = new RectCollider(transform, rend.getDimensions());
 
+        setLayer(1);
         transform.setPosition(new Vec2(200, 20));
 
         addComponent(rend);
-        addComponent(collider);
+        //addComponent(collider);
 
         updateable = true;
     }

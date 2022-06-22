@@ -27,8 +27,7 @@ public class Camera extends Component{
 
         gameCamera = this;
 
-        ViewPort = calculateViewPort();
-
+        calculateViewPort();
     }
 
     public static Vec2 getOffset(){ return offset; }
@@ -39,18 +38,15 @@ public class Camera extends Component{
         position.position.sumWith(offset);
     }
 
-    public static Vec2 calculateViewPort(){ 
+    public static void calculateViewPort(){ 
 
         int w = Window.width;
         int h = Window.height;
 
-
         int cRoomTileSizeX = RoomHandler.getCurrentRoom().tileset.width;
         int cRoomTileSizeY = RoomHandler.getCurrentRoom().tileset.height;
 
-        Vec2 viewport = new Vec2((int)(w / cRoomTileSizeX), (int)(h / cRoomTileSizeY));
-        
-        return viewport;
+        ViewPort = new Vec2((int)(w / cRoomTileSizeX), (int)(h / cRoomTileSizeY));
     }
 
     public static Vec2 getViewPortOffset() {
