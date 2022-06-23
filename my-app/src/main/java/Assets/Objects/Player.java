@@ -21,9 +21,10 @@ public class Player extends Object implements StdBehaviour{
 
     boolean updateable = false;
 
-    private StdBehaviour getBehaviour(){
+    @Override
+    public StdBehaviour getBehaviour(){
 
-        return this;
+        return (StdBehaviour) this;
     }
 
     //Called once the object is initialized
@@ -77,4 +78,9 @@ public class Player extends Object implements StdBehaviour{
         //g.drawRect((int) collider.transform.position.x, (int) collider.transform.position.y, (int) collider.bounds.x, (int) collider.bounds.y);
     }
     
+    @Override
+    protected Object makeCopy(){
+
+        return new Player();
+    }
 }

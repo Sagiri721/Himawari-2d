@@ -1,4 +1,3 @@
-
 import java.awt.Color;
 
 import Assets.Objects.GameCamera;
@@ -20,11 +19,13 @@ public class Main {
 
         Sprite image = new Sprite("Grass.png");
         TileSet tileSet = new TileSet(image, 16, 16);
-        new Room("fields", tileSet, new RoomData("room0.txt"));
-
-        new Wall();
+        Room room0 = new Room("fields", tileSet, new RoomData("room0"));
 
         new Player();
+
+        new Wall();
         new GameCamera();
+
+        room0.loadObjects();
     }
 }

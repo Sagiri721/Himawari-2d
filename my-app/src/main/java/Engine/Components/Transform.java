@@ -49,7 +49,8 @@ public class Transform extends Component{
 
         for(Object o : Object.objects){
 
-            if(o.getComponent("RectCollider") == null || o.getComponent("RectCollider") == collider) continue;
+            RectCollider c = (RectCollider) o.getComponent("RectCollider");
+            if(c == null || c == collider || c.solid == false) continue;
 
             if(collider.willCollideWith(o, newPositionX))
                 newPosition = newPositionY;
@@ -75,10 +76,19 @@ public class Transform extends Component{
 
         this.position = pos;
     }
+    public void setPosition(int x, int y){
+
+        this.position = new Vec2(x, y);
+    }
     
     public void setScale(Vec2 scale){
 
         this.scale = scale;
+    }
+
+    public void setScale(int x, int y){
+
+        this.scale = new Vec2(x, y);
     }
 
     public void setAngle(int angle){

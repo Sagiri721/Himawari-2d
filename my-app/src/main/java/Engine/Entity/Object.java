@@ -68,7 +68,7 @@ public class Object{
         this.transform = transform;
         id = objects.size();
 
-        this.name = name;
+        this.name = name.replace(" ", "-");
     }
 
     /** 
@@ -93,6 +93,18 @@ public class Object{
         }
 
         return null;
+    }
+
+    public static List<Object> FindObjects(String name) {
+
+        List<Object> out = new ArrayList<Object>();
+        for(Object obj : objects)  {
+
+            if(obj.name.equals(name))
+                out.add(obj);
+        }
+
+        return out;
     }
 
     public int getId() { return id; }
@@ -133,5 +145,35 @@ public class Object{
         }
 
         return outObj;
+    }
+
+    public StdBehaviour getBehaviour(){
+        return null;
+    }
+
+    protected Object makeCopy(){
+        return null;
+    }
+
+    public static Object Instantiate(Object obj){
+
+        Object newObj = obj.makeCopy();
+
+        objects.add(newObj);
+        behaviours.add(obj.getBehaviour());
+
+        return newObj;
+    }
+
+    public void DestroyInstance(){
+
+        objects.remove(this);
+        behaviours.remove(this.getBehaviour());
+    }
+
+    public static void DestroyObject(Object obj){
+
+        objects.remove(obj);
+        behaviours.remove(obj.getBehaviour());        
     }
 }

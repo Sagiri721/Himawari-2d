@@ -77,6 +77,12 @@ public class Window extends JFrame implements ComponentListener{
         setBackground(backColor);
     }
 
+    public void closeWindow(){
+
+        setVisible(false);
+        dispose();
+    }
+
     public static Vec2 getViewportCenter() { return new Vec2(Window.window.getWidth() / 2, Window.window.getHeight() / 2); }
 
     @Override

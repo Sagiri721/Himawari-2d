@@ -9,6 +9,8 @@ public class RectCollider extends Component{
     public Transform transform;
     public Vec2 bounds;
 
+    public boolean solid = true;
+
     public RectCollider(Transform transform, Vec2 bounds) {
 
         this.transform = transform;
