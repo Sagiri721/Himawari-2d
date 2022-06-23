@@ -15,7 +15,6 @@ public class Object{
     /**
      * List of all existing objects at a certain point in time
      */
-    public static List<StdBehaviour> behaviours = new ArrayList<StdBehaviour>();
     public static List<Object> objects = new ArrayList<Object>();
 
     public static int maxLayer = 0;
@@ -160,7 +159,6 @@ public class Object{
         Object newObj = obj.makeCopy();
 
         objects.add(newObj);
-        behaviours.add(obj.getBehaviour());
 
         return newObj;
     }
@@ -168,12 +166,10 @@ public class Object{
     public void DestroyInstance(){
 
         objects.remove(this);
-        behaviours.remove(this.getBehaviour());
     }
 
     public static void DestroyObject(Object obj){
 
         objects.remove(obj);
-        behaviours.remove(obj.getBehaviour());        
     }
 }

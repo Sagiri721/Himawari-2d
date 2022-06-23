@@ -3,27 +3,27 @@ package Assets.Objects;
 import Engine.Entity.Object;
 import Engine.Gfx.Sprite;
 import Engine.Utils.StdBehaviour;
-import Engine.Utils.Geom.Vec2;
 import Engine.Components.*;
 
 import java.awt.Graphics2D;
 
 public class Wall extends Object implements StdBehaviour{
 
-    public Wall() { super("Wall"); Object.behaviours.add(getBehaviour()); Object.objects.add(this); Start();}
+    public Wall() { super("Wall"); Object.objects.add(this); Start();}
     
     @Override
     public StdBehaviour getBehaviour(){ return this; }
 
     RectCollider collider;
     boolean updateable = false;
+    ImageRenderer rend;
 
     //Called once the object is initialized
     @Override
     public void Start() {
         Sprite sprite = new Sprite("square.png");
 
-        ImageRenderer rend = new ImageRenderer(sprite);
+        rend = new ImageRenderer(sprite);
         collider = new RectCollider(transform, rend.getDimensions());
 
         setLayer(1);
@@ -41,8 +41,10 @@ public class Wall extends Object implements StdBehaviour{
 
         if(updateable){
             
-            if(collider.isCollidingWith(Object.FindObject("Player")))
-                DestroyInstance();
+            if(collider.isCollidingWith(Object.FindObject("Player"))){
+
+                rend.visible = false;
+            }
         }
     }
     @Override

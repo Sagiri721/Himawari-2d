@@ -105,10 +105,10 @@ public class Renderer extends JPanel implements ActionListener{
         }
 
         //Give the programmer an opportunity to draw it's own graphics
-        for (StdBehaviour object : Object.behaviours) {
+        for (Object object : Object.objects) {
             
             //Run user code every frame
-            object.DrawGUI(g2d);
+            object.getBehaviour().DrawGUI(g2d);
             g2d.setColor(Color.BLACK);
         }
     }
@@ -132,17 +132,13 @@ public class Renderer extends JPanel implements ActionListener{
         //calculate deltaTime
         if(deltai == 0) {deltai = System.currentTimeMillis(); } else {deltaf = System.currentTimeMillis(); deltaTime =(deltaf-deltai) * 0.001f; deltai = 0; }
 
-        for (StdBehaviour object : Object.behaviours) {
-            
-            //Run user code every frame
-            object.Update(deltaTime);
-        }
-
         for(Object object : Object.objects) {
 
             //Run the necessary component updates
             Animator a = (Animator) object.getComponent("Animator");
             if(a != null) { a.PlayAnimation(); }
+
+            object.getBehaviour().Update(deltaTime);
         }
 
         counter++;

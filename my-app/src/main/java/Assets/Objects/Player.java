@@ -13,7 +13,7 @@ import Engine.Utils.Geom.Vec2;
 
 public class Player extends Object implements StdBehaviour{
 
-    public Player() { super("Player"); Object.behaviours.add(getBehaviour()); Object.objects.add(this); Start();}
+    public Player() { super("Player"); Object.objects.add(this); Start();}
     ImageRenderer renderer;
     RectCollider collider;
     Object wall = Object.FindObject("Wall");
@@ -48,6 +48,7 @@ public class Player extends Object implements StdBehaviour{
         addComponent(animator);
 
         collider = new RectCollider(transform, new Vec2(64,64));
+        addComponent(collider);
 
         updateable = true;
 
