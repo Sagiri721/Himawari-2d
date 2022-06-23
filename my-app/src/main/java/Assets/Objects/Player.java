@@ -18,6 +18,7 @@ public class Player extends Object implements StdBehaviour{
     RectCollider collider;
     Object wall = Object.FindObject("Wall");
     Animator animator;
+    PhysicalBody body;
 
     boolean updateable = false;
 
@@ -53,6 +54,9 @@ public class Player extends Object implements StdBehaviour{
         updateable = true;
 
         setLayer(6);
+
+        body = new PhysicalBody(1, transform, collider);
+        addComponent(body);
     }
 
     //Called every frame
@@ -61,9 +65,12 @@ public class Player extends Object implements StdBehaviour{
 
         if(updateable){
 
-            Vec2 dir = new Vec2(Input.axisX, Input.axisY);
+            Vec2 dir = new Vec2(Input.axisX, 0);
 
             transform.translate(dir.times(100).times(deltaTime), collider);
+
+            if(Input.mousePressed(0))
+                body.velocity = -0.2f;
 
             if(dir.x == -1){ animator.play(1,0); }else if(dir.x == 1){animator.play(3, 0);}else if(dir.y == 1){ animator.play(0, 0);} else { animator.play(2, 0); }
             

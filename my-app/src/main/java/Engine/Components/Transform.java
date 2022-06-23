@@ -36,9 +36,10 @@ public class Transform extends Component{
      * @param dir
      * @param collider
      */
-    public void translate(Vec2 dir, RectCollider collider){
+    public int translate(Vec2 dir, RectCollider collider){
 
-        if(collider == null) return;
+        if(collider == null) return 0;
+        int res = 0;
 
         //Dont move if going to collide
         //Divide axis so we can collide with a single axis and keep moving
@@ -52,14 +53,19 @@ public class Transform extends Component{
             RectCollider c = (RectCollider) o.getComponent("RectCollider");
             if(c == null || c == collider || c.solid == false) continue;
 
-            if(collider.willCollideWith(o, newPositionX))
+            if(collider.willCollideWith(o, newPositionX)){
+                res = 2;
                 newPosition = newPositionY;
+            }
             
-                if(collider.willCollideWith(o, newPositionY))
+            if(collider.willCollideWith(o, newPositionY)){
                 newPosition = newPositionX;
+                res = 1;
+            }
         }
 
         position = newPosition;
+        return res;
     }
 
     public void translate(Vec2 dir){

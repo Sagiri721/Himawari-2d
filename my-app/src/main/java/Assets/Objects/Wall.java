@@ -30,7 +30,6 @@ public class Wall extends Object implements StdBehaviour{
         addComponent(rend);
         addComponent(collider);
 
-        collider.solid = false;
         transform.setPosition(-100,-100);
 
         updateable = true;
@@ -40,11 +39,6 @@ public class Wall extends Object implements StdBehaviour{
     public void Update(float deltaTime) {
 
         if(updateable){
-            
-            if(collider.isCollidingWith(Object.FindObject("Player"))){
-
-                rend.visible = false;
-            }
         }
     }
     @Override
