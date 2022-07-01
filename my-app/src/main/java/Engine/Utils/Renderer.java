@@ -13,7 +13,6 @@ import javax.swing.Timer;
 import Engine.Components.Animator;
 import Engine.Components.Camera;
 import Engine.Components.ImageRenderer;
-import Engine.Components.PhysicalBody;
 import Engine.Components.Transform;
 import Engine.Entity.Object;
 import Engine.Gfx.ImageUtil;
@@ -140,12 +139,6 @@ public class Renderer extends JPanel implements ActionListener{
             if(a != null) { a.PlayAnimation(); }
 
             object.getBehaviour().Update(deltaTime);
-
-            PhysicalBody pb = (PhysicalBody) object.getComponent("PhysicalBody");
-            if(pb != null){
-
-                pb.PhysicsUpdate(deltaTime);
-            }
         }
 
         counter++;

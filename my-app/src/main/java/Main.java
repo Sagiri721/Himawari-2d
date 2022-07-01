@@ -27,5 +27,7 @@ public class Main {
         new GameCamera();
 
         room0.loadObjects();
+
+        GameMaths.perlinNoise(10);
     }
 }
