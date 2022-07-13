@@ -69,7 +69,7 @@ public class Sprite {
         return null;
     }
 
-    public static BufferedImage[] getFramesOf(BufferedImage image, int width, int height, int x, int y) {
+    public static BufferedImage[] getFramesOfHorizontal(BufferedImage image, int width, int height, int x, int y) {
 
         BufferedImage[] frames = new BufferedImage[(image.getWidth() / width) - (x * width)];
 
@@ -81,9 +81,27 @@ public class Sprite {
         return frames;
     }
 
-    public static Animation createAnimation(Sprite spriteSheet, int width, int height, int startX, int startY){
+    public static BufferedImage[] getFramesOfVertical(BufferedImage image, int width, int height, int x, int y) {
 
-        BufferedImage[] frames = getFramesOf(spriteSheet.sprite, width, height, startX, startY);
+        BufferedImage[] frames = new BufferedImage[(image.getWidth() / width) - (x * width)];
+
+        for(int i = 0; i < frames.length; i++){
+
+            frames[i] = image.getSubimage(x, y + (i * height), width, height);
+        }
+
+        return frames;
+    }
+
+    public static Animation createAnimation(Sprite spriteSheet, int width, int height, int startX, int startY, boolean horizontal){
+
+        BufferedImage[] frames = null;
+
+        if(horizontal)
+            frames = getFramesOfHorizontal(spriteSheet.sprite, width, height, startX, startY);
+        else
+            frames = getFramesOfVertical(spriteSheet.sprite, width,height, startX, startY);
+        
         return new Animation(frames, startX, startY, width, height);
     }
 }

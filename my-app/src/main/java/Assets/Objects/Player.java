@@ -36,10 +36,10 @@ public class Player extends Object implements StdBehaviour{
         renderer = new ImageRenderer(player);
         addComponent(renderer);
 
-        Animation down = Sprite.createAnimation(img, 64, 64, 0, 0);
-        Animation left = Sprite.createAnimation(img, 64, 64, 0, 64);
-        Animation right = Sprite.createAnimation(img, 64, 64, 0, 64+64);
-        Animation up = Sprite.createAnimation(img, 64, 64, 0, 64+64+64);
+        Animation down = Sprite.createAnimation(img, 64, 64, 0, 0, true);
+        Animation left = Sprite.createAnimation(img, 64, 64, 0, 64, true);
+        Animation right = Sprite.createAnimation(img, 64, 64, 0, 64+64, true);
+        Animation up = Sprite.createAnimation(img, 64, 64, 0, 64+64+64, true);
 
         Animation[] animations = {down, left, up, right};
         animator = new Animator(animations, renderer);
