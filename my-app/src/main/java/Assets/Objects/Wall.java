@@ -1,24 +1,36 @@
 package Assets.Objects;
 
 import Engine.Entity.Object;
-import Engine.Gfx.Sprite;
+import Engine.Gfx.*;
+import Engine.Input.Input;
+import Engine.Input.Input.Keys;
+import Engine.Map.TileSet;
 import Engine.Utils.StdBehaviour;
+import Engine.Utils.Geom.Vec2;
 import Engine.Components.*;
 
 import java.awt.Graphics2D;
 
-public class Wall extends Object implements StdBehaviour{
+public class Wall extends Object implements StdBehaviour {
 
-    public Wall() { super("Wall"); Object.objects.add(this); Start();}
-    
+    public Wall() {
+        super("Wall");
+        Object.objects.add(this);
+        Start();
+    }
+
     @Override
-    public StdBehaviour getBehaviour(){ return this; }
+    public StdBehaviour getBehaviour() {
+        return this;
+    }
 
     RectCollider collider;
     boolean updateable = false;
     ImageRenderer rend;
 
-    //Called once the object is initialized
+    Fonts f, other;
+
+    // Called once the object is initialized
     @Override
     public void Start() {
         Sprite sprite = new Sprite("square.png");
@@ -30,7 +42,10 @@ public class Wall extends Object implements StdBehaviour{
         addComponent(rend);
         addComponent(collider);
 
-        transform.setPosition(-100,-100);
+        transform.setPosition(-100, -100);
+
+        TileSet letters = new TileSet(new Sprite("font.png"), 16, 16);
+        f = new Fonts(0, 0, true, new FontMap("map01.json", letters));
 
         updateable = true;
     }
@@ -38,17 +53,27 @@ public class Wall extends Object implements StdBehaviour{
     @Override
     public void Update(float deltaTime) {
 
-        if(updateable){
+        if (updateable) {
+
         }
     }
+
     @Override
     public void DrawGUI(Graphics2D g) {
-     
-        //g.drawRect((int) collider.transform.position.x, (int) collider.transform.position.y, (int) collider.bounds.x, (int) collider.bounds.y);
+
+        // g.drawRect((int) collider.transform.position.x, (int)
+        // collider.transform.position.y, (int) collider.bounds.x, (int)
+        // collider.bounds.y);
+
+        if (updateable) {
+
+            f.drawText("aaaaa", g, new Vec2(50, 50));
+        }
+
     }
-    
+
     @Override
-    protected Object makeCopy(){
+    protected Object makeCopy() {
 
         return new Wall();
     }

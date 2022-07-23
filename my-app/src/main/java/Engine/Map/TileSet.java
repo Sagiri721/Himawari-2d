@@ -5,8 +5,8 @@ import java.awt.image.BufferedImage;
 import Engine.Gfx.Sprite;
 
 public class TileSet {
-    
-    BufferedImage spriteSheet;
+
+    public BufferedImage spriteSheet;
     public int width, height;
 
     public int sizeX, sizeY;
@@ -29,8 +29,8 @@ public class TileSet {
 
         sprites = new BufferedImage[sizeX * sizeY];
 
-        for(int i = 0; i < sizeX; i++) {
-            for(int j = 0; j < sizeY; j++) {
+        for (int i = 0; i < sizeX; i++) {
+            for (int j = 0; j < sizeY; j++) {
 
                 sprites[j + (i * sizeY)] = spriteSheet.getSubimage(i * width, j * height, width, height);
             }
@@ -38,12 +38,12 @@ public class TileSet {
     }
 
     public BufferedImage getFrame(int index) {
-    
+
         return sprites[index];
     }
 
     public BufferedImage getFrame(int x, int y) {
-    
+
         return sprites[x + (y * sizeY)];
     }
 }
