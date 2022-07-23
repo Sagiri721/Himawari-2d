@@ -9,7 +9,7 @@ import Engine.Utils.*;
 import Engine.Map.*;
 
 public class Main {
-    
+
     public static void main(String[] args) {
 
         Window window = new Window();
@@ -27,7 +27,5 @@ public class Main {
         new GameCamera();
 
         room0.loadObjects();
-
-        GameMaths.perlinNoise(10);
     }
 }

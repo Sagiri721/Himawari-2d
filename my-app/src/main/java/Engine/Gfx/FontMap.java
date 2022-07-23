@@ -4,30 +4,34 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
- 
-import org.json.simple.JSONArray;
+import java.util.Set;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-class FontMap{
+import java.awt.image.BufferedImage;
+
+import Engine.Map.TileSet;
+
+public class FontMap {
 
     TileSet tileset = null;
-    
-    //Map hash
-    String[] keys;
-    Integer[] values;
 
-    public FontMap(String mapPath, TileSet tilesetPath){
+    // Map hash
+    char[] keys;
+    long[] values;
+
+    public FontMap(String mapPath, TileSet tilesetPath) {
 
         tileset = tilesetPath;
 
-        openFontMap(new File("my-app/src/main/java/Assets/Fonts/FontMaps" + mapPath));
+        openFontMap(new File("D:/TIAGO/program/himawari/my-app/src/main/java/Assets/Fonts/FontMaps/map01.json"));
     }
 
-    private void openFontMap(File map){
+    private void openFontMap(File map) {
 
-        if(!map.exists()){
+        if (!map.exists()) {
 
             System.out.println("[ERROR] the inputed map does not exist");
             return;
@@ -35,17 +39,20 @@ class FontMap{
 
         JSONParser parser = new JSONParser();
 
-        try(FileReader reader = new FileReader(map)){
+        try (FileReader reader = new FileReader(map)) {
 
-            JSONArray array = (JSONArray) parser.parse(reader);
+            JSONObject obj = (JSONObject) parser.parse(reader);
+            Set<String> keyset = obj.keySet();
+
+            keys = new char[keyset.size()];
+            values = new long[keyset.size()];
 
             int i = 0;
-            //Map everything
-            array.forEach( keypair -> {
+            for (String key : keyset) {
 
-                JSONObject o = (JSONObject) keypair;
-                System.out.println(o.toString());
-            });
+                keys[i] = key.charAt(0);
+                values[i] = (long) obj.get(key);
+            }
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -54,5 +61,10 @@ class FontMap{
         } catch (ParseException e) {
             System.out.println("[ERROR] Your map has an invalid format");
         }
+    }
+
+    public BufferedImage getLetter(int x) {
+
+        return tileset.spriteSheet.getSubimage(x, 0, tileset.width, tileset.height);
     }
 }
