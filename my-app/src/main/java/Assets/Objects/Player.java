@@ -82,6 +82,11 @@ public class Player extends Object implements StdBehaviour {
             if (dir.equals(Vec2.ZERO)) {
                 animator.pause();
             }
+
+            Object target = Object.FindObject("Wall");
+
+            transform.lookAt(target);
+   
         }
     }
 

@@ -41,4 +41,9 @@ public class GameMaths {
 
         return noise;
     }
+
+    public static int randomInteger(int lower, int highest){
+
+        return new Random().nextInt(lower, highest);
+    }
 }

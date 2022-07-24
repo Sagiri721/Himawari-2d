@@ -6,6 +6,9 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.Image;
 
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+
 public class ImageUtil {
     
     ////////////////////////////////////////////////////////////////////////////////////////////
@@ -59,19 +62,26 @@ public class ImageUtil {
 
     public static BufferedImage rotate(BufferedImage bimg, Double angle) {
         
-        double sin = Math.abs(Math.sin(Math.toRadians(angle))),
-               cos = Math.abs(Math.cos(Math.toRadians(angle)));
-        int w = bimg.getWidth();
-        int h = bimg.getHeight();
-        int neww = (int) Math.floor(w*cos + h*sin),
-            newh = (int) Math.floor(h*cos + w*sin);
-
-        BufferedImage rotated = new BufferedImage(neww, newh, bimg.getType());
-        Graphics2D graphic = rotated.createGraphics();
-        graphic.translate((neww-w)/2, (newh-h)/2);
-        graphic.rotate(Math.toRadians(angle), w/2, h/2);
-        graphic.drawRenderedImage(bimg, null);
-        graphic.dispose();
-        return rotated;
+ 
+        // Getting Dimensions of image
+        int width = bimg.getWidth();
+        int height = bimg.getHeight();
+ 
+        // Creating a new buffered image
+        BufferedImage newImage = new BufferedImage(
+            bimg.getWidth(), bimg.getHeight(), bimg.getType());
+ 
+        // creating Graphics in buffered image
+        Graphics2D g2 = newImage.createGraphics();
+ 
+        // Rotating image by degrees using toradians()
+        // method
+        // and setting new dimension t it
+        g2.rotate(Math.toRadians(angle), width / 2,
+                  height / 2);
+        g2.drawImage(bimg, null, 0, 0);
+ 
+        // Return rotated buffer image
+        return newImage;
     }
 }

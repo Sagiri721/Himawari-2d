@@ -82,7 +82,7 @@ public class RoomData {
             Vec2 scale = new Vec2(Integer.valueOf(scaleFactor[0]), Integer.valueOf(scaleFactor[1]));
 
             transform.setPosition(newPosition);
-            transform.setAngle(Integer.valueOf(data[2]));
+            transform.setAngle(Float.valueOf(data[2]));
             transform.setScale(scale);
         }
 

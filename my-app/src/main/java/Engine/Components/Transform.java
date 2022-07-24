@@ -12,6 +12,8 @@ public class Transform extends Component{
     public float angle;
     public Vec2 scale;
 
+    public Vec2 pivotPoint = new Vec2();
+
     public Transform(){
 
         position = new Vec2();
@@ -75,6 +77,22 @@ public class Transform extends Component{
         position = newPosition;
     }
 
+    public void rotate(float angle){
+
+        setAngle(this.angle+angle);
+    }
+
+    public void lookAt(Object target){
+
+        Transform targeTransform = (Transform) target.getComponent("Transform");
+        double h = targeTransform.position.magnitude(position);
+        double x = targeTransform.position.y - position.y;
+
+        double angle = Math.toDegrees(Math.asin(x/h));
+
+        setAngle((float)angle);
+    }
+
     //////////////////////////////////////////////////////////////
     ////SETTERS
     /////////////////////////////////////////////////////////////
@@ -92,13 +110,29 @@ public class Transform extends Component{
         this.scale = scale;
     }
 
-    public void setScale(int x, int y){
+    public void setScale(float x, float y){
 
         this.scale = new Vec2(x, y);
     }
 
-    public void setAngle(int angle){
+    public void setAngle(Float angle){
 
         this.angle = angle;
+        
+        /*
+        if(this.angle > 360){
+
+            this.angle = 0 + (this.angle-360);
+            setAngle(this.angle);
+        }else if(this.angle < 0){
+
+            this.angle = 360 - (this.angle-360);
+            setAngle(this.angle);
+        }*/
+    }
+
+    public void setPivotPoint(Vec2 point){
+
+        this.pivotPoint = point;
     }
 }

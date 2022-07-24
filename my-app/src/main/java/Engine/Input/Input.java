@@ -27,6 +27,13 @@ public class Input {
         return KeyboardReader.keys[key.ordinal()];
     }
 
+    public static enum MouseButtons{
+
+        LEFT,
+        MIDDLE,
+        RIGHT
+    }
+
     public static enum Keys {
 
         LEFT,
