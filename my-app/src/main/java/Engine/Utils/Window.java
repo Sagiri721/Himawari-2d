@@ -47,7 +47,7 @@ public class Window extends JFrame implements ComponentListener{
 
         Window.name = name;
 
-        setName(name);
+        getContentPane().setName(name);
         setSize(width, height);
 
         //Define window related operations
@@ -74,7 +74,7 @@ public class Window extends JFrame implements ComponentListener{
     public void changeBackground(Color backColor){
 
         Window.background = backColor;
-        setBackground(backColor);
+        getContentPane().setBackground(backColor);
     }
 
     public void closeWindow(){

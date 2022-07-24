@@ -2,8 +2,6 @@ package Assets.Objects;
 
 import Engine.Entity.Object;
 import Engine.Gfx.*;
-import Engine.Input.Input;
-import Engine.Input.Input.Keys;
 import Engine.Map.TileSet;
 import Engine.Utils.StdBehaviour;
 import Engine.Utils.Geom.Vec2;

@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Engine.Components.Camera;
+import Engine.Components.ImageRenderer.scaleAlgorithm;
+import Engine.Gfx.ImageUtil;
+import Engine.Gfx.Sprite;
+import Engine.Utils.Window;
 import Engine.Utils.Geom.Vec2;
 
+import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
 
 public class RoomHandler {
@@ -26,9 +31,70 @@ public class RoomHandler {
 
     public static Vec2 viewportOffset = new Vec2(2,0);
 
+    private static boolean isStretched(){
+
+        boolean w = Window.width <= currentRoom.background.width;
+        boolean h = Window.height <= currentRoom.background.height;
+
+        return w && h;
+    }
+
     public static void render(Graphics2D g) {
 
         if(hasRooms()){
+
+            //Draw background if exists 
+            
+            if(currentRoom.hasBackground()){
+
+                BufferedImage background = currentRoom.getBackground();
+                boolean[] displaySettings = currentRoom.getTiling();
+
+                if(displaySettings==null && !isStretched()){
+                    
+                    System.out.println("Isto só deve ser escrito uma vez");
+                    //Stretch = true
+                    currentRoom.background = new Sprite(ImageUtil.toBufferedImage(ImageUtil.resizeImage(Window.width, Window.height, scaleAlgorithm.SMOOTH, currentRoom.background.sprite)));
+                    g.drawImage(background, 0, 0, null);
+                }else if(displaySettings!=null){
+
+                    if(displaySettings[0] && !displaySettings[1]){
+
+                        //Tile horizontaly 
+                        int tileNumber = Window.width / currentRoom.background.width;
+
+                        if(tileNumber>1){
+                            for(int i =0; i < tileNumber; i++){
+
+                                g.drawImage(currentRoom.background.sprite, i * currentRoom.background.width, 0, null);
+                            }
+                        }
+                    }else if(displaySettings[1] && !displaySettings[0]){
+
+                        //Tile verticaly 
+                        int tileNumber = Window.height / currentRoom.background.height;
+
+                        if(tileNumber>1){
+                            for(int i =0; i < tileNumber; i++){
+
+                                g.drawImage(currentRoom.background.sprite, 0, i * currentRoom.background.width, null);
+                            }
+                        }
+                    }else{
+
+                        //Tile complete
+                        int tileNumberW = Window.width / currentRoom.background.width;
+                        int tileNumberH = Window.height / currentRoom.background.height;
+
+                        if(tileNumberW>1 || tileNumberH>1){
+                            for(int i =0; i < tileNumberW; i++){
+                                for(int j = 0; j < tileNumberH; j++)
+                                    g.drawImage(currentRoom.background.sprite, i * currentRoom.background.width, j * currentRoom.background.height, null);
+                            }
+                        }
+                    }
+                }
+            }
 
             if(Camera.getInstance() == null){
 
