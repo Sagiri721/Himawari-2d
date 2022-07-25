@@ -1,0 +1,106 @@
+package Engine.Gfx;
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+
+import Engine.Components.Camera;
+import Engine.Utils.Geom.Circle;
+import Engine.Utils.Geom.Rectangle;
+import Engine.Utils.Geom.Vec2;
+
+public class Debugging {
+ 
+    static Color debugColor = Color.BLACK;
+    static boolean showDebug = true;
+
+    public enum type{
+
+        HOLLOW,
+        FILLED
+    }
+
+    private static type drawType = type.HOLLOW;
+    public static void setDrawType(type t) {
+        
+        Debugging.drawType = t;
+    }
+
+    public static void setDebugColor(Color col){
+
+        Debugging.debugColor = col;
+    }
+
+    public static void drawDebugRectangle(Rectangle rect, Graphics2D g){
+
+        if(showDebug){
+            
+            g.setColor(debugColor);
+            Vec2 point = Camera.calculateWindowTowindowPoint(new Vec2((int)-rect.x, (int)-rect.y));
+            if(drawType==type.HOLLOW) g.drawRect((int)point.x, (int)point.y, (int)rect.width, (int)rect.height);
+            else g.fillRect((int)point.x, (int)point.y, (int)rect.width, (int)rect.height);
+        }
+    }
+
+    public static void drawDebugCircle(Circle circle, Graphics2D g){
+
+        if(showDebug){
+            
+            g.setColor(debugColor);
+            Vec2 point = Camera.calculateWindowTowindowPoint(new Vec2((int)-circle.x, (int)-circle.y));
+            if(drawType==type.HOLLOW) g.drawOval((int)point.x, (int)point.y, (int)circle.radius, (int)circle.radius);
+            else g.fillOval((int)point.x, (int)point.y, (int)circle.radius, (int)circle.radius);
+        }
+    }
+    
+    public static void drawDebugText(String text, int x, int y, Graphics2D g){
+
+        if(showDebug){
+
+            g.setColor(debugColor);
+            Vec2 point = Camera.calculateWindowTowindowPoint(new Vec2((int)-x, (int)-y));
+            g.drawString(text, point.x, point.y);
+        }
+    }
+
+    public static void drawDebugLine(Vec2 start, Vec2 end, Graphics2D g){
+
+        if(showDebug){
+
+            g.setColor(debugColor);
+            Vec2 point1 = Camera.calculateWindowTowindowPoint(new Vec2((int)-start.x, (int)-start.y));
+            Vec2 point2 = Camera.calculateWindowTowindowPoint(new Vec2((int)-end.x, (int)-end.y));
+            g.drawLine((int)point1.x, (int)point1.y, (int)point2.x, (int)point2.y);
+        }
+    }
+
+    public static void drawDebugGrid(Vec2 start, Vec2 end, int tileWidth, int tileHeight, Graphics2D g){
+
+        if(showDebug){
+
+            g.setColor(debugColor);
+
+            Vec2 point1 = Camera.calculateWindowTowindowPoint(start);
+            Vec2 point2 = Camera.calculateWindowTowindowPoint(end);
+
+            for(int i = 0; i < ((end.x+1) - start.x); i+=tileWidth){
+            
+                g.drawLine((int)i, (int)start.y, i, (int)(start.y + (tileHeight * ((end.y - start.y) / tileHeight))));
+            }
+            for
+            (int i = 0; i < ((end.x+1) - start.x); i+=tileHeight){
+
+                g.drawLine((int)start.x, i, (int)(int)(start.x + (tileWidth * ((end.x - start.x) / tileWidth))), i);
+            }
+        }
+    }
+
+    public static void printOut(String text){
+
+        System.out.println("[USER_MESSAGE] " + text);
+    }
+
+    public static void sendMessage(String title, String content){
+
+
+    }
+}

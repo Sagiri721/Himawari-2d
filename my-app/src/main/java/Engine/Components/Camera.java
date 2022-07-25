@@ -59,4 +59,12 @@ public class Camera extends Component{
 
         return viewPos;
     }
+
+    public static Vec2 calculateWindowTowindowPoint(Vec2 windowPoint){
+
+        int x = (int)(Camera.position.position.x + windowPoint.x);
+        int y = (int)(Camera.position.position.y + windowPoint.y);
+
+        return new Vec2(-x, -y);
+    }
 }

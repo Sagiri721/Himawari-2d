@@ -1,13 +1,18 @@
 package Assets.Objects;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 import Engine.Components.*;
 import Engine.Entity.Object;
 import Engine.Gfx.Animation;
+import Engine.Gfx.Debugging;
 import Engine.Gfx.Sprite;
+import Engine.Gfx.Debugging.type;
 import Engine.Input.Input;
+import Engine.Input.Input.Keys;
 import Engine.Utils.StdBehaviour;
+import Engine.Utils.Geom.Circle;
 import Engine.Utils.Geom.Vec2;
 
 public class Player extends Object implements StdBehaviour {
@@ -47,6 +52,8 @@ public class Player extends Object implements StdBehaviour {
 
         Animation[] animations = { down, left, up, right };
         animator = new Animator(animations, renderer);
+        animator.addTriggerAnimation(up, "up");
+        animator.addTriggerAnimation(down, "down");
 
         animator.play(0, 0);
         addComponent(animator);
@@ -82,11 +89,6 @@ public class Player extends Object implements StdBehaviour {
             if (dir.equals(Vec2.ZERO)) {
                 animator.pause();
             }
-
-            Object target = Object.FindObject("Wall");
-
-            transform.lookAt(target);
-   
         }
     }
 
@@ -96,6 +98,14 @@ public class Player extends Object implements StdBehaviour {
         // g.drawRect((int) collider.transform.position.x, (int)
         // collider.transform.position.y, (int) collider.bounds.x, (int)
         // collider.bounds.y);
+
+        /*
+        Debugging.setDebugColor(new Color(0,0,0,0.5f));
+        Debugging.setDrawType(type.FILLED);
+
+        Debugging.drawDebugCircle(new Circle(10, 10, 100), g);
+        Debugging.drawDebugGrid(new Vec2(0, 0), new Vec2(100, 100), 10, 10, g);
+        */
     }
 
     @Override

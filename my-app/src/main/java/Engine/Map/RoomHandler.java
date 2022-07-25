@@ -52,7 +52,6 @@ public class RoomHandler {
 
                 if(displaySettings==null && !isStretched()){
                     
-                    System.out.println("Isto só deve ser escrito uma vez");
                     //Stretch = true
                     currentRoom.background = new Sprite(ImageUtil.toBufferedImage(ImageUtil.resizeImage(Window.width, Window.height, scaleAlgorithm.SMOOTH, currentRoom.background.sprite)));
                     g.drawImage(background, 0, 0, null);
