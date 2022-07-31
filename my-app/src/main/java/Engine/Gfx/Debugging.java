@@ -3,6 +3,8 @@ package Engine.Gfx;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import javax.swing.JOptionPane;
+
 import Engine.Components.Camera;
 import Engine.Utils.Geom.Circle;
 import Engine.Utils.Geom.Rectangle;
@@ -99,8 +101,13 @@ public class Debugging {
         System.out.println("[USER_MESSAGE] " + text);
     }
 
-    public static void sendMessage(String title, String content){
+    public static void sendMessage(String title, String content, int messageType){
 
+        JOptionPane.showMessageDialog(null, content, title, messageType);
+    }
 
+    public static String retrieveInput(String title, String content){
+
+        return JOptionPane.showInputDialog(null, content, title);
     }
 }
