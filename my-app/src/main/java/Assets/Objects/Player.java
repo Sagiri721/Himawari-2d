@@ -10,6 +10,7 @@ import Engine.Gfx.Debugging;
 import Engine.Gfx.Sprite;
 import Engine.Gfx.Widget;
 import Engine.Gfx.Debugging.type;
+import Engine.Gfx.Widget.Direction;
 import Engine.Input.Input;
 import Engine.Input.Input.Keys;
 import Engine.Utils.StdBehaviour;
@@ -30,6 +31,8 @@ public class Player extends Object implements StdBehaviour {
     Animator animator;
 
     boolean updateable = false;
+
+    int am = 100;
 
     @Override
     public StdBehaviour getBehaviour() {
@@ -90,12 +93,18 @@ public class Player extends Object implements StdBehaviour {
             if (dir.equals(Vec2.ZERO)) {
                 animator.pause();
             }
+
+            if(Input.isKeyPressed(Keys.A)){
+                am--;
+            }
+
         }
     }
 
     @Override
     public void DrawGUI(Graphics2D g) {
 
+        Widget.drawHealthBar(new Vec2(5,5), new Vec2(120, 20), am, 100, Color.WHITE, Color.black, Color.YELLOW, Color.green, Direction.DOWN, true, g);
     }
 
     @Override

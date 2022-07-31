@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.util.Iterator;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -55,9 +56,14 @@ public class Renderer extends JPanel implements ActionListener {
 
         for (int i = 0; i <= Object.maxLayer; i++) {
 
-            for (Object o : Object.objects) {
+            for (Iterator<Object> obj = Object.objects.iterator(); obj.hasNext();) {
+                Object o = obj.next();
 
                 if (o.getLayer() == i) {
+
+                    // Run user code every frame
+                    o.getBehaviour().DrawGUI(g2d);
+                    g2d.setColor(Color.BLACK);
 
                     ImageRenderer r = (ImageRenderer) o.getComponent("ImageRenderer");
 
@@ -108,12 +114,15 @@ public class Renderer extends JPanel implements ActionListener {
         }
 
         // Give the programmer an opportunity to draw it's own graphics
-        for (Object object : Object.objects) {
+        /*
+        for (Iterator<Object> obj = Object.objects.iterator(); obj.hasNext();) {
+            Object object = obj.next();
 
             // Run user code every frame
             object.getBehaviour().DrawGUI(g2d);
             g2d.setColor(Color.BLACK);
         }
+        */
     }
 
     private void globalUpdate() {
@@ -141,8 +150,9 @@ public class Renderer extends JPanel implements ActionListener {
             deltai = 0;
         }
 
-        for (Object object : Object.objects) {
+        for (Iterator<Object> obj = Object.objects.iterator(); obj.hasNext();) {
 
+            Object object = obj.next();
             // Run the necessary component updates
             Animator a = (Animator) object.getComponent("Animator");
             if (a != null) {
