@@ -13,6 +13,8 @@ import Engine.Gfx.Debugging.type;
 import Engine.Gfx.Widget.Direction;
 import Engine.Input.Input;
 import Engine.Input.Input.Keys;
+import Engine.Utils.Alarm;
+import Engine.Utils.AlarmPack;
 import Engine.Utils.StdBehaviour;
 import Engine.Utils.Geom.Circle;
 import Engine.Utils.Geom.Vec2;
@@ -68,6 +70,10 @@ public class Player extends Object implements StdBehaviour {
         updateable = true;
 
         setLayer(6);
+
+        
+        AlarmPack pack = new AlarmPack(new Alarm1(), 5);
+        Alarm.runAlarm(pack);
     }
 
     // Called every frame

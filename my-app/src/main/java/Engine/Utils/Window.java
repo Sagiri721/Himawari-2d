@@ -47,7 +47,7 @@ public class Window extends JFrame implements ComponentListener{
 
         Window.name = name;
 
-        getContentPane().setName(name);
+        setName(name);
         setSize(width, height);
 
         //Define window related operations
