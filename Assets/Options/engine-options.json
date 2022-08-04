@@ -1,0 +1,13 @@
+{
+    "name": "My game",
+    "company": "My Company",
+    "version": "1.0.0",
+    "product_info": "Made using himawari-2d",
+    "display_cursor": true,
+    "start_fullscreen": false,
+    "use_splashscreen": false,
+    "splashscreen_path": "splashscreen.png",
+    "alloow_fullscreen": true,
+    "resize_window": false,
+    "icon": "icon.ico"
+}
