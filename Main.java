@@ -1,7 +1,16 @@
+package;
+
 import java.awt.Color;
 
-import Assets.*;
-import Engine.*;
+import Assets.Objects.*;
+import Engine.Components.*;
+import Engine.Utils.*;
+import Engine.Entity.*;
+import Engine.Gfx.*;
+import Engine.Input.*;
+import Engine.Map.*;
+import Engine.Sound.*;
+import Engine.Utils.Geom.*;
 
 public class Main {
 
