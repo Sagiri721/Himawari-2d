@@ -21,7 +21,7 @@ public class RoomHandler {
     //Room list
     private static List<Room> rooms = new ArrayList<Room>();
 
-    public static void addRoom(Room room) { rooms.add(room); if(rooms.size() == 1) startRoom = room; currentRoom = room; }
+    public static void addRoom(Room room) { rooms.add(room);}
     public static boolean hasRooms(){return startRoom != null;}
 
     public static Room getCurrentRoom(){return currentRoom;}

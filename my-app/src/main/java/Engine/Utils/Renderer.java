@@ -14,8 +14,10 @@ import javax.swing.Timer;
 import Engine.Components.Animator;
 import Engine.Components.Camera;
 import Engine.Components.ImageRenderer;
+import Engine.Components.RectCollider;
 import Engine.Components.Transform;
 import Engine.Entity.Object;
+import Engine.Gfx.Debugging;
 import Engine.Gfx.ImageUtil;
 import Engine.Input.Input;
 import Engine.Map.RoomHandler;
@@ -48,8 +50,6 @@ public class Renderer extends JPanel implements ActionListener {
 
         RoomHandler.render(g2d);
         renderImages(g2d);
-
-        g2d.drawString("fps: " + getFPS(), 0, 15);
     }
 
     public void renderImages(Graphics2D g2d) {
@@ -107,6 +107,20 @@ public class Renderer extends JPanel implements ActionListener {
                                         null);
                             }
                         }
+                    }
+
+                    if(Debugging.drawColliders){
+
+                        Transform t = (Transform) o.getComponent("Transform");
+                        RectCollider c = (RectCollider) o.getComponent("RectCollider");
+
+                        if(c != null && t != null){
+                            
+                            g2d.setColor(Color.red);
+                            g2d.drawRect((int) Camera.calculateWindowTowindowPoint(t.position).x, (int) Camera.calculateWindowTowindowPoint(t.position).y, (int) c.bounds.x, (int) c.bounds.y);
+                        }
+
+                        g2d.setColor(Color.WHITE);
                     }
                 }
             }

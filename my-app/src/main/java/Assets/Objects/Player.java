@@ -15,6 +15,7 @@ import Engine.Input.Input;
 import Engine.Input.Input.Keys;
 import Engine.Utils.Alarm;
 import Engine.Utils.AlarmPack;
+import Engine.Utils.Renderer;
 import Engine.Utils.StdBehaviour;
 import Engine.Utils.Geom.Circle;
 import Engine.Utils.Geom.Vec2;
@@ -70,10 +71,6 @@ public class Player extends Object implements StdBehaviour {
         updateable = true;
 
         setLayer(6);
-
-        
-        AlarmPack pack = new AlarmPack(new Alarm1(), 5);
-        Alarm.runAlarm(pack);
     }
 
     // Called every frame
@@ -100,21 +97,27 @@ public class Player extends Object implements StdBehaviour {
                 animator.pause();
             }
 
-            if(Input.isKeyPressed(Keys.A)){
-                am--;
-            }
+            if(Input.mousePressed(0)){
 
+                sendMessageTo("Wall");
+            }
         }
     }
 
     @Override
     public void DrawGUI(Graphics2D g) {
 
-        Widget.drawHealthBar(new Vec2(5,5), new Vec2(120, 20), am, 100, Color.WHITE, Color.black, Color.YELLOW, Color.green, Direction.DOWN, true, g);
+        //Widget.drawHealthBar(new Vec2(5,5), new Vec2(120, 20), am, 100, Color.WHITE, Color.black, Color.RED, Color.green, Direction.RIGHT, true, g);
+        g.drawString("fps: " + Renderer.getFPS(), 0, 15);
     }
 
     @Override
     protected Object makeCopy() {
         return new Player();
+    }
+
+    @Override
+    public void ReceiveMessage(String origin) {
+        
     }
 }

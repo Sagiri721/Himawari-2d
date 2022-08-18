@@ -15,6 +15,8 @@ public class Debugging {
     static Color debugColor = Color.BLACK;
     static boolean showDebug = true;
 
+    public static boolean drawColliders = false;
+
     public enum type{
 
         HOLLOW,

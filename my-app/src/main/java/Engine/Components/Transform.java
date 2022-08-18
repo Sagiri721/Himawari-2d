@@ -93,6 +93,14 @@ public class Transform extends Component{
         setAngle((float)angle);
     }
 
+    private void updateCollider(){
+
+        RectCollider collider =  (RectCollider) Object.objectOfComponent(this).getComponent("RectCollider");
+
+        if(collider!=null)
+            collider.resizeCollider(scale);
+    }
+
     //////////////////////////////////////////////////////////////
     ////SETTERS
     /////////////////////////////////////////////////////////////
@@ -108,11 +116,13 @@ public class Transform extends Component{
     public void setScale(Vec2 scale){
 
         this.scale = scale;
+        updateCollider();
     }
 
     public void setScale(float x, float y){
 
         this.scale = new Vec2(x, y);
+        updateCollider();
     }
 
     public void setAngle(Float angle){

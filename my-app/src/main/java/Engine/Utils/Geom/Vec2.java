@@ -34,6 +34,11 @@ public class Vec2 {
         return new Vec2(x * n, y * n);
     }
 
+    public Vec2 times(Vec2 other){
+
+        return new Vec2(x * other.x, y * other.y);
+    }
+
     public Vec2 subtractWith(Vec2 other){
 
         return new Vec2(x - other.x, y - other.y);
@@ -50,4 +55,6 @@ public class Vec2 {
     }
 
     public boolean equals(Vec2 pointB) { return (x == pointB.x && y == pointB.y);}
+
+    public Vec2 abs() {return new Vec2(Math.abs(x), Math.abs(y)); }
 }

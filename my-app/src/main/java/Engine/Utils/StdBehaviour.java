@@ -8,4 +8,6 @@ public interface StdBehaviour {
     public void Update(float deltaTime);
 
     public void DrawGUI(Graphics2D g);
+
+    public void ReceiveMessage(String origin);
 }

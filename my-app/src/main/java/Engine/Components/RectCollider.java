@@ -8,13 +8,26 @@ public class RectCollider extends Component{
 
     public Transform transform;
     public Vec2 bounds;
+    private Vec2 originalBounds;
 
     public boolean solid = true;
+
+    public void resizeCollider(Vec2 scale){
+
+        bounds = originalBounds.times(scale);
+    }
+
+    public void resizeColliderSpecifics(Vec2 scale){
+        
+        bounds = scale;
+    }
 
     public RectCollider(Transform transform, Vec2 bounds) {
 
         this.transform = transform;
         this.bounds = bounds;
+
+        this.originalBounds = bounds;
     }
 
     public boolean isCollidingWith(Object obj) {

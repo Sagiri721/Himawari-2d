@@ -3,31 +3,28 @@ import java.awt.Color;
 import Assets.Objects.GameCamera;
 import Assets.Objects.Player;
 import Assets.Objects.Wall;
-import Engine.Components.ImageRenderer.scaleAlgorithm;
-import Engine.Gfx.ImageUtil;
+import Engine.HimawariCore;
+import Engine.Gfx.Debugging;
 import Engine.Gfx.Sprite;
 import Engine.Map.TileSet;
-import Engine.Utils.*;
 import Engine.Map.*;
 
-public class Main {
+public class Main extends HimawariCore{
 
     public static void main(String[] args) {
 
-        Window window = new Window();
-
-        window.changeBackground(Color.black);
-        window.initWindow(500, 500, "Nice Game!");
+        CreateWindow(500, 500, "Nice Game");
 
         Sprite image = new Sprite("Grass.png");
         TileSet tileSet = new TileSet(image, 16, 16);
-        Room room0 = new Room("fields", tileSet, new RoomData("room0"));
-        
+        Room room0 = new Room(tileSet, new RoomData("room0"));
+
+        LoadRoom(room0);
+
         new Player();
-
-        new Wall();
         new GameCamera();
+        new Wall();
 
-        room0.loadObjects();
+        Debugging.drawColliders = true;
     }
 }

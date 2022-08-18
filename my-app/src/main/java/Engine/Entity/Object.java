@@ -1,6 +1,7 @@
 package Engine.Entity;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import Engine.Components.*;
@@ -85,6 +86,7 @@ public class Object{
      */
     public static Object FindObject(String name) {
 
+        name = name.replace(" ", "-");
         for(Object obj : objects)  {
 
             if(obj.name.equals(name))
@@ -96,14 +98,38 @@ public class Object{
 
     public static List<Object> FindObjects(String name) {
 
+        name = name.replace(" ", "-");
         List<Object> out = new ArrayList<Object>();
-        for(Object obj : objects)  {
+        for(Iterator<Object> inter = objects.iterator(); inter.hasNext();)  {
+            Object obj = inter.next();
 
             if(obj.name.equals(name))
                 out.add(obj);
         }
 
         return out;
+    }
+
+    /**
+     * Given a certain component returns it's original object, mostly used in engine features and not of use to the average developer
+     * 
+     * @param component
+     * @return
+     */
+    public static Object objectOfComponent(Component component){
+
+        for(Iterator<Object> inter = objects.iterator(); inter.hasNext();)  {
+            Object obj = inter.next();
+
+            for(Component c : obj.components){
+
+                if(c==component){
+                    return obj;
+                }
+            }
+        }
+
+        return null;
     }
 
     public int getId() { return id; }
@@ -115,7 +141,8 @@ public class Object{
      */
     public static Object GetObjectWithTag(String oTag){
 
-        for(Object obj : objects) {
+        for(Iterator<Object> inter = objects.iterator(); inter.hasNext();)  {
+            Object obj = inter.next();
             
            if(obj.hasTag() && obj.getTag().equals(oTag)) {
 
@@ -135,7 +162,8 @@ public class Object{
 
         List<Object> outObj = new ArrayList<Object>();
 
-        for(Object obj : objects) {
+        for(Iterator<Object> inter = objects.iterator(); inter.hasNext();)  {
+            Object obj = inter.next();
             
            if(obj.hasTag() && obj.getTag().equals(oTag)) {
 
@@ -171,5 +199,34 @@ public class Object{
     public static void DestroyObject(Object obj){
 
         objects.remove(obj);
+    }
+
+    /**
+     * Sends a call to the ReceiveMessage() function of the first object with the specified name
+     * @param name
+     */
+    public void sendMessageTo(String name){
+
+        for(Iterator<Object> inter = objects.iterator(); inter.hasNext();)  {
+            Object obj = inter.next();
+        
+            if(obj.name.equals(name)){
+
+                obj.getBehaviour().ReceiveMessage(this.name);
+                return;
+            }
+        }
+    }
+
+    public void sendMessageToAll(String className){
+
+        for(Iterator<Object> inter = objects.iterator(); inter.hasNext();)  {
+            Object obj = inter.next();
+        
+            /*if(obj.getClass().toString()==){
+
+                obj.getBehaviour().ReceiveMessage(this.name);
+            }*/
+        }
     }
 }

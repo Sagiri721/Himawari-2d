@@ -41,6 +41,17 @@ public class GameMaths {
         return new Random().nextInt(lower, highest);
     }
 
+    public static Color generateRandomColor(){
+
+        Random random = new Random();
+
+        float r = random.nextFloat();
+        float g = random.nextFloat();
+        float b = random.nextFloat();
+
+        return new Color(r,g,b);
+    }
+
     public static Color getInBetweenColor(Color c1, Color c2, float ratio){
 
         if ( ratio > 1f ) ratio = 1f;

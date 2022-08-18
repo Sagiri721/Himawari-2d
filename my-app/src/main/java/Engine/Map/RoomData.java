@@ -11,6 +11,8 @@ import Engine.Entity.Object;
 
 public class RoomData {
     
+    public String path;
+
     //The layer with information on tile placement
     private File tileLayer = null;
     //The layer with information on object placement
@@ -31,6 +33,8 @@ public class RoomData {
     public int getHeight() { return effectiveHeight; }
 
     public RoomData(String path){
+
+        this.path = path;
 
         tileLayer = new File(Window.RelativeResourcePath + "Rooms/" + path + "/room-tiles.txt");
         objectLayer = new File(Window.RelativeResourcePath + "Rooms/" + path + "/room-objects.txt");
