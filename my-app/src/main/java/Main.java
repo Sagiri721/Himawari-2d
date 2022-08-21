@@ -1,13 +1,6 @@
-import java.awt.Color;
-
-import Assets.Objects.GameCamera;
-import Assets.Objects.Player;
+import Assets.Objects.Ball;
 import Assets.Objects.Wall;
 import Engine.HimawariCore;
-import Engine.Gfx.Debugging;
-import Engine.Gfx.Sprite;
-import Engine.Map.TileSet;
-import Engine.Map.*;
 
 public class Main extends HimawariCore{
 
@@ -15,16 +8,11 @@ public class Main extends HimawariCore{
 
         CreateWindow(500, 500, "Nice Game");
 
-        Sprite image = new Sprite("Grass.png");
-        TileSet tileSet = new TileSet(image, 16, 16);
-        Room room0 = new Room(tileSet, new RoomData("room0"));
+        new Ball();
 
-        LoadRoom(room0);
+        Wall wall = new Wall();
 
-        new Player();
-        new GameCamera();
-        new Wall();
-
-        Debugging.drawColliders = true;
+        wall.transform.setPosition(0, 350);
+        wall.transform.setScale(20, 4);
     }
 }

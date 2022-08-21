@@ -41,7 +41,7 @@ public class GameCamera extends Object implements StdBehaviour{
     public void Update(float deltaTime) {
 
         if(targetTransform != null)
-            transformCamera.position.setPosition(targetTransform.position);
+            transformCamera.position.setValues(targetTransform.position);
     }
     @Override
     public void DrawGUI(Graphics2D g) {

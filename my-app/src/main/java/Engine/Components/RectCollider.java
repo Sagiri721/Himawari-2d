@@ -2,6 +2,9 @@ package Engine.Components;
 
 import Engine.Utils.Geom.Rectangle;
 import Engine.Utils.Geom.Vec2;
+
+import java.util.Iterator;
+
 import Engine.Entity.Object;
 
 public class RectCollider extends Component{
@@ -32,7 +35,8 @@ public class RectCollider extends Component{
 
     public boolean isCollidingWith(Object obj) {
 
-        for(Object o : Object.objects){
+        for(Iterator<Object> iterator = Object.objects.iterator(); iterator.hasNext();){
+            Object o = iterator.next();
 
             if(o == obj){
 
@@ -56,9 +60,35 @@ public class RectCollider extends Component{
         return false;
     }
 
+    public boolean isColliding() {
+
+        for(Iterator<Object> iterator = Object.objects.iterator(); iterator.hasNext();){
+            Object o = iterator.next();
+
+            RectCollider r = (RectCollider) o.getComponent("RectCollider");
+            if(r != null){
+
+                Transform t = (Transform) o.getComponent("Transform");
+                
+                Rectangle rect = new Rectangle(t.position.x, t.position.y, r.bounds.x, r.bounds.y);
+                Rectangle myRect = new Rectangle(transform.position.x, transform.position.y, bounds.x, bounds.y);
+
+                if(myRect.Intersects(rect))
+                    return true;
+
+            }else
+                return false; 
+
+            
+        }
+
+        return false;
+    }
+
     public boolean willCollideWith(Object obj, Vec2 position){
 
-        for(Object o : Object.objects){
+        for(Iterator<Object> iterator = Object.objects.iterator(); iterator.hasNext();){
+            Object o = iterator.next();
 
             if(o == obj){
 
@@ -77,6 +107,35 @@ public class RectCollider extends Component{
                     return false; 
 
             }
+        }
+
+        return false;
+    }
+
+    public boolean willCollide(Vec2 position){
+
+        Object self = Object.objectOfComponent(this);
+
+        for(Iterator<Object> iterator = Object.objects.iterator(); iterator.hasNext();){
+            Object o = iterator.next();
+
+            if(o==self)
+                continue;
+
+            RectCollider r = (RectCollider) o.getComponent("RectCollider");
+            if(r != null){
+
+                Transform t = (Transform) o.getComponent("Transform");
+                
+                Rectangle rect = new Rectangle(t.position.x, t.position.y, r.bounds.x, r.bounds.y);
+                Rectangle myRect = new Rectangle(position.x, position.y, bounds.x, bounds.y);
+
+                if(myRect.Intersects(rect))
+                    return true;
+
+            }else
+                return false; 
+
         }
 
         return false;

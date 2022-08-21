@@ -93,12 +93,12 @@ public class Transform extends Component{
         setAngle((float)angle);
     }
 
-    private void updateCollider(){
+    public void updateCollider(){
 
         RectCollider collider =  (RectCollider) Object.objectOfComponent(this).getComponent("RectCollider");
 
         if(collider!=null)
-            collider.resizeCollider(scale);
+            collider.resizeCollider(scale.times((Camera.getInstance() == null ? 1 : Camera.getSize())));
     }
 
     //////////////////////////////////////////////////////////////

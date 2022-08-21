@@ -1,23 +1,14 @@
 package Assets.Objects;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 
 import Engine.Components.*;
 import Engine.Entity.Object;
 import Engine.Gfx.Animation;
-import Engine.Gfx.Debugging;
 import Engine.Gfx.Sprite;
-import Engine.Gfx.Widget;
-import Engine.Gfx.Debugging.type;
-import Engine.Gfx.Widget.Direction;
 import Engine.Input.Input;
-import Engine.Input.Input.Keys;
-import Engine.Utils.Alarm;
-import Engine.Utils.AlarmPack;
 import Engine.Utils.Renderer;
 import Engine.Utils.StdBehaviour;
-import Engine.Utils.Geom.Circle;
 import Engine.Utils.Geom.Vec2;
 
 public class Player extends Object implements StdBehaviour {

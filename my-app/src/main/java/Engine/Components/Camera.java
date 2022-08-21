@@ -1,15 +1,36 @@
 package Engine.Components;
 
+import java.util.Iterator;
+
 import Engine.Entity.Object;
 import Engine.Map.RoomHandler;
 import Engine.Utils.GameMaths;
 import Engine.Utils.Window;
 import Engine.Utils.Geom.Vec2;
 
+import java.awt.image.BufferedImage;
+
 public class Camera extends Component{
     
     public static Transform position;
     public static Object target;
+
+    private static int size = 1;
+
+    public static void setSize(int size){ 
+        
+        if(size <= 0){System.out.println("[ERROR] Invalid camera size");return;} 
+        Camera.size = size; 
+
+        for(Iterator<Object> objec = Object.objects.iterator(); objec.hasNext();){
+            Transform t = (Transform) objec.next().getComponent("Transform");
+
+            if(t!=null) t.updateCollider();
+        }
+
+        setOffset(Camera.calculateIdealCameraOffset());
+    }
+    public static int getSize() {return Camera.size; }
 
     public static Camera gameCamera = null;  
     public static Camera getInstance() { return gameCamera; } 
@@ -40,6 +61,12 @@ public class Camera extends Component{
 
     public static void calculateViewPort(){ 
 
+        if(RoomHandler.getCurrentRoom() == null){
+
+            System.out.println("[ERROR] Camera can't load because there is no room");
+            return;
+        }
+
         int w = Window.width;
         int h = Window.height;
 
@@ -49,7 +76,24 @@ public class Camera extends Component{
         ViewPort = new Vec2((int)(w / cRoomTileSizeX), (int)(h / cRoomTileSizeY));
     }
 
+    public static Vec2 calculateIdealCameraOffset(){
+
+        BufferedImage sprite = ((ImageRenderer) target.getComponent("ImageRenderer")).getImage();
+        Transform tar = (Transform) target.getComponent("Transform");
+
+        float centerX = (Window.width / 2) - (sprite.getWidth() * tar.scale.x);
+        float centerY = (Window.height / 2) - (sprite.getHeight() * tar.scale.y);
+
+        return new Vec2(centerX / size, centerY / size);
+    }
+
     public static Vec2 getViewPortOffset() {
+
+        if(RoomHandler.getCurrentRoom() == null){
+
+            System.out.println("[ERROR] Camera can't load because there is no room");
+            return null;
+        }
 
         int cRoomTileSizeX = RoomHandler.getCurrentRoom().tileset.width;
         int cRoomTileSizeY = RoomHandler.getCurrentRoom().tileset.height;
@@ -62,8 +106,8 @@ public class Camera extends Component{
 
     public static Vec2 calculateWindowTowindowPoint(Vec2 windowPoint){
 
-        int x = (int)(Camera.position.position.x + windowPoint.x);
-        int y = (int)(Camera.position.position.y + windowPoint.y);
+        int x = (int)((Camera.position.position.x * size) + windowPoint.x);
+        int y = (int)((Camera.position.position.y * size) + windowPoint.y);
 
         return new Vec2(-x, -y);
     }

@@ -59,7 +59,7 @@ public class Object{
     public boolean hasTag() { return tag != null || tag == ""; }
 
     //Constructor
-    protected Transform transform;
+    public Transform transform;
     protected Object(String name){
 
         Transform transform = new Transform();
@@ -69,6 +69,22 @@ public class Object{
         id = objects.size();
 
         this.name = name.replace(" ", "-");
+
+        if(nameExists(name)){
+
+           System.out.println("[WARNING] The name '" + name + "' was already atrribueted to a different object"); 
+        }
+    }
+
+    private boolean nameExists(String name){
+
+        for(Iterator<Object> inter = objects.iterator(); inter.hasNext();)  {
+            Object obj = inter.next();
+
+            if(obj.name.equals(name)) return true;
+        }
+
+        return false;
     }
 
     /** 
@@ -87,7 +103,8 @@ public class Object{
     public static Object FindObject(String name) {
 
         name = name.replace(" ", "-");
-        for(Object obj : objects)  {
+        for(Iterator<Object> inter = objects.iterator(); inter.hasNext();)  {
+            Object obj = inter.next();
 
             if(obj.name.equals(name))
             return obj;
@@ -187,6 +204,7 @@ public class Object{
         Object newObj = obj.makeCopy();
 
         objects.add(newObj);
+        ((Transform) newObj.getComponent("Transform")).updateCollider();
 
         return newObj;
     }

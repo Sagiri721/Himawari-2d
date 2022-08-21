@@ -100,7 +100,6 @@ public class Window extends JFrame implements ComponentListener{
     @Override
     public void componentMoved(ComponentEvent e) {
 
-        
     }
 
     @Override

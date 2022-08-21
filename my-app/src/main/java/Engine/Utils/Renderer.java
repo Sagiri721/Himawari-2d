@@ -68,7 +68,7 @@ public class Renderer extends JPanel implements ActionListener {
                     ImageRenderer r = (ImageRenderer) o.getComponent("ImageRenderer");
 
                     // Draw every sprite that needs to be drawn
-                    if (r != null && r.visible && r.hasImage()) {
+                    if (r != null && r.hasImage() && r.visible && r.hasImage()) {
                         /**
                          * If the game has a camera, we want to draw every sprite according to the
                          * cameras perspective
@@ -85,8 +85,8 @@ public class Renderer extends JPanel implements ActionListener {
                                 BufferedImage fnImg = ImageUtil.rotate(r.getImage(), (double) t.angle);
 
                                 g2d.drawImage(fnImg, (int) t.position.x, (int) t.position.y,
-                                        r.getImage().getWidth() * (int) t.scale.x,
-                                        r.getImage().getHeight() * (int) t.scale.y,
+                                        (r.getImage().getWidth() * (int) t.scale.x),
+                                        (r.getImage().getHeight() * (int) t.scale.y),
                                         null);
                             }
 
@@ -100,10 +100,10 @@ public class Renderer extends JPanel implements ActionListener {
                                 BufferedImage fnImg = ImageUtil.rotate(r.getImage(), (double) t.angle);
 
                                 g2d.drawImage(fnImg,
-                                        (int) (t.position.x - Camera.position.position.x + Camera.getOffset().x),
-                                        (int) (t.position.y - Camera.position.position.y + Camera.getOffset().y),
-                                        r.getImage().getWidth() * (int) t.scale.x,
-                                        r.getImage().getHeight() * (int) t.scale.y,
+                                        (int) (t.position.x - Camera.position.position.x + Camera.getOffset().x) * Camera.getSize(),
+                                        (int) (t.position.y - Camera.position.position.y + Camera.getOffset().y) * Camera.getSize(),
+                                        (r.getImage().getWidth() * (int) t.scale.x) * Camera.getSize(),
+                                        (r.getImage().getHeight() * (int) t.scale.y) * Camera.getSize(),
                                         null);
                             }
                         }
@@ -192,16 +192,7 @@ public class Renderer extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        // The update Thread
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-
-                globalUpdate();
-                repaint();
-            }
-
-        }).start();
+        globalUpdate();
+        repaint();
     }
 }

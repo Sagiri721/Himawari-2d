@@ -83,8 +83,8 @@ public class Debugging {
 
             g.setColor(debugColor);
 
-            Vec2 point1 = Camera.calculateWindowTowindowPoint(start);
-            Vec2 point2 = Camera.calculateWindowTowindowPoint(end);
+            //Vec2 point1 = Camera.calculateWindowTowindowPoint(start);
+            //Vec2 point2 = Camera.calculateWindowTowindowPoint(end);
 
             for(int i = 0; i < ((end.x+1) - start.x); i+=tileWidth){
             

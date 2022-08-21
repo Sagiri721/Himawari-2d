@@ -21,7 +21,7 @@ public class ImageRenderer extends Component{
     private Sprite sprite = null;
     private Sprite currentSprite = null;
 
-    public boolean hasImage() { return sprite != null; }
+    public boolean hasImage() { return sprite.sprite != null; }
     public BufferedImage getImage() {return currentSprite.sprite; }
 
     public void setImage(Sprite img) { currentSprite = img; }

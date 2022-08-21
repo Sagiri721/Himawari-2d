@@ -88,6 +88,8 @@ public class RoomData {
             transform.setPosition(newPosition);
             transform.setAngle(Float.valueOf(data[2]));
             transform.setScale(scale);
+
+            transform.updateCollider();
         }
 
         reader.close();

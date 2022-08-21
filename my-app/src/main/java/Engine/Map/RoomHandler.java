@@ -102,7 +102,7 @@ public class RoomHandler {
 
                         g.drawImage(currentRoom.tileset.getFrame(currentRoom.roomData.getTile(j, i)), 
                         j * currentRoom.tileset.width, 
-                        i * currentRoom.tileset.height, 
+                        i * currentRoom.tileset.height,
                         null);
 
                     }
@@ -121,8 +121,10 @@ public class RoomHandler {
                         }
 
                         g.drawImage(currentRoom.tileset.getFrame(currentRoom.roomData.getTile(j, i)), 
-                        (int) (j * currentRoom.tileset.width - Camera.position.position.x + Camera.getOffset().x), 
-                        (int) (i * currentRoom.tileset.height - Camera.position.position.y + Camera.getOffset().y), 
+                        (int) (j * currentRoom.tileset.width - Camera.position.position.x + Camera.getOffset().x) * Camera.getSize(), 
+                        (int) (i * currentRoom.tileset.height - Camera.position.position.y + Camera.getOffset().y) * Camera.getSize(), 
+                        Camera.getSize() * currentRoom.tileset.width,
+                        Camera.getSize() * currentRoom.tileset.height, 
                 null);
                     }
 

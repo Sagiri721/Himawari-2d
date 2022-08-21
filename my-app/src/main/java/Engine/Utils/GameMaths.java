@@ -38,7 +38,7 @@ public class GameMaths {
 
     public static int randomInteger(int lower, int highest){
 
-        return new Random().nextInt(lower, highest);
+        return new Random().nextInt(lower, highest+1);
     }
 
     public static Color generateRandomColor(){
