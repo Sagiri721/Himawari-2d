@@ -62,8 +62,12 @@ public class RectCollider extends Component{
 
     public boolean isColliding() {
 
+        Object self = Object.objectOfComponent(this);
+
         for(Iterator<Object> iterator = Object.objects.iterator(); iterator.hasNext();){
             Object o = iterator.next();
+
+            if(o==self) continue;
 
             RectCollider r = (RectCollider) o.getComponent("RectCollider");
             if(r != null){
@@ -73,8 +77,9 @@ public class RectCollider extends Component{
                 Rectangle rect = new Rectangle(t.position.x, t.position.y, r.bounds.x, r.bounds.y);
                 Rectangle myRect = new Rectangle(transform.position.x, transform.position.y, bounds.x, bounds.y);
 
-                if(myRect.Intersects(rect))
+                if(myRect.Intersects(rect)){
                     return true;
+                }
 
             }else
                 return false; 

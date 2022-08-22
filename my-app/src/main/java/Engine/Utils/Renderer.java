@@ -192,7 +192,14 @@ public class Renderer extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        globalUpdate();
-        repaint();
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                globalUpdate();
+                repaint();
+            }
+            
+        }).start();
     }
 }
