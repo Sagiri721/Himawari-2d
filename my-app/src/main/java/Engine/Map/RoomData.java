@@ -72,11 +72,7 @@ public class RoomData {
         {
             String[] data = reader.nextLine().split(" ");
             //name - position - rotation - scale 
-
-            Object obj = Object.FindObject(data[0]);
-            if(obj == null){ System.out.println("[Object Instantiating Process] Object: " + data[0] + " was not found"); continue; }
-
-            obj = Object.Instantiate(obj);
+            Object obj = Object.Instantiate(data[0]);
             Transform transform = (Transform) obj.getComponent("Transform");
 
             String[] positions = data[1].split("-");

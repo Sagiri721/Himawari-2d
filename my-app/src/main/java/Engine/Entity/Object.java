@@ -7,6 +7,7 @@ import java.util.List;
 import Engine.Components.*;
 
 import Engine.Utils.*;
+import Engine.Utils.Geom.Vec2;
 
 /**
  * Standard class for all the objects that take part in the game
@@ -195,19 +196,20 @@ public class Object{
         return null;
     }
 
-    protected Object makeCopy(){
-        return null;
-    }
+    public static Object Instantiate(String name, Vec2 position, float angle, Vec2 scale){
 
-    public static Object Instantiate(Object obj){
-
-        Object newObj = obj.makeCopy();
-
-        objects.add(newObj);
-        ((Transform) newObj.getComponent("Transform")).updateCollider();
+        Object newObj = ObjectLoader.LoadObjectOfName(name, position, angle, scale);
 
         return newObj;
     }
+    
+    public static Object Instantiate(String name){
+
+        Object newObj = ObjectLoader.LoadObjectOfName(name, new Vec2(0, 0), 0, new Vec2(0,0));
+
+        return newObj;
+    }
+
 
     public void DestroyInstance(){
 

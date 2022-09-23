@@ -14,7 +14,6 @@ public class Wall extends Object implements StdBehaviour {
     public Wall() {
         super("Wall");
         Object.objects.add(this);
-        Start();
     }
 
     @Override
@@ -40,7 +39,7 @@ public class Wall extends Object implements StdBehaviour {
         addComponent(rend);
         addComponent(collider);
 
-        transform.setPosition(-100, -100);
+        transform.setPosition(0, 0);
 
         TileSet letters = new TileSet(new Sprite("font.png"), 16, 16);
         f = new Fonts(0, 0, true, new FontMap("map01.json", letters));
@@ -70,12 +69,6 @@ public class Wall extends Object implements StdBehaviour {
             f.drawText("aaaaa", g, new Vec2(50, 50));
         }
 
-    }
-
-    @Override
-    protected Object makeCopy() {
-
-        return new Wall();
     }
 
     @Override

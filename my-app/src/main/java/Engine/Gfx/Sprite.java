@@ -10,7 +10,7 @@ import java.io.File;
 
 public class Sprite {
     
-    public static final String RelativeEngineResourcePath = System.getProperty("user.dir") + "/my-app/src/main/java/Engine/Assets/";
+    public static final String RelativeEngineResourcePath = System.getProperty("user.dir") + "/src/main/java/Engine/Assets/";
     //Image data
     public int width, height;
     

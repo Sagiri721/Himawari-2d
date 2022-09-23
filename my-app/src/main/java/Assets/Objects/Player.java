@@ -16,7 +16,6 @@ public class Player extends Object implements StdBehaviour {
     public Player() {
         super("Player");
         Object.objects.add(this);
-        Start();
     }
 
     ImageRenderer renderer;
@@ -100,11 +99,6 @@ public class Player extends Object implements StdBehaviour {
 
         //Widget.drawHealthBar(new Vec2(5,5), new Vec2(120, 20), am, 100, Color.WHITE, Color.black, Color.RED, Color.green, Direction.RIGHT, true, g);
         g.drawString("fps: " + Renderer.getFPS(), 0, 15);
-    }
-
-    @Override
-    protected Object makeCopy() {
-        return new Player();
     }
 
     @Override

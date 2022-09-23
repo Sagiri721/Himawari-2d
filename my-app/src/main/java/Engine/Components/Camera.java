@@ -106,6 +106,8 @@ public class Camera extends Component{
 
     public static Vec2 calculateWindowTowindowPoint(Vec2 windowPoint){
 
+        if(Camera.getInstance() == null) return windowPoint;
+
         int x = (int)((Camera.position.position.x * size) + windowPoint.x);
         int y = (int)((Camera.position.position.y * size) + windowPoint.y);
 

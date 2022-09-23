@@ -12,7 +12,7 @@ import java.awt.Graphics2D;
 
 public class GameCamera extends Object implements StdBehaviour{
 
-    public GameCamera() { super("Camera"); Object.objects.add(this); Start();}
+    public GameCamera() { super("Camera"); Object.objects.add(this);}
     @Override public StdBehaviour getBehaviour(){ return this; }
 
     Transform transformCamera;

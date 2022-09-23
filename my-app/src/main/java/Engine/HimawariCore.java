@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import Engine.Components.Camera;
 import Engine.Map.Room;
 import Engine.Map.RoomHandler;
+import Engine.Utils.ObjectLoader;
 import Engine.Utils.Window;
 import Engine.Utils.Geom.Vec2;
 
@@ -66,5 +67,19 @@ public class HimawariCore {
 
             window.setExtendedState(JFrame.MAXIMIZED_BOTH);
         }
+    }
+
+    public static Object CreateObject(String name, Vec2 position, float angle, Vec2 scale){
+
+        Object newObj = ObjectLoader.LoadObjectOfName(name, position, angle, scale);
+
+        return newObj;
+    }
+    
+    public static Object creaObject(String name){
+
+        Object newObj = ObjectLoader.LoadObjectOfName(name, new Vec2(0, 0), 0, new Vec2(0,0));
+
+        return newObj;
     }
 }
