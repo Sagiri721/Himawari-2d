@@ -24,7 +24,7 @@ public class Animator extends Component{
     private List<Animation> triggerAnimations = new ArrayList<>();
 
     /**
-     * The animator receives all the animations and plays them onde the play() function is called
+     * The animator receives all the animations and plays them once the play() function is called
      * 
      * @param animations
      * @param renderer

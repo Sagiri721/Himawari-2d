@@ -14,12 +14,17 @@ public class ImageUtil {
     ////////////////////////////////////////////////////////////////////////////////////////////
     /////////////   IMAGE UTILS
     ////////////////////////////////////////////////////////////////////////////////////////////
-    public static Image resizeImage(int targetWidth, int targetHeight, scaleAlgorithm al, BufferedImage sprite) {
+    public static BufferedImage resizeImage(int targetWidth, int targetHeight, scaleAlgorithm al, BufferedImage sprite) {
 
-        if(al == scaleAlgorithm.FAST)
-            return sprite.getScaledInstance(targetWidth, targetHeight, Image.SCALE_DEFAULT);
+        if(al == scaleAlgorithm.FAST){
+
+            Image i = sprite.getScaledInstance(targetWidth, targetHeight, Image.SCALE_DEFAULT);
+            return toBufferedImage(i);
+        }
         else{
-            return sprite.getScaledInstance(targetWidth, targetHeight, Image.SCALE_SMOOTH);
+            
+            Image i = sprite.getScaledInstance(targetWidth, targetHeight, Image.SCALE_SMOOTH);
+            return toBufferedImage(i);
         }
     }
 

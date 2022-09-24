@@ -36,7 +36,7 @@ public class Sprite {
         width = sprite.getWidth(); height = sprite.getHeight();
     }
 
-    public static Sprite getImageFromFile(String path){
+    public static Sprite getImageFromEngineFile(String path){
 
         try{
 
@@ -50,7 +50,7 @@ public class Sprite {
         return null;
     }
 
-    private BufferedImage getBufferedImageFromFile(String path){
+    public static BufferedImage getBufferedImageFromFile(String path){
 
         try{
 

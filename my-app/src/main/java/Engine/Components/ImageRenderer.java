@@ -49,17 +49,12 @@ public class ImageRenderer extends Component{
 
     public void flipX(){
 
-        Sprite newSprite = new Sprite(ImageUtil.flipImageHorizontal(getImage()));
-
-        setImage(newSprite);
         isFlippedX = !isFlippedX;
     }
 
     public void flipY(){
 
-        Sprite newSprite = new Sprite(ImageUtil.flipImageVertical(getImage()));
-
-        setImage(newSprite);
         isFlippedY = !isFlippedY;
     }
+
 }

@@ -11,7 +11,7 @@ import Engine.Utils.Geom.Vec2;
 
 public class HimawariCore {
 
-    private static Window window;
+    protected static Window window;
     private static Vec2 savedWindowSize = new Vec2();
 
     public static enum Windowmode{

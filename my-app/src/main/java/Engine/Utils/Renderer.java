@@ -83,10 +83,12 @@ public class Renderer extends JPanel implements ActionListener {
                             if (t != null) {
 
                                 BufferedImage fnImg = ImageUtil.rotate(r.getImage(), (double) t.angle);
+                                if(r.isFlippedX) fnImg = ImageUtil.flipImageHorizontal(fnImg);
+                                if(r.isFlippedY) fnImg = ImageUtil.flipImageVertical(fnImg);
 
                                 g2d.drawImage(fnImg, (int) t.position.x, (int) t.position.y,
-                                        (r.getImage().getWidth() * (int) t.scale.x),
-                                        (r.getImage().getHeight() * (int) t.scale.y),
+                                        (int)((r.getImage().getWidth() * (int) t.scale.x)),
+                                        (int)((r.getImage().getHeight() * (int) t.scale.y)),
                                         null);
                             }
 
@@ -98,6 +100,8 @@ public class Renderer extends JPanel implements ActionListener {
                             if (t != null) {
 
                                 BufferedImage fnImg = ImageUtil.rotate(r.getImage(), (double) t.angle);
+                                if(r.isFlippedX) fnImg = ImageUtil.flipImageHorizontal(fnImg);
+                                if(r.isFlippedY) fnImg = ImageUtil.flipImageVertical(fnImg);
 
                                 g2d.drawImage(fnImg,
                                         (int) (t.position.x - Camera.position.position.x + Camera.getOffset().x) * Camera.getSize(),
