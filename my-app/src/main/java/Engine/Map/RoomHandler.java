@@ -111,10 +111,28 @@ public class RoomHandler {
 
                 /**
                  * To save a loot of memory, we need to just draw the camera viewport and not the entire map
-                 */
+                 
 
-                for(int i = (int) Camera.getViewPortOffset().x; i < Camera.ViewPort.x + (int) Camera.getViewPortOffset().x + viewportOffset.y; i++){
-                    for(int j = (int) Camera.getViewPortOffset().y; j < Camera.ViewPort.y + (int) Camera.getViewPortOffset().y + viewportOffset.x; j++) {
+                for(int i = 0; i < (int)((Window.width / currentRoom.tileset.width)); i++){
+                    for(int j = 0; i < currentRoom.roomData.getHeight(); j++){
+
+                    if(j > currentRoom.roomData.getWidth()){
+                        break;
+                    }
+
+                    g.drawImage(currentRoom.tileset.getFrame(currentRoom.roomData.getTile(i, j)), 
+                        (int)(i * currentRoom.tileset.width + (Camera.getOffset().x - Camera.position.position.x)), 
+                        (int)(j * currentRoom.tileset.height + (Camera.getOffset().y - Camera.position.position.y)),
+                        currentRoom.tileset.width,
+                        currentRoom.tileset.height, 
+                null);
+                    }
+                }
+                */
+
+                System.out.println(Camera.ViewPort.y + (int) Camera.getViewPortOffset().y + viewportOffset.x);
+                for(int i = (int) Camera.getViewPortOffset().x; i < Camera.ViewPort.y + (int) Camera.getViewPortOffset().x + viewportOffset.y; i++){
+                    for(int j = (int) Camera.getViewPortOffset().y; j < Camera.ViewPort.x + (int) Camera.getViewPortOffset().y + viewportOffset.x; j++) {
 
                         if(j > currentRoom.roomData.getWidth()){
                             break;
@@ -136,3 +154,4 @@ public class RoomHandler {
         }
     }
 }
+

@@ -6,6 +6,7 @@ import Engine.Components.Camera;
 import Engine.Map.Room;
 import Engine.Map.RoomHandler;
 import Engine.Utils.ObjectLoader;
+import Engine.Entity.Object;
 import Engine.Utils.Window;
 import Engine.Utils.Geom.Vec2;
 
@@ -37,9 +38,8 @@ public class HimawariCore {
 
             //Move to room
         }
-        
-        if(room.hasObjects())
-            room.loadObjects();
+
+        room.loadObjects();
     }
 
     public static void CloseWindow(){

@@ -1,5 +1,6 @@
 package Engine.Components;
 
+import Engine.Entity.Object;
 import Engine.Input.Input;
 import Engine.Physics.Physics;
 import Engine.Utils.Geom.Vec2;

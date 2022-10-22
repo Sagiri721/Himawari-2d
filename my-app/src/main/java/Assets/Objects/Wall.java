@@ -13,7 +13,7 @@ public class Wall extends Object implements StdBehaviour {
 
     public Wall() {
         super("Wall");
-        Object.objects.add(this);
+        objects.add(this);
     }
 
     @Override

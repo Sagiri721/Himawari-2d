@@ -15,7 +15,7 @@ public class Player extends Object implements StdBehaviour {
 
     public Player() {
         super("Player");
-        Object.objects.add(this);
+        objects.add(this);
     }
 
     ImageRenderer renderer;

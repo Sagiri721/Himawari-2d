@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import Engine.Components.Transform;
+import Engine.Utils.ObjectLoader;
 import Engine.Utils.Window;
 import Engine.Utils.Geom.Vec2;
 import Engine.Entity.Object;
@@ -72,8 +73,6 @@ public class RoomData {
         {
             String[] data = reader.nextLine().split(" ");
             //name - position - rotation - scale 
-            Object obj = Object.Instantiate(data[0]);
-            Transform transform = (Transform) obj.getComponent("Transform");
 
             String[] positions = data[1].split("-");
             String[] scaleFactor = data[3].split("-");
@@ -81,10 +80,8 @@ public class RoomData {
             Vec2 newPosition = new Vec2(Integer.valueOf(positions[0]), Integer.valueOf(positions[1]));
             Vec2 scale = new Vec2(Integer.valueOf(scaleFactor[0]), Integer.valueOf(scaleFactor[1]));
 
-            transform.setPosition(newPosition);
-            transform.setAngle(Float.valueOf(data[2]));
-            transform.setScale(scale);
-
+            Object obj = ObjectLoader.LoadObjectOfName(data[0], newPosition, Float.valueOf(data[2]), scale);
+            Transform transform = (Transform) obj.getComponent("Transform");
             transform.updateCollider();
         }
 

@@ -70,8 +70,8 @@ public class Camera extends Component{
         int w = Window.width;
         int h = Window.height;
 
-        int cRoomTileSizeX = RoomHandler.getCurrentRoom().tileset.width;
-        int cRoomTileSizeY = RoomHandler.getCurrentRoom().tileset.height;
+        int cRoomTileSizeX = RoomHandler.getCurrentRoom().tileset.sizeX;
+        int cRoomTileSizeY = RoomHandler.getCurrentRoom().tileset.sizeY;
 
         ViewPort = new Vec2((int)(w / cRoomTileSizeX), (int)(h / cRoomTileSizeY));
     }

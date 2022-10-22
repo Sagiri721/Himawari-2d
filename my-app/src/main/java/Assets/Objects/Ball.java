@@ -11,11 +11,13 @@ import Engine.Gfx.Animation;
 import Engine.Gfx.Debugging;
 import Engine.Gfx.ImageUtil;
 import Engine.Gfx.Sprite;
+import Engine.Gfx.Widget;
 import Engine.Input.Input;
 import Engine.Input.Input.Keys;
 import Engine.Utils.Renderer;
 import Engine.Utils.StdBehaviour;
 import Engine.Utils.Window;
+import Engine.Utils.Geom.Circle;
 import Engine.Utils.Geom.Vec2;
 
 public class Ball extends Object implements StdBehaviour {
@@ -28,7 +30,8 @@ public class Ball extends Object implements StdBehaviour {
 
     public Ball() {
         super("Ball");
-        Object.objects.add(this);
+        objects.add(this);
+        
     }
 
     @Override
@@ -60,7 +63,7 @@ public class Ball extends Object implements StdBehaviour {
 
         transform.setPosition(new Vec2(Window.width/2 - renderer.getImage().getWidth(), Window.height/2 - renderer.getImage().getHeight()));
 
-        collider = new RectCollider(transform, renderer.getDimensions());
+        collider = new RectCollider(transform, new Vec2(64, 58));
         addComponent(collider);
         addComponent(animator);
 
@@ -110,7 +113,9 @@ public class Ball extends Object implements StdBehaviour {
 
         //Debugging.drawDebugGrid(new Vec2(5, 5), new Vec2(100, 100), 5, 5, g);
         Debugging.setDebugColor(Color.black);
-        Debugging.drawDebugText(String.valueOf(Renderer.getFPS()), 50, 50, g);
+        Widget.drawText(String.valueOf(Renderer.getFPS()) + "fps", 5, 10, g);
+
+        Widget.setColor(Color.PINK);
     }
 
     @Override

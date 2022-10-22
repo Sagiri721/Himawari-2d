@@ -12,7 +12,7 @@ import java.awt.Graphics2D;
 
 public class GameCamera extends Object implements StdBehaviour{
 
-    public GameCamera() { super("Camera"); Object.objects.add(this);}
+    public GameCamera() { super("Camera");objects.add(this);}
     @Override public StdBehaviour getBehaviour(){ return this; }
 
     Transform transformCamera;
@@ -22,7 +22,7 @@ public class GameCamera extends Object implements StdBehaviour{
     public void Start() {
         transformCamera = new Transform();
 
-        Object player = Object.FindObject("Player");
+        Object player = Object.FindObject("Ball");
 
         Camera camera = new Camera(transformCamera, player);
 
