@@ -38,7 +38,18 @@ public class GameMaths {
 
     public static int randomInteger(int lower, int highest){
 
-        return new Random().nextInt(lower, highest);
+        return new Random().nextInt(lower, highest+1);
+    }
+
+    public static Color generateRandomColor(){
+
+        Random random = new Random();
+
+        float r = random.nextFloat();
+        float g = random.nextFloat();
+        float b = random.nextFloat();
+
+        return new Color(r,g,b);
     }
 
     public static Color getInBetweenColor(Color c1, Color c2, float ratio){

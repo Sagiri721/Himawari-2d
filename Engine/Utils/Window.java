@@ -13,7 +13,7 @@ import Engine.Utils.Geom.Vec2;
 
 public class Window extends JFrame implements ComponentListener{
 
-    public static String RelativeResourcePath = System.getProperty("user.dir") + "/my-app/src/main/java/Assets/"; 
+    public static String RelativeResourcePath = System.getProperty("user.dir") + "/src/main/java/Assets/"; 
     
     //Static data
     public static int width, height;
@@ -47,7 +47,7 @@ public class Window extends JFrame implements ComponentListener{
 
         Window.name = name;
 
-        setName(name);
+        setTitle(name);
         setSize(width, height);
 
         //Define window related operations
@@ -100,7 +100,6 @@ public class Window extends JFrame implements ComponentListener{
     @Override
     public void componentMoved(ComponentEvent e) {
 
-        
     }
 
     @Override

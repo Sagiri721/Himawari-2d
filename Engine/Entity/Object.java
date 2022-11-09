@@ -1,11 +1,13 @@
 package Engine.Entity;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import Engine.Components.*;
 
 import Engine.Utils.*;
+import Engine.Utils.Geom.Vec2;
 
 /**
  * Standard class for all the objects that take part in the game
@@ -58,7 +60,7 @@ public class Object{
     public boolean hasTag() { return tag != null || tag == ""; }
 
     //Constructor
-    protected Transform transform;
+    public Transform transform;
     protected Object(String name){
 
         Transform transform = new Transform();
@@ -68,6 +70,22 @@ public class Object{
         id = objects.size();
 
         this.name = name.replace(" ", "-");
+
+        if(nameExists(name)){
+
+           System.out.println("[WARNING] The name '" + name + "' was already atrribueted to a different object"); 
+        }
+    }
+
+    private boolean nameExists(String name){
+
+        for(Iterator<Object> inter = objects.iterator(); inter.hasNext();)  {
+            Object obj = inter.next();
+
+            if(obj.name.equals(name)) return true;
+        }
+
+        return false;
     }
 
     /** 
@@ -85,7 +103,9 @@ public class Object{
      */
     public static Object FindObject(String name) {
 
-        for(Object obj : objects)  {
+        name = name.replace(" ", "-");
+        for(Iterator<Object> inter = objects.iterator(); inter.hasNext();)  {
+            Object obj = inter.next();
 
             if(obj.name.equals(name))
             return obj;
@@ -96,14 +116,38 @@ public class Object{
 
     public static List<Object> FindObjects(String name) {
 
+        name = name.replace(" ", "-");
         List<Object> out = new ArrayList<Object>();
-        for(Object obj : objects)  {
+        for(Iterator<Object> inter = objects.iterator(); inter.hasNext();)  {
+            Object obj = inter.next();
 
             if(obj.name.equals(name))
                 out.add(obj);
         }
 
         return out;
+    }
+
+    /**
+     * Given a certain component returns it's original object, mostly used in engine features and not of use to the average developer
+     * 
+     * @param component
+     * @return
+     */
+    public static Object objectOfComponent(Component component){
+
+        for(Iterator<Object> inter = objects.iterator(); inter.hasNext();)  {
+            Object obj = inter.next();
+
+            for(Component c : obj.components){
+
+                if(c==component){
+                    return obj;
+                }
+            }
+        }
+
+        return null;
     }
 
     public int getId() { return id; }
@@ -115,7 +159,8 @@ public class Object{
      */
     public static Object GetObjectWithTag(String oTag){
 
-        for(Object obj : objects) {
+        for(Iterator<Object> inter = objects.iterator(); inter.hasNext();)  {
+            Object obj = inter.next();
             
            if(obj.hasTag() && obj.getTag().equals(oTag)) {
 
@@ -135,7 +180,8 @@ public class Object{
 
         List<Object> outObj = new ArrayList<Object>();
 
-        for(Object obj : objects) {
+        for(Iterator<Object> inter = objects.iterator(); inter.hasNext();)  {
+            Object obj = inter.next();
             
            if(obj.hasTag() && obj.getTag().equals(oTag)) {
 
@@ -150,18 +196,20 @@ public class Object{
         return null;
     }
 
-    protected Object makeCopy(){
-        return null;
-    }
+    public static Object Instantiate(String name, Vec2 position, float angle, Vec2 scale){
 
-    public static Object Instantiate(Object obj){
-
-        Object newObj = obj.makeCopy();
-
-        objects.add(newObj);
+        Object newObj = ObjectLoader.LoadObjectOfName(name, position, angle, scale);
 
         return newObj;
     }
+    
+    public static Object Instantiate(String name){
+
+        Object newObj = ObjectLoader.LoadObjectOfName(name, new Vec2(0, 0), 0, new Vec2(0,0));
+
+        return newObj;
+    }
+
 
     public void DestroyInstance(){
 
@@ -171,5 +219,34 @@ public class Object{
     public static void DestroyObject(Object obj){
 
         objects.remove(obj);
+    }
+
+    /**
+     * Sends a call to the ReceiveMessage() function of the first object with the specified name
+     * @param name
+     */
+    public void sendMessageTo(String name){
+
+        for(Iterator<Object> inter = objects.iterator(); inter.hasNext();)  {
+            Object obj = inter.next();
+        
+            if(obj.name.equals(name)){
+
+                obj.getBehaviour().ReceiveMessage(this.name);
+                return;
+            }
+        }
+    }
+
+    public void sendMessageToAll(String className){
+
+        for(Iterator<Object> inter = objects.iterator(); inter.hasNext();)  {
+            Object obj = inter.next();
+        
+            /*if(obj.getClass().toString()==){
+
+                obj.getBehaviour().ReceiveMessage(this.name);
+            }*/
+        }
     }
 }

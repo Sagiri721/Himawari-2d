@@ -1,5 +1,6 @@
 package Engine.Map;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 
 import Engine.Gfx.Sprite;
@@ -52,10 +53,10 @@ public class Room {
         }
     }
 
-    public Room(String name, TileSet tileset, RoomData roomData) {
+    public Room(TileSet tileset, RoomData roomData) {
 
         this.tileset = tileset;
-        this.name = name;
+        this.name = roomData.path;
         this.roomData = roomData;
 
         RoomHandler.addRoom(this);
@@ -71,5 +72,11 @@ public class Room {
                 e.printStackTrace();
             }
         }
+    }
+
+    public boolean hasObjects(){
+
+        File objects = new File("my-app\\src\\main\\java\\Assets\\Rooms\\" + name + "\\room-objects.txt");
+        return objects.exists();
     }
 }

@@ -15,6 +15,8 @@ public class Debugging {
     static Color debugColor = Color.BLACK;
     static boolean showDebug = true;
 
+    public static boolean drawColliders = false;
+
     public enum type{
 
         HOLLOW,
@@ -84,14 +86,14 @@ public class Debugging {
             Vec2 point1 = Camera.calculateWindowTowindowPoint(start);
             Vec2 point2 = Camera.calculateWindowTowindowPoint(end);
 
-            for(int i = 0; i < ((end.x+1) - start.x); i+=tileWidth){
+            for(int i = 0; i < ((point2.x+1) - point1.x); i+=tileWidth){
             
-                g.drawLine((int)i, (int)start.y, i, (int)(start.y + (tileHeight * ((end.y - start.y) / tileHeight))));
+                g.drawLine((int)i, (int)point1.y, i, (int)(point1.y + (tileHeight * ((point2.y - point1.y) / tileHeight))));
             }
             for
-            (int i = 0; i < ((end.x+1) - start.x); i+=tileHeight){
+            (int i = 0; i < ((end.x+1) - point1.x); i+=tileHeight){
 
-                g.drawLine((int)start.x, i, (int)(int)(start.x + (tileWidth * ((end.x - start.x) / tileWidth))), i);
+                g.drawLine((int)point1.x, i, (int)(int)(point1.x + (tileWidth * ((point2.x - point1.x) / tileWidth))), i);
             }
         }
     }

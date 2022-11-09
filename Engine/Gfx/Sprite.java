@@ -10,7 +10,7 @@ import java.io.File;
 
 public class Sprite {
     
-    public static final String RelativeEngineResourcePath = System.getProperty("user.dir") + "/my-app/src/main/java/Engine/Assets";
+    public static final String RelativeEngineResourcePath = System.getProperty("user.dir") + "/src/main/java/Engine/Assets/";
     //Image data
     public int width, height;
     
@@ -19,13 +19,24 @@ public class Sprite {
 
     public Sprite(BufferedImage image) { sprite = image; width = image.getWidth(); height = image.getHeight();}
 
-    public Sprite(String path, int x, int y, int w, int h) {BufferedImage image = getBufferedImageFromFile(path); sprite = image.getSubimage(x, y, w, h); }
+    public Sprite(String path, int x, int y, int w, int h) {BufferedImage image = getBufferedImageFromFile(path); sprite = image.getSubimage(x, y, w, h); width = sprite.getWidth(); height = sprite.getHeight(); }
 
     public Sprite(String path) { sprite = getBufferedImageFromFile(path); width = sprite.getWidth(); height = sprite.getHeight(); }
 
-    public Sprite(int i) { sprite = getBufferedImageFromEngineFile("default-sprites.png").getSubimage(i * 32, 0, 32, 32);}
+    public Sprite(int i) { 
+        
+        if(i < 0 || i > 3){
 
-    public static Sprite getImageFromFile(String path){
+            System.out.println("[ERROR] Invalid sprite id\n0: square\n1: circle\n2: triangle\n3: round square");
+            sprite = null;
+            return;
+        }
+
+        sprite = getBufferedImageFromEngineFile("default-sprites.png").getSubimage(i * 32, 0, 32, 32);
+        width = sprite.getWidth(); height = sprite.getHeight();
+    }
+
+    public static Sprite getImageFromEngineFile(String path){
 
         try{
 
@@ -39,7 +50,7 @@ public class Sprite {
         return null;
     }
 
-    private BufferedImage getBufferedImageFromFile(String path){
+    public static BufferedImage getBufferedImageFromFile(String path){
 
         try{
 
@@ -58,8 +69,7 @@ public class Sprite {
 
         try{
 
-            File src = new File(RelativeEngineResourcePath + "Sprites/" + path);
-
+            File src = new File(RelativeEngineResourcePath + path);
             BufferedImage img = ImageIO.read(src);
 
             return img;

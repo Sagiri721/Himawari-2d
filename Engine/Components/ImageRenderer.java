@@ -21,7 +21,7 @@ public class ImageRenderer extends Component{
     private Sprite sprite = null;
     private Sprite currentSprite = null;
 
-    public boolean hasImage() { return sprite != null; }
+    public boolean hasImage() { return sprite.sprite != null; }
     public BufferedImage getImage() {return currentSprite.sprite; }
 
     public void setImage(Sprite img) { currentSprite = img; }
@@ -49,17 +49,12 @@ public class ImageRenderer extends Component{
 
     public void flipX(){
 
-        Sprite newSprite = new Sprite(ImageUtil.flipImageHorizontal(getImage()));
-
-        setImage(newSprite);
         isFlippedX = !isFlippedX;
     }
 
     public void flipY(){
 
-        Sprite newSprite = new Sprite(ImageUtil.flipImageVertical(getImage()));
-
-        setImage(newSprite);
         isFlippedY = !isFlippedY;
     }
+
 }

@@ -14,8 +14,10 @@ import javax.swing.Timer;
 import Engine.Components.Animator;
 import Engine.Components.Camera;
 import Engine.Components.ImageRenderer;
+import Engine.Components.RectCollider;
 import Engine.Components.Transform;
 import Engine.Entity.Object;
+import Engine.Gfx.Debugging;
 import Engine.Gfx.ImageUtil;
 import Engine.Input.Input;
 import Engine.Map.RoomHandler;
@@ -48,8 +50,6 @@ public class Renderer extends JPanel implements ActionListener {
 
         RoomHandler.render(g2d);
         renderImages(g2d);
-
-        g2d.drawString("fps: " + getFPS(), 0, 15);
     }
 
     public void renderImages(Graphics2D g2d) {
@@ -68,7 +68,7 @@ public class Renderer extends JPanel implements ActionListener {
                     ImageRenderer r = (ImageRenderer) o.getComponent("ImageRenderer");
 
                     // Draw every sprite that needs to be drawn
-                    if (r != null && r.visible && r.hasImage()) {
+                    if (r != null && r.hasImage() && r.visible && r.hasImage()) {
                         /**
                          * If the game has a camera, we want to draw every sprite according to the
                          * cameras perspective
@@ -83,10 +83,12 @@ public class Renderer extends JPanel implements ActionListener {
                             if (t != null) {
 
                                 BufferedImage fnImg = ImageUtil.rotate(r.getImage(), (double) t.angle);
+                                if(r.isFlippedX) fnImg = ImageUtil.flipImageHorizontal(fnImg);
+                                if(r.isFlippedY) fnImg = ImageUtil.flipImageVertical(fnImg);
 
                                 g2d.drawImage(fnImg, (int) t.position.x, (int) t.position.y,
-                                        r.getImage().getWidth() * (int) t.scale.x,
-                                        r.getImage().getHeight() * (int) t.scale.y,
+                                        (int)((r.getImage().getWidth() * (int) t.scale.x)),
+                                        (int)((r.getImage().getHeight() * (int) t.scale.y)),
                                         null);
                             }
 
@@ -98,15 +100,31 @@ public class Renderer extends JPanel implements ActionListener {
                             if (t != null) {
 
                                 BufferedImage fnImg = ImageUtil.rotate(r.getImage(), (double) t.angle);
+                                if(r.isFlippedX) fnImg = ImageUtil.flipImageHorizontal(fnImg);
+                                if(r.isFlippedY) fnImg = ImageUtil.flipImageVertical(fnImg);
 
                                 g2d.drawImage(fnImg,
-                                        (int) (t.position.x - Camera.position.position.x + Camera.getOffset().x),
-                                        (int) (t.position.y - Camera.position.position.y + Camera.getOffset().y),
-                                        r.getImage().getWidth() * (int) t.scale.x,
-                                        r.getImage().getHeight() * (int) t.scale.y,
+                                        (int) (t.position.x - Camera.position.position.x + Camera.getOffset().x) * Camera.getSize(),
+                                        (int) (t.position.y - Camera.position.position.y + Camera.getOffset().y) * Camera.getSize(),
+                                        (r.getImage().getWidth() * (int) t.scale.x) * Camera.getSize(),
+                                        (r.getImage().getHeight() * (int) t.scale.y) * Camera.getSize(),
                                         null);
                             }
                         }
+                    }
+
+                    if(Debugging.drawColliders){
+
+                        Transform t = (Transform) o.getComponent("Transform");
+                        RectCollider c = (RectCollider) o.getComponent("RectCollider");
+
+                        if(c != null && t != null){
+                            
+                            g2d.setColor(Color.red);
+                            g2d.drawRect((int) Camera.calculateWindowTowindowPoint(t.position).x, (int) Camera.calculateWindowTowindowPoint(t.position).y, (int) c.bounds.x, (int) c.bounds.y);
+                        }
+
+                        g2d.setColor(Color.WHITE);
                     }
                 }
             }
@@ -178,16 +196,14 @@ public class Renderer extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        // The update Thread
         new Thread(new Runnable() {
 
             @Override
             public void run() {
-
                 globalUpdate();
                 repaint();
             }
-
+            
         }).start();
     }
 }
