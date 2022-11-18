@@ -14,6 +14,8 @@ import Engine.Utils.Geom.Vec2;
  */
 public class Object{
 
+    public Node node = null;
+
     /**
      * List of all existing objects at a certain point in time
      */
@@ -63,7 +65,7 @@ public class Object{
     public Transform transform;
     protected Object(String name){
 
-        Transform transform = new Transform();
+        Transform transform = new Transform(this);
         addComponent(transform);
 
         this.transform = transform;
@@ -209,7 +211,6 @@ public class Object{
 
         return newObj;
     }
-
 
     public void DestroyInstance(){
 

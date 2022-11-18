@@ -110,7 +110,7 @@ public class RoomHandler {
             }else{
 
                 /**
-                 * To save a loot of memory, we need to just draw the camera viewport and not the entire map
+                 * To save a lot of memory, we need to just draw the camera viewport and not the entire map
                  
 
                 for(int i = 0; i < (int)((Window.width / currentRoom.tileset.width)); i++){

@@ -6,6 +6,8 @@ import Engine.Components.Camera;
 import Engine.Map.Room;
 import Engine.Map.RoomHandler;
 import Engine.Utils.ObjectLoader;
+import Engine.Entity.Hierarchy;
+import Engine.Entity.Node;
 import Engine.Entity.Object;
 import Engine.Utils.Window;
 import Engine.Utils.Geom.Vec2;
@@ -72,6 +74,7 @@ public class HimawariCore {
     public static Object CreateObject(String name, Vec2 position, float angle, Vec2 scale){
 
         Object newObj = ObjectLoader.LoadObjectOfName(name, position, angle, scale);
+        Hierarchy.CreateHierarchyNode(newObj);
 
         return newObj;
     }

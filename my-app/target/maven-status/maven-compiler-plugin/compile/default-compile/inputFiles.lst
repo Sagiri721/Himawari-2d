@@ -2,6 +2,7 @@ D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Physics\Physics.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Utils\Renderer.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Utils\StdBehaviour.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Assets\Objects\Player.java
+D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Entity\Hierarchy.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Components\Animator.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Utils\GameMaths.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Assets\Objects\Alarm1.java
@@ -36,6 +37,7 @@ D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Map\RoomData.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Components\ImageRenderer.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Utils\AlarmPack.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Assets\Objects\Ball.java
+D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Entity\Node.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Map\TileSet.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Utils\Window.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Assets\Objects\GameCamera.java

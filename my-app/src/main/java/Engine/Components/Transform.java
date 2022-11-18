@@ -1,6 +1,7 @@
 package Engine.Components;
 
 import Engine.Utils.Geom.Vec2;
+import Engine.Entity.Node;
 import Engine.Entity.Object;
 
 /**
@@ -13,24 +14,28 @@ public class Transform extends Component{
     public Vec2 scale;
 
     public Vec2 pivotPoint = new Vec2();
+    private Object obj;
 
-    public Transform(){
+    public Transform(Object o){
 
         position = new Vec2();
         angle = 0;
         scale = new Vec2(1,1);
+        this.obj = o;
     }
 
-    public Transform(Vec2 position){
+    public Transform(Vec2 position, Object o){
 
         this.position = position;
+        this.obj = o;
     }
 
-    public Transform(Vec2 position, float angle, Vec2 scale){
+    public Transform(Vec2 position, float angle, Vec2 scale, Object o){
 
         this.position = position;
         this.angle = angle;
         this.scale = scale;
+        this.obj = o;
     }
 
     /**
@@ -67,6 +72,13 @@ public class Transform extends Component{
         }
 
         position = newPosition;
+        
+        //Move children
+        for(Node n : obj.node.children){
+            
+            Transform t = (Transform) n.object.getComponent("Transform");
+            t.translate(dir, collider);
+        }
         return res;
     }
 
@@ -75,11 +87,25 @@ public class Transform extends Component{
         //Dont move if going to collide
         Vec2 newPosition = position.sumWith(dir);
         position = newPosition;
+
+        //Move children
+        for(Node n : obj.node.children){
+            
+            Transform t = (Transform) n.object.getComponent("Transform");
+            t.translate(dir);
+        }
     }
 
     public void rotate(float angle){
 
         setAngle(this.angle+angle);
+
+        //Rotate children
+        for(Node n : obj.node.children){
+            
+            Transform t = (Transform) n.object.getComponent("Transform");
+            t.rotate(angle);
+        }
     }
 
     public void lookAt(Object target){
@@ -91,6 +117,13 @@ public class Transform extends Component{
         double angle = Math.toDegrees(Math.asin(x/h));
 
         setAngle((float)angle);
+        
+        //Rotate children
+        for(Node n : obj.node.children){
+            
+            Transform t = (Transform) n.object.getComponent("Transform");
+            t.lookAt(target);
+        }
     }
 
     public void updateCollider(){

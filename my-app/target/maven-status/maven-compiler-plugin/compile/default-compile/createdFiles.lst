@@ -10,6 +10,7 @@ Engine\Utils\Alarm.class
 Engine\Utils\AlarmPack.class
 Engine\Utils\GameMaths.class
 Assets\Objects\Player.class
+Engine\Entity\Hierarchy.class
 Engine\Utils\Renderer.class
 Engine\Physics\Physics.class
 Engine\Components\Component.class
@@ -49,5 +50,6 @@ Engine\Input\KeyboardReader.class
 Engine\Input\Input$Keys.class
 Engine\HimawariCore$Windowmode.class
 Engine\Utils\Geom\Circle.class
+Engine\Entity\Node.class
 Engine\Gfx\Widget.class
 Engine\Input\MouseReader.class
