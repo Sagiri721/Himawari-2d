@@ -16,6 +16,7 @@ public class Hierarchy {
 
         Node node = new Node(obj);
         hierarchy.add(node);
+        obj.node = node;
     }
 
     public static void AddChildNodeTo(String name, Object child){

@@ -24,7 +24,9 @@ public class Main extends HimawariCore{
         player.node.setConnected(false);
 
         Object obj = CreateObject("Wall", new Vec2(50, -50), 0, new Vec2(1,1));
+        Object objOther = CreateObject("WallChild", new Vec2(50, -100), 0, new Vec2(1,1));
         player.node.addChild(obj);
+        obj.node.addChild(objOther);
 
         CreateObject("GameCamera", Vec2.ZERO, 0, Vec2.ZERO);
     }

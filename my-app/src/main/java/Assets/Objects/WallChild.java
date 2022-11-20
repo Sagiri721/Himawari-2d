@@ -2,6 +2,7 @@ package Assets.Objects;
 
 import Engine.Entity.Object;
 import Engine.Gfx.*;
+import Engine.Input.Input;
 import Engine.Map.TileSet;
 import Engine.Utils.StdBehaviour;
 import Engine.Utils.Geom.Vec2;
@@ -41,7 +42,10 @@ public class WallChild extends Object implements StdBehaviour {
     public void Update(float deltaTime) {
 
         if (updateable) {
-
+       
+            if(Input.mousePressed(0)){
+                transform.rotate(10);
+            }
         }
     }
 

@@ -74,8 +74,6 @@ public class HimawariCore {
     public static Object CreateObject(String name, Vec2 position, float angle, Vec2 scale){
 
         Object newObj = ObjectLoader.LoadObjectOfName(name, position, angle, scale);
-        Hierarchy.CreateHierarchyNode(newObj);
-
         return newObj;
     }
     

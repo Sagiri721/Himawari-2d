@@ -171,9 +171,11 @@ public class Renderer extends JPanel implements ActionListener {
             deltai = 0;
         }
 
-        for (Iterator<Object> obj = Object.objects.iterator(); obj.hasNext();) {
+        Object[] copyArray = Object.objects.toArray(new Object[Object.objects.size()]);
 
-            Object object = obj.next();
+        for (int j = 0; j < copyArray.length; j++) {
+            Object object = copyArray[j];
+            
             // Run the necessary component updates
             Animator a = (Animator) object.getComponent("Animator");
             if (a != null) {

@@ -65,6 +65,8 @@ public class Object{
     public Transform transform;
     protected Object(String name){
 
+        Hierarchy.CreateHierarchyNode(this);
+
         Transform transform = new Transform(this);
         addComponent(transform);
 

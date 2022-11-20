@@ -78,7 +78,7 @@ public class Transform extends Component{
             RectCollider r = (RectCollider) n.object.getComponent("RectCollider");
 
             if(r == null){t.translate(newPosition.subtractWith(position));}else
-                t.translate(dir, r);
+                t.translate(newPosition.subtractWith(position), r);
         }
 
         position = newPosition;
