@@ -56,8 +56,11 @@ public class Renderer extends JPanel implements ActionListener {
 
         for (int i = 0; i <= Object.maxLayer; i++) {
 
-            for (Iterator<Object> obj = Object.objects.iterator(); obj.hasNext();) {
-                Object o = obj.next();
+            //Convert the current objects array to a copy for the rendering time to avoid concurent modifications
+            Object[] copyArray = Object.objects.toArray(new Object[Object.objects.size()]);
+
+            for (int j = 0; j < copyArray.length; j++) {
+                Object o = copyArray[j];
 
                 if (o.getLayer() == i) {
 
@@ -71,7 +74,7 @@ public class Renderer extends JPanel implements ActionListener {
                     if (r != null && r.hasImage() && r.visible && r.hasImage()) {
                         /**
                          * If the game has a camera, we want to draw every sprite according to the
-                         * cameras perspective
+                         * camera's perspective
                          * Otherwise we just draw the sprites in their world positions
                          */
 
@@ -104,10 +107,10 @@ public class Renderer extends JPanel implements ActionListener {
                                 if(r.isFlippedY) fnImg = ImageUtil.flipImageVertical(fnImg);
 
                                 g2d.drawImage(fnImg,
-                                        (int) (t.position.x - Camera.position.position.x + Camera.getOffset().x) * Camera.getSize(),
-                                        (int) (t.position.y - Camera.position.position.y + Camera.getOffset().y) * Camera.getSize(),
-                                        (r.getImage().getWidth() * (int) t.scale.x) * Camera.getSize(),
-                                        (r.getImage().getHeight() * (int) t.scale.y) * Camera.getSize(),
+                                        (int) (t.position.x - Camera.position.position.x + Camera.getOffset().x),
+                                        (int) (t.position.y - Camera.position.position.y + Camera.getOffset().y),
+                                        (r.getImage().getWidth() * (int) t.scale.x),
+                                        (r.getImage().getHeight() * (int) t.scale.y),
                                         null);
                             }
                         }
@@ -120,7 +123,7 @@ public class Renderer extends JPanel implements ActionListener {
 
                         if(c != null && t != null){
                             
-                            g2d.setColor(Color.red);
+                            g2d.setColor(Color.RED);
                             g2d.drawRect((int) Camera.calculateWindowTowindowPoint(t.position).x, (int) Camera.calculateWindowTowindowPoint(t.position).y, (int) c.bounds.x, (int) c.bounds.y);
                         }
 

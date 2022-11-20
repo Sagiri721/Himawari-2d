@@ -34,6 +34,7 @@ Engine\Components\RectCollider.class
 Engine\Map\RoomHandler.class
 Engine\Map\Room.class
 Main.class
+Assets\Objects\WallChild.class
 Engine\Gfx\Widget$1.class
 Engine\Components\Body.class
 Engine\Utils\Geom\Vec2.class

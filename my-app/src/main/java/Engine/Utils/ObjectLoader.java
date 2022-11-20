@@ -15,6 +15,7 @@ public class ObjectLoader {
 case "GameCamera": obj = new GameCamera(); break;
 case "Player": obj = new Player(); break;
 case "Wall": obj = new Wall(); break;
+case "WallChild": obj = new WallChild(); break;
 
         }
 

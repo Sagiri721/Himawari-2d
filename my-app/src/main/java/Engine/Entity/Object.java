@@ -75,7 +75,23 @@ public class Object{
 
         if(nameExists(name)){
 
-           System.out.println("[WARNING] The name '" + name + "' was already atrribueted to a different object"); 
+            autoNameChangeProtocol();
+           System.out.println("[WARNING] The name '" + name + "' was already atributed to a different object, The new name of this object will be: " + this.name); 
+        }
+    }
+
+    private void autoNameChangeProtocol(){
+
+        int index = 0;
+        while (true) {
+            
+            String tempName = this.name + String.valueOf(index);
+
+            if(!nameExists(tempName)){
+                this.name = tempName;
+                break;
+            }
+            index++;
         }
     }
 

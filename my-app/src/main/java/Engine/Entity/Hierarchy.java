@@ -1,7 +1,6 @@
 package Engine.Entity;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 public class Hierarchy {
@@ -34,6 +33,6 @@ public class Hierarchy {
 
     public static void RemoveNode(Object object){
 
-        hierarchy.remove(object);
+        hierarchy.remove(object.node);
     }
 }

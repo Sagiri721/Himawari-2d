@@ -121,8 +121,9 @@ public class RectCollider extends Component{
 
         Object self = Object.objectOfComponent(this);
 
-        for(Iterator<Object> iterator = Object.objects.iterator(); iterator.hasNext();){
-            Object o = iterator.next();
+        Object[] copyArray = Object.objects.toArray(new Object[Object.objects.size()]);
+        for (int i = 0; i < copyArray.length; i++) {
+            Object o = copyArray[i];
 
             if(o==self)
                 continue;

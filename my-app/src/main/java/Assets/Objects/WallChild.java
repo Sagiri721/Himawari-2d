@@ -9,10 +9,10 @@ import Engine.Components.*;
 
 import java.awt.Graphics2D;
 
-public class Wall extends Object implements StdBehaviour {
+public class WallChild extends Object implements StdBehaviour {
 
-    public Wall() {
-        super("Wall");
+    public WallChild() {
+        super("WallChild");
         objects.add(this);
     }
 
@@ -20,8 +20,6 @@ public class Wall extends Object implements StdBehaviour {
     public StdBehaviour getBehaviour() {
         return this;
     }
-
-    RectCollider collider;
     boolean updateable = false;
     ImageRenderer rend;
 
@@ -31,20 +29,10 @@ public class Wall extends Object implements StdBehaviour {
     @Override
     public void Start() {
         Sprite sprite = new Sprite("square.png");
-
         rend = new ImageRenderer(sprite);
-        collider = new RectCollider(transform, rend.getDimensions());
 
         setLayer(1);
         addComponent(rend);
-        addComponent(collider);
-
-        transform.setPosition(0, 0);
-
-        TileSet letters = new TileSet(new Sprite("font.png"), 16, 16);
-        f = new Fonts(0, 0, true, new FontMap("map01.json", letters));
-
-        transform.setScale(2, 2);
 
         updateable = true;
     }

@@ -70,15 +70,18 @@ public class Transform extends Component{
                 res = 1;
             }
         }
-
-        position = newPosition;
         
         //Move children
         for(Node n : obj.node.children){
             
             Transform t = (Transform) n.object.getComponent("Transform");
-            t.translate(dir, collider);
+            RectCollider r = (RectCollider) n.object.getComponent("RectCollider");
+
+            if(r == null){t.translate(newPosition.subtractWith(position));}else
+                t.translate(dir, r);
         }
+
+        position = newPosition;
         return res;
     }
 

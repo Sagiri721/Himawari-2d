@@ -130,7 +130,7 @@ public class RoomHandler {
                 }
                 */
 
-                System.out.println(Camera.ViewPort.y + (int) Camera.getViewPortOffset().y + viewportOffset.x);
+                //System.out.println(Camera.ViewPort.y + (int) Camera.getViewPortOffset().y + viewportOffset.x);
                 for(int i = (int) Camera.getViewPortOffset().x; i < Camera.ViewPort.y + (int) Camera.getViewPortOffset().x + viewportOffset.y; i++){
                     for(int j = (int) Camera.getViewPortOffset().y; j < Camera.ViewPort.x + (int) Camera.getViewPortOffset().y + viewportOffset.x; j++) {
 
