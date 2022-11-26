@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
+import java.awt.AlphaComposite;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
@@ -64,7 +65,7 @@ public class Renderer extends JPanel implements ActionListener {
 
                 if (o.getLayer() == i) {
 
-                    // Run user code every frame
+                    // Run user graphics code every frame
                     o.getBehaviour().DrawGUI(g2d);
                     g2d.setColor(Color.BLACK);
 
@@ -85,6 +86,9 @@ public class Renderer extends JPanel implements ActionListener {
 
                             if (t != null) {
 
+                                AlphaComposite alcom = AlphaComposite.getInstance(AlphaComposite.CLEAR, 0.5f);
+                                g2d.setComposite(alcom);
+
                                 BufferedImage fnImg = ImageUtil.rotate(r.getImage(), (double) t.angle);
                                 if(r.isFlippedX) fnImg = ImageUtil.flipImageHorizontal(fnImg);
                                 if(r.isFlippedY) fnImg = ImageUtil.flipImageVertical(fnImg);
@@ -102,6 +106,9 @@ public class Renderer extends JPanel implements ActionListener {
 
                             if (t != null) {
 
+                                AlphaComposite alcom = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, r.getAlpha());
+                                g2d.setComposite(alcom);
+
                                 BufferedImage fnImg = ImageUtil.rotate(r.getImage(), (double) t.angle);
                                 if(r.isFlippedX) fnImg = ImageUtil.flipImageHorizontal(fnImg);
                                 if(r.isFlippedY) fnImg = ImageUtil.flipImageVertical(fnImg);
@@ -115,6 +122,9 @@ public class Renderer extends JPanel implements ActionListener {
                             }
                         }
                     }
+
+                    AlphaComposite alcom = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
+                    g2d.setComposite(alcom);
 
                     if(Debugging.drawColliders){
 

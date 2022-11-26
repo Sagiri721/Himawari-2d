@@ -1,4 +1,4 @@
-Wall 0-256 0 1-1
+Wall 0-256 0 1-1 Paredezinha
 Wall 32-256 0 1-1
 Wall 64-256 0 1-1
 Wall 96-256 0 1-1
@@ -15,7 +15,7 @@ Wall 0-128 0 1-1
 Wall 0-160 0 1-1
 Wall 0-192 0 1-1
 Wall 0-224 0 1-1
-Wall 160-192 0 2-2
+Wall 160-192 0 2-2 Paredezona
 Wall 544-32 0 1-1
 Wall 544-64 0 1-1
 Wall 544-96 0 1-1

@@ -39,7 +39,7 @@ public class Player extends Object implements StdBehaviour {
 
         Sprite img = new Sprite("player.png");
         Sprite player = new Sprite("player.png", 0, 0, 64, 64);
-        renderer = new ImageRenderer(player);
+        renderer = new ImageRenderer(player, this);
         addComponent(renderer);
 
         Animation down = Sprite.createAnimation(img, 64, 64, 0, 0, true);
@@ -85,11 +85,6 @@ public class Player extends Object implements StdBehaviour {
 
             if (dir.equals(Vec2.ZERO)) {
                 animator.pause();
-            }
-
-            if(Input.mousePressed(0)){
-
-                sendMessageTo("Wall");
             }
         }
     }

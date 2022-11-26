@@ -14,7 +14,6 @@ public class Wall extends Object implements StdBehaviour {
 
     public Wall() {
         super("Wall");
-        objects.add(this);
     }
 
     @Override
@@ -33,7 +32,7 @@ public class Wall extends Object implements StdBehaviour {
     public void Start() {
         Sprite sprite = new Sprite("square.png");
 
-        rend = new ImageRenderer(sprite);
+        rend = new ImageRenderer(sprite, this);
         collider = new RectCollider(transform, rend.getDimensions());
 
         setLayer(1);
@@ -68,7 +67,8 @@ public class Wall extends Object implements StdBehaviour {
     }
 
     @Override
-    public void ReceiveMessage(String origin) { 
+    public void ReceiveMessage(String message) { 
 
+        transform.rotate(45);
     }
 }

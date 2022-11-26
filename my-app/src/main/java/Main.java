@@ -29,5 +29,7 @@ public class Main extends HimawariCore{
         obj.node.addChild(objOther);
 
         CreateObject("GameCamera", Vec2.ZERO, 0, Vec2.ZERO);
+
+        Object.sendMessageTo("Paredezinha", null);
     }
 }

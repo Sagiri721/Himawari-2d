@@ -50,6 +50,10 @@ public class Object{
         return null;
     }
 
+    public void setName(String name){
+        this.name = name;
+    }
+
     //Is eligeble to Update?
     public boolean active = true;
     public void setActive(boolean active) { this.active = active; } //Is active on scene?
@@ -80,6 +84,8 @@ public class Object{
             autoNameChangeProtocol();
            System.out.println("[WARNING] The name '" + name + "' was already atributed to a different object, The new name of this object will be: " + this.name); 
         }
+
+        objects.add(this);
     }
 
     private void autoNameChangeProtocol(){
@@ -132,20 +138,6 @@ public class Object{
         }
 
         return null;
-    }
-
-    public static List<Object> FindObjects(String name) {
-
-        name = name.replace(" ", "-");
-        List<Object> out = new ArrayList<Object>();
-        for(Iterator<Object> inter = objects.iterator(); inter.hasNext();)  {
-            Object obj = inter.next();
-
-            if(obj.name.equals(name))
-                out.add(obj);
-        }
-
-        return out;
     }
 
     /**
@@ -244,20 +236,20 @@ public class Object{
      * Sends a call to the ReceiveMessage() function of the first object with the specified name
      * @param name
      */
-    public void sendMessageTo(String name){
+    public static void sendMessageTo(String name, String message){
 
         for(Iterator<Object> inter = objects.iterator(); inter.hasNext();)  {
             Object obj = inter.next();
         
             if(obj.name.equals(name)){
 
-                obj.getBehaviour().ReceiveMessage(this.name);
+                obj.getBehaviour().ReceiveMessage(message);
                 return;
             }
         }
     }
 
-    public void sendMessageToAll(String className){
+    public static void sendMessageToAll(String className){
 
         for(Iterator<Object> inter = objects.iterator(); inter.hasNext();)  {
             Object obj = inter.next();

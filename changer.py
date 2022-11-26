@@ -47,7 +47,7 @@ public class ObjectLoader {
             System.out.println("[ERROR] Can't instantiate the Camera");
             return null;
         }
-
+        
         obj.getBehaviour().Start();
 
         //Apply the objects properties

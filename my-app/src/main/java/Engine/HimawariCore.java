@@ -80,7 +80,6 @@ public class HimawariCore {
     public static Object creaObject(String name){
 
         Object newObj = ObjectLoader.LoadObjectOfName(name, new Vec2(0, 0), 0, new Vec2(0,0));
-
         return newObj;
     }
 }

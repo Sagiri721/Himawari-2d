@@ -12,6 +12,7 @@ public class RectCollider extends Component{
     public Transform transform;
     public Vec2 bounds;
     private Vec2 originalBounds;
+    private Object object;
 
     public boolean solid = true;
 
@@ -31,6 +32,8 @@ public class RectCollider extends Component{
         this.bounds = bounds;
 
         this.originalBounds = bounds;
+
+        object = transform.obj;
     }
 
     public boolean isCollidingWith(Object obj) {
@@ -62,12 +65,10 @@ public class RectCollider extends Component{
 
     public boolean isColliding() {
 
-        Object self = Object.objectOfComponent(this);
-
         for(Iterator<Object> iterator = Object.objects.iterator(); iterator.hasNext();){
             Object o = iterator.next();
 
-            if(o==self) continue;
+            if(o==object) continue;
 
             RectCollider r = (RectCollider) o.getComponent("RectCollider");
             if(r != null){
@@ -119,13 +120,11 @@ public class RectCollider extends Component{
 
     public boolean willCollide(Vec2 position){
 
-        Object self = Object.objectOfComponent(this);
-
         Object[] copyArray = Object.objects.toArray(new Object[Object.objects.size()]);
         for (int i = 0; i < copyArray.length; i++) {
             Object o = copyArray[i];
 
-            if(o==self)
+            if(o==object)
                 continue;
 
             RectCollider r = (RectCollider) o.getComponent("RectCollider");

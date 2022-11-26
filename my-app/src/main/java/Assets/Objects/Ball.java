@@ -17,7 +17,6 @@ import Engine.Input.Input.Keys;
 import Engine.Utils.Renderer;
 import Engine.Utils.StdBehaviour;
 import Engine.Utils.Window;
-import Engine.Utils.Geom.Circle;
 import Engine.Utils.Geom.Vec2;
 
 public class Ball extends Object implements StdBehaviour {
@@ -30,8 +29,6 @@ public class Ball extends Object implements StdBehaviour {
 
     public Ball() {
         super("Ball");
-        objects.add(this);
-        
     }
 
     @Override
@@ -45,7 +42,7 @@ public class Ball extends Object implements StdBehaviour {
     public void Start() {
 
         Sprite image = new Sprite("mini idle.png", 0, 0, 32, 32);
-        renderer = new ImageRenderer(image);
+        renderer = new ImageRenderer(image, this);
         renderer.scaleSprite(38, 59, scaleAlgorithm.SMOOTH);
         
         BufferedImage bimg = ImageUtil.resizeImage(640, 64, scaleAlgorithm.SMOOTH, Sprite.getBufferedImageFromFile("mini idle.png"));
@@ -105,6 +102,13 @@ public class Ball extends Object implements StdBehaviour {
             }
 
             transform.translate(movement.times(4), collider);
+
+            
+            if(Input.mousePressed(0)){
+
+                System.out.println("aa");
+                renderer.setAlpha(renderer.getAlpha() - 0.01f);
+            }
         }
     }
 

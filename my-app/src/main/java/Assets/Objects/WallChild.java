@@ -14,7 +14,6 @@ public class WallChild extends Object implements StdBehaviour {
 
     public WallChild() {
         super("WallChild");
-        objects.add(this);
     }
 
     @Override
@@ -30,7 +29,7 @@ public class WallChild extends Object implements StdBehaviour {
     @Override
     public void Start() {
         Sprite sprite = new Sprite("square.png");
-        rend = new ImageRenderer(sprite);
+        rend = new ImageRenderer(sprite, this);
 
         setLayer(1);
         addComponent(rend);

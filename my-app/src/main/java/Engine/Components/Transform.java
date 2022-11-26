@@ -14,7 +14,7 @@ public class Transform extends Component{
     public Vec2 scale;
 
     public Vec2 pivotPoint = new Vec2();
-    private Object obj;
+    protected Object obj;
 
     public Transform(Object o){
 
@@ -73,6 +73,8 @@ public class Transform extends Component{
         
         //Move children
         for(Node n : obj.node.children){
+
+            if(!n.isConnected()) continue;
             
             Transform t = (Transform) n.object.getComponent("Transform");
             RectCollider r = (RectCollider) n.object.getComponent("RectCollider");
@@ -94,6 +96,8 @@ public class Transform extends Component{
         //Move children
         for(Node n : obj.node.children){
             
+            if(!n.isConnected()) continue;
+
             Transform t = (Transform) n.object.getComponent("Transform");
             t.translate(dir);
         }
@@ -106,6 +110,8 @@ public class Transform extends Component{
         //Rotate children
         for(Node n : obj.node.children){
             
+            if(!n.isConnected()) continue;
+
             Transform t = (Transform) n.object.getComponent("Transform");
             t.rotate(angle);
         }
@@ -124,6 +130,8 @@ public class Transform extends Component{
         //Rotate children
         for(Node n : obj.node.children){
             
+            if(!n.isConnected()) continue;
+            
             Transform t = (Transform) n.object.getComponent("Transform");
             t.lookAt(target);
         }
@@ -131,7 +139,7 @@ public class Transform extends Component{
 
     public void updateCollider(){
 
-        RectCollider collider =  (RectCollider) Object.objectOfComponent(this).getComponent("RectCollider");
+        RectCollider collider =  (RectCollider) obj.getComponent("RectCollider");
 
         if(collider!=null)
             collider.resizeCollider(scale.times((Camera.getInstance() == null ? 1 : Camera.getSize())));

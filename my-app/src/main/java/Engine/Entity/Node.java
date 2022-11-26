@@ -44,6 +44,11 @@ public class Node {
         return parent == null;
     }
 
+    public boolean isConnected(){
+
+        return connected;
+    }
+
     public void setConnected(boolean connected){
 
         this.connected = connected;
