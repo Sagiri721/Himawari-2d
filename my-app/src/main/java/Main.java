@@ -4,6 +4,7 @@ import Engine.Gfx.Sprite;
 import Engine.Map.Room;
 import Engine.Map.RoomData;
 import Engine.Map.TileSet;
+import Engine.Sound.Sound;
 import Engine.Utils.Geom.Vec2;
 
 public class Main extends HimawariCore{
@@ -31,5 +32,10 @@ public class Main extends HimawariCore{
         CreateObject("GameCamera", Vec2.ZERO, 0, Vec2.ZERO);
 
         Object.sendMessageTo("Paredezinha", null);
+
+        Sound s = new Sound("idk but sounds decent.mp3", false);
+        s.play();
+
+        s.stop();
     }
 }

@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import Engine.Components.Animator;
+import Engine.Components.Body;
 import Engine.Components.Camera;
 import Engine.Components.ImageRenderer;
 import Engine.Components.RectCollider;
@@ -64,6 +65,10 @@ public class Renderer extends JPanel implements ActionListener {
                 Object o = copyArray[j];
 
                 if (o.getLayer() == i) {
+
+                    //Run physics updates
+                    Body b = (Body) o.getComponent("Body");
+                    if (b!= null) b.PhysicsUpdate(deltaTime);
 
                     // Run user graphics code every frame
                     o.getBehaviour().DrawGUI(g2d);

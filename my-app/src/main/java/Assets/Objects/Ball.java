@@ -76,8 +76,6 @@ public class Ball extends Object implements StdBehaviour {
 
         if(updateable){
 
-            b.PhysicsUpdate(deltaTime);
-
             boolean grounded = collider.willCollide(transform.position.sumWith(Vec2.DOWN));
             boolean moving = Input.axisX != 0;
 
@@ -106,7 +104,6 @@ public class Ball extends Object implements StdBehaviour {
             
             if(Input.mousePressed(0)){
 
-                System.out.println("aa");
                 renderer.setAlpha(renderer.getAlpha() - 0.01f);
             }
         }

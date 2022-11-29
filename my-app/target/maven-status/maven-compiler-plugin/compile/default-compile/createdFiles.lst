@@ -32,6 +32,7 @@ Engine\Entity\Object.class
 Assets\Objects\Wall.class
 Engine\Components\RectCollider.class
 Engine\Map\RoomHandler.class
+Engine\Sound\SupportedFileFormats.class
 Engine\Map\Room.class
 Main.class
 Assets\Objects\WallChild.class
