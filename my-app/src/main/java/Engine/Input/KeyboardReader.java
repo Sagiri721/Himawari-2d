@@ -1,14 +1,10 @@
 package Engine.Input;
 
 import java.awt.event.KeyListener;
-
 import Engine.Input.Input.Keys;
-
 import java.awt.event.*;
 
 public class KeyboardReader implements KeyListener {
-
-    private static char[] keyMap = { KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_UP, KeyEvent.VK_DOWN };
 
     protected static boolean[] keys = new boolean[61];
 
@@ -25,16 +21,16 @@ public class KeyboardReader implements KeyListener {
     public void keyPressed(KeyEvent e) {
 
         // Deal with axis X
-        if (e.getKeyCode() == keyMap[0] || e.getKeyCode() == keyMap[4]) {
+        if (e.getKeyCode() == Input.keyMap[0] || e.getKeyCode() == Input.keyMap[4]) {
             Input.axisX = -1;
-        } else if (e.getKeyCode() == keyMap[1] || e.getKeyCode() == keyMap[5]) {
+        } else if (e.getKeyCode() == Input.keyMap[1] || e.getKeyCode() == Input.keyMap[5]) {
             Input.axisX = 1;
         }
 
         // Deal with axis Y
-        if (e.getKeyCode() == keyMap[2] || e.getKeyCode() == keyMap[6]) {
+        if (e.getKeyCode() == Input.keyMap[2] || e.getKeyCode() == Input.keyMap[6]) {
             Input.axisY = -1;
-        } else if (e.getKeyCode() == keyMap[3] || e.getKeyCode() == keyMap[7]) {
+        } else if (e.getKeyCode() == Input.keyMap[3] || e.getKeyCode() == Input.keyMap[7]) {
             Input.axisY = 1;
         }
 
@@ -167,10 +163,10 @@ public class KeyboardReader implements KeyListener {
     public void keyReleased(KeyEvent e) {
 
         // Set axis as zero
-        if (e.getKeyChar() == keyMap[0] || e.getKeyChar() == keyMap[1] || e.getKeyCode() == keyMap[4] || e.getKeyCode() == keyMap[5])
+        if (e.getKeyCode() == Input.keyMap[0] || e.getKeyCode() == Input.keyMap[1] || e.getKeyCode() == Input.keyMap[4] || e.getKeyCode() == Input.keyMap[5])
             Input.axisX = 0;
 
-        if (e.getKeyChar() == keyMap[2] || e.getKeyChar() == keyMap[3] || e.getKeyCode() == keyMap[6] || e.getKeyCode() == keyMap[7])
+        if (e.getKeyCode() == Input.keyMap[2] || e.getKeyCode() == Input.keyMap[3] || e.getKeyCode() == Input.keyMap[6] || e.getKeyCode() == Input.keyMap[7])
             Input.axisY = 0;
 
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
