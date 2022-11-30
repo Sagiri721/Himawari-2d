@@ -4,6 +4,7 @@ import Engine.Utils.Geom.Rectangle;
 import Engine.Utils.Geom.Vec2;
 
 import java.util.Iterator;
+import java.util.List;
 
 import Engine.Entity.Object;
 
@@ -65,7 +66,8 @@ public class RectCollider extends Component{
 
     public boolean isColliding() {
 
-        for(Iterator<Object> iterator = Object.objects.iterator(); iterator.hasNext();){
+        List<Object> objs = Object.objects;
+        for(Iterator<Object> iterator = objs.iterator(); iterator.hasNext();){
             Object o = iterator.next();
 
             if(o==object) continue;
@@ -84,8 +86,6 @@ public class RectCollider extends Component{
 
             }else
                 return false; 
-
-            
         }
 
         return false;
@@ -93,7 +93,8 @@ public class RectCollider extends Component{
 
     public boolean willCollideWith(Object obj, Vec2 position){
 
-        for(Iterator<Object> iterator = Object.objects.iterator(); iterator.hasNext();){
+        List<Object> objs = Object.objects;
+        for(Iterator<Object> iterator = objs.iterator(); iterator.hasNext();){
             Object o = iterator.next();
 
             if(o == obj){

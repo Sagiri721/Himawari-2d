@@ -35,7 +35,5 @@ public class Main extends HimawariCore{
 
         Sound s = new Sound("idk but sounds decent.mp3", false);
         s.play();
-
-        s.stop();
     }
 }
