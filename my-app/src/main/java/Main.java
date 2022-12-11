@@ -33,7 +33,7 @@ public class Main extends HimawariCore{
 
         Object.sendMessageTo("Paredezinha", null);
 
-        Sound s = new Sound("idk but sounds decent.mp3", false);
-        s.play();
+        // Sound s = new Sound("idk but sounds decent.mp3", false);
+        // s.play();
     }
 }
