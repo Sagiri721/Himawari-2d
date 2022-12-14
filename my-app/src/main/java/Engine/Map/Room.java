@@ -2,8 +2,13 @@ package Engine.Map;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import Engine.Gfx.Sprite;
+import Engine.Utils.Window;
+
 import java.awt.image.BufferedImage;
 
 public class Room {
@@ -54,6 +59,25 @@ public class Room {
     }
 
     public Room(TileSet tileset, RoomData roomData) {
+
+        if(tileset == null){
+
+            //Search fot tileset in folder
+            System.out.println(roomData.path);
+            File[] files = new File(Window.RelativeResourcePath + "Rooms/" + roomData.path).listFiles();
+
+            for (File file : files) {
+                
+                if(file.getName().startsWith("tiles-")){
+                    
+                    String rest = file.getName().split("tiles-")[1];
+                    int size = Integer.valueOf(rest.substring(0, rest.lastIndexOf(".")));
+                    try {
+                        tileset = new TileSet(new Sprite(ImageIO.read(file)), size, size);
+                    } catch (IOException e) {  e.printStackTrace(); }
+                }
+            }
+        }
 
         this.tileset = tileset;
         this.name = roomData.path;

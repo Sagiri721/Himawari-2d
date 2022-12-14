@@ -16,8 +16,8 @@ public class Main extends HimawariCore{
         //CreateObject("Wall", new Vec2(-200, 400), 0, new Vec2(40, 7));
         //CreateObject("Wall", new Vec2(100, 300), 0, new Vec2(1,1));
 
-        TileSet set = new TileSet(new Sprite("Grass.png"), 16, 16);
-        Room r = new Room(set,  new RoomData("room1"));
+        //TileSet set = new TileSet(new Sprite("Grass.png"), 16, 16);
+        Room r = new Room(null,  new RoomData("room1"));
 
         LoadRoom(r);
 
