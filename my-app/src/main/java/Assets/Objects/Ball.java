@@ -99,7 +99,7 @@ public class Ball extends Object implements StdBehaviour {
                 renderer.flipX();
             }
 
-            transform.translate(movement.times(4), collider);
+            transform.translate(movement.times(300).times(deltaTime), collider);
 
             
             if(Input.mousePressed(0)){

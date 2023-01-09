@@ -42,8 +42,8 @@ public class Body extends Component{
         // Cap acceleration
         if(Physics.accelearion_capped) totalForce = totalForce.clampY(-Physics.acceleration_treshold, Physics.acceleration_treshold);
 
-        transform.translate(totalForce, collider);   
-        System.out.println(totalForce.toString());
+        transform.translate(totalForce.times(deltaTime).times(60), collider);   
+        //System.out.println(totalForce.toString());
     }
 
     public float calculateAcceleration(){
