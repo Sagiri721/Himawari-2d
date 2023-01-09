@@ -139,7 +139,8 @@ public class Renderer extends JPanel implements ActionListener {
                         if(c != null && t != null){
                             
                             g2d.setColor(Color.RED);
-                            g2d.drawRect((int) Camera.calculateWindowTowindowPoint(t.position).x, (int) Camera.calculateWindowTowindowPoint(t.position).y, (int) c.bounds.x, (int) c.bounds.y);
+                            g2d.drawRect((int) (int) (t.position.x - Camera.position.position.x + Camera.getOffset().x),
+                            (int) (t.position.y - Camera.position.position.y + Camera.getOffset().y), (int) c.bounds.x, (int) c.bounds.y);
                         }
 
                         g2d.setColor(Color.WHITE);

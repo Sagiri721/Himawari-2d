@@ -94,8 +94,8 @@ public class RectCollider extends Component{
     public boolean willCollideWith(Object obj, Vec2 position){
 
         List<Object> objs = Object.objects;
-        for(Iterator<Object> iterator = objs.iterator(); iterator.hasNext();){
-            Object o = iterator.next();
+        for(int i = 0; i < objs.size(); i++){
+            Object o = objs.get(i);
 
             if(o == obj){
 

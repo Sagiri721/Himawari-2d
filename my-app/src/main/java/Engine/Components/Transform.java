@@ -54,22 +54,6 @@ public class Transform extends Component{
         Vec2 newPositionY = position.sumWith(new Vec2(0, dir.y)); 
 
         Vec2 newPosition = position.sumWith(dir);
-
-        for(Object o : Object.objects){
-
-            RectCollider c = (RectCollider) o.getComponent("RectCollider");
-            if(c == null || c == collider || c.solid == false) continue;
-
-            if(collider.willCollideWith(o, newPositionX)){
-                res = 2;
-                newPosition = newPositionY;
-            }
-            
-            if(collider.willCollideWith(o, newPositionY)){
-                newPosition = newPositionX;
-                res = 1;
-            }
-        }
         
         //Move children
         for(Node n : obj.node.children){
@@ -83,6 +67,23 @@ public class Transform extends Component{
                 t.translate(newPosition.subtractWith(position), r);
         }
 
+        Object[] objs  = Object.objects.toArray(new Object[Object.objects.size()]);
+        for(Object o : objs){
+
+            RectCollider c = (RectCollider) o.getComponent("RectCollider");
+            if(c == null || c == collider || c.solid == false) continue;
+
+            if(collider.willCollideWith(o, newPositionX)){
+                res = 2;
+                newPosition = newPositionY;
+            }    
+            
+            if(collider.willCollideWith(o, newPositionY)){
+                newPosition = newPositionX;
+                res = 1;
+            }    
+        }    
+        
         position = newPosition;
         return res;
     }
@@ -91,16 +92,19 @@ public class Transform extends Component{
 
         //Dont move if going to collide
         Vec2 newPosition = position.sumWith(dir);
-        position = newPosition;
 
         //Move children
         for(Node n : obj.node.children){
             
             if(!n.isConnected()) continue;
 
+            RectCollider c = (RectCollider) n.object.getComponent("RectCollider");
             Transform t = (Transform) n.object.getComponent("Transform");
-            t.translate(dir);
+
+            if(c == null)t.translate(dir);
+            else t.translate(dir, c);
         }
+        position = newPosition;
     }
 
     public void rotate(float angle){

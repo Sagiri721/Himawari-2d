@@ -2,6 +2,7 @@ package Engine.Gfx;
 
 import java.io.File;
 
+import Engine.Utils.Window;
 import Engine.Utils.Geom.Vec2;
 
 import java.awt.Font;
@@ -10,9 +11,9 @@ import java.awt.Graphics2D;
 
 public class Fonts {
 
-    Font font = null;
-    Animation letters = null;
-    FontMap map = null;
+    private Font font = null;
+    private Animation letters = null;
+    private FontMap map = null;
 
     /**
      * Create a font instance of an actual font file
@@ -22,14 +23,12 @@ public class Fonts {
         letters = null;
         map = null;
 
-        File f = new File("D:/TIAGO/program/himawari/my-app/src/main/java/Assets/Fonts/FontFiles/" + fontPath);
+        File f = new File((Window.RelativeResourcePath + "Fonts/" + fontPath));
         if (!f.exists()) {
 
             try {
 
-                font = Font.createFont(Font.TRUETYPE_FONT, f).deriveFont(size);
-                GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-                ge.registerFont(font);
+                font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream(f.getCanonicalPath()));
 
             } catch (Exception e) {
 
@@ -79,5 +78,19 @@ public class Fonts {
             }
         }
 
+    }
+
+    public Font getFont(){ return font; }
+    public Font getOfSize(int newSize) {return font.deriveFont(font.getStyle(), newSize); }
+    public Font getOfSetting(int setting) {return font.deriveFont(setting, font.getSize()); }
+
+    public void setSize(int size) {
+
+        font = font.deriveFont(font.getStyle(), size);
+    }
+    
+    public void setStyle(int style) {
+
+        font = font.deriveFont(style, font.getSize());
     }
 }

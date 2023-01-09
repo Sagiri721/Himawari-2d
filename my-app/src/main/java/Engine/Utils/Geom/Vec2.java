@@ -53,6 +53,35 @@ public class Vec2 {
     //Logic
     public boolean equals(Vec2 pointB) { return (x == pointB.x && y == pointB.y);}
 
+    public Vec2 clampX(float min, float max){
+        
+        Vec2 newVec = new Vec2(x, y);
+        if(newVec.x > max) newVec.x = max;
+        if(newVec.x < min) newVec.x = min;
+
+        return newVec;
+    }
+
+    public Vec2 clampY(float min, float max){
+        
+        Vec2 newVec = new Vec2(x, y);
+        if(newVec.y > max) newVec.y = max;
+        if(newVec.y < min) newVec.y = min;
+
+        return newVec;
+    }
+
+    public Vec2 clamp(float min, float max){
+        
+        Vec2 newVec = new Vec2(x, y);
+        if(newVec.x > max) newVec.x = max;
+        if(newVec.x < min) newVec.x = min;
+        if(newVec.x > max) newVec.x = max;
+        if(newVec.x < min) newVec.x = min;
+
+        return newVec;
+    }
+
     //Mathematics
     public Vec2 abs() {return new Vec2(Math.abs(x), Math.abs(y)); }
     public float magnitude(Vec2 point) {
