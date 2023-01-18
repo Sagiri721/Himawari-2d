@@ -77,7 +77,7 @@ public class Renderer extends JPanel implements ActionListener {
                     ImageRenderer r = (ImageRenderer) o.getComponent("ImageRenderer");
 
                     // Draw every sprite that needs to be drawn
-                    if (r != null && r.hasImage() && r.visible && r.hasImage()) {
+                    if (r != null && r.hasImage() && r.visible) {
                         /**
                          * If the game has a camera, we want to draw every sprite according to the
                          * camera's perspective

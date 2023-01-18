@@ -1,3 +1,4 @@
+import Assets.Objects.Alarm1;
 import Assets.Objects.GameCamera;
 import Engine.HimawariCore;
 import Engine.Entity.Object;
@@ -7,6 +8,8 @@ import Engine.Map.Room;
 import Engine.Map.RoomData;
 import Engine.Map.TileSet;
 import Engine.Sound.Sound;
+import Engine.Utils.Alarm;
+import Engine.Utils.AlarmPack;
 import Engine.Utils.Renderer;
 import Engine.Utils.Geom.Vec2;
 
@@ -28,9 +31,9 @@ public class Main extends HimawariCore{
         player.node.setConnected(false);
 
         Object obj = CreateObject("Wall", new Vec2(50, -50), 0, new Vec2(1,1));
-        Object objOther = CreateObject("WallChild", new Vec2(50, -100), 0, new Vec2(1,1));
+        //Object objOther = CreateObject("WallChild", new Vec2(50, -100), 0, new Vec2(1,1));
         player.node.addChild(obj);
-        obj.node.addChild(objOther);
+        //obj.node.addChild(objOther);
 
         Debugging.drawColliders = true;
 

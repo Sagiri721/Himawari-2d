@@ -55,18 +55,6 @@ public class Transform extends Component{
 
         Vec2 newPosition = position.sumWith(dir);
         
-        //Move children
-        for(Node n : obj.node.children){
-
-            if(!n.isConnected()) continue;
-            
-            Transform t = (Transform) n.object.getComponent("Transform");
-            RectCollider r = (RectCollider) n.object.getComponent("RectCollider");
-
-            if(r == null){t.translate(newPosition.subtractWith(position));}else
-                t.translate(newPosition.subtractWith(position), r);
-        }
-
         Object[] objs  = Object.objects.toArray(new Object[Object.objects.size()]);
         for(Object o : objs){
 
@@ -83,6 +71,18 @@ public class Transform extends Component{
                 res = 1;
             }    
         }    
+        
+        //Move children
+        for(Node n : obj.node.children){
+
+            if(!n.isConnected()) continue;
+            
+            Transform t = (Transform) n.object.getComponent("Transform");
+            RectCollider r = (RectCollider) n.object.getComponent("RectCollider");
+
+            if(r == null){t.translate(newPosition.subtractWith(position));}else
+                t.translate(newPosition.subtractWith(position), r);
+        }
         
         position = newPosition;
         return res;
@@ -104,6 +104,7 @@ public class Transform extends Component{
             if(c == null)t.translate(dir);
             else t.translate(dir, c);
         }
+        
         position = newPosition;
     }
 

@@ -82,6 +82,8 @@ public class Ball extends Object implements StdBehaviour {
             Vec2 movement = new Vec2(Input.axisX, 0);
 
             if(Input.isKeyPressed(Keys.Z) && grounded){
+
+                //System.out.println("?");
                 b.ApplyForce(new Vec2(0, -20));
             }
 
