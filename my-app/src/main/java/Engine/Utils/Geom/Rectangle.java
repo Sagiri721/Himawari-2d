@@ -1,9 +1,19 @@
 package Engine.Utils.Geom;
 
+import Engine.Components.RectCollider;
+
 public class Rectangle extends Shape{
     
     public float x, y;
     public float width, height;
+
+    public static Rectangle CreateRectFromCollider(RectCollider collider){
+
+        return new Rectangle(collider.transform.position.x, 
+        collider.transform.position.y, 
+        collider.bounds.x, 
+        collider.bounds.y);
+    }
 
     public Rectangle(){
 

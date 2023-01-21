@@ -14,6 +14,8 @@ import Engine.Gfx.Sprite;
 import Engine.Gfx.Widget;
 import Engine.Input.Input;
 import Engine.Input.Input.Keys;
+import Engine.Physics.Physics;
+import Engine.Physics.RayHit;
 import Engine.Utils.Renderer;
 import Engine.Utils.StdBehaviour;
 import Engine.Utils.Window;
@@ -119,6 +121,10 @@ public class Ball extends Object implements StdBehaviour {
         Widget.drawText(String.valueOf(Renderer.getFPS()) + "fps", 5, 10, g);
 
         Widget.setColor(Color.PINK);
+
+        //Debugging.drawRay(Physics.CastRay(transform.position, Vec2.DOWN, 5), g);
+        RayHit hit = Physics.CastRay(transform.position, Vec2.DOWN, 408, this);
+        Debugging.drawDebugLine(transform.position, transform.position.sumWith(Vec2.DOWN.times(408)), g);
     }
 
     @Override

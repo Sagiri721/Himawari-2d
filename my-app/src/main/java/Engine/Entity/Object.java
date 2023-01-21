@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.google.common.graph.ElementOrder.Type;
+
 import Engine.Components.*;
 
 import Engine.Utils.*;
@@ -45,6 +47,16 @@ public class Object{
             boolean isComponent = c.getClass().getName().equals("Engine.Components." + name);
             
             if(isComponent) return c;
+        }
+
+        return null;
+    }
+
+    public Component getComponent(Class comp){
+
+        for(Component c : components){
+
+            if(c.getClass() == comp) return c;
         }
 
         return null;

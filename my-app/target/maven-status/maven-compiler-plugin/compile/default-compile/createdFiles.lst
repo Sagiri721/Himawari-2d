@@ -42,6 +42,7 @@ Engine\Utils\Geom\Vec2.class
 Engine\Utils\StdBehaviour.class
 Engine\Components\ImageRenderer.class
 Engine\Gfx\Sprite.class
+Engine\Physics\RayHit.class
 Engine\Utils\Geom\Shape.class
 Engine\Utils\ObjectLoader.class
 Engine\Components\Camera.class

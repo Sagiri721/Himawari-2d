@@ -1,6 +1,7 @@
 import Assets.Objects.Alarm1;
 import Assets.Objects.GameCamera;
 import Engine.HimawariCore;
+import Engine.Components.RectCollider;
 import Engine.Entity.Object;
 import Engine.Gfx.Debugging;
 import Engine.Gfx.Sprite;
@@ -34,6 +35,8 @@ public class Main extends HimawariCore{
         //Object objOther = CreateObject("WallChild", new Vec2(50, -100), 0, new Vec2(1,1));
         player.node.addChild(obj);
         //obj.node.addChild(objOther);
+
+        //player.getComponent(RectCollider.class);
 
         Debugging.drawColliders = true;
 
