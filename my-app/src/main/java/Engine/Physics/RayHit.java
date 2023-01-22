@@ -31,8 +31,5 @@ public class RayHit {
         return null;
     }
 
-    public boolean isEmpty(){
-
-        return (collider == null || colliderComponent == null || point == null);
-    }
+    public boolean isEmpty(){ return (collider == null || colliderComponent == null || point == null); }
 }

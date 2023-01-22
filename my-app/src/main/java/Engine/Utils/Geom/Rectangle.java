@@ -65,4 +65,10 @@ public class Rectangle extends Shape{
 
         return false;
     }
+
+    @Override
+    public String toString(){
+
+        return ("X: " + x + " | Y: " + y + " | W: " + width + " | H: " + height);
+    }
 }

@@ -46,6 +46,20 @@ public class HimawariCore {
         room.loadObjects();
     }
 
+    public static void LoadRoom(Room room, boolean loadObjects){
+
+        if(RoomHandler.startRoom == null){
+            RoomHandler.startRoom = room;
+            RoomHandler.currentRoom = room;
+        }else{
+
+            //Move to room
+        }
+
+        if(loadObjects)
+            room.loadObjects();
+    }
+
     public static void CloseWindow(){
 
         window.dispose();

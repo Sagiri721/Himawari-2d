@@ -33,6 +33,8 @@ public class Object{
     public void setLayer(int layer) { if(layer < 0 || layer > 100) return; if(layer > maxLayer) maxLayer = layer; this.layer = layer; }
     public int getLayer() { return this.layer; }
 
+    public String getName() {return name;}
+
     /*
      * List of functional components
      */

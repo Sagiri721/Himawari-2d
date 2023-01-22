@@ -79,7 +79,7 @@ public class Vec2 {
         return (float) Math.sqrt((Math.pow(point.x - x, 2) + Math.pow(point.y - y, 2)));
     }
     public float thisMagnitude() {
-        return (float) Math.sqrt(Math.pow(x, 2) - Math.pow(y, 2));
+        return (float) Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
     }
 
     public static float magnitude(Vec2 pointA, Vec2 pointB) {
@@ -90,7 +90,7 @@ public class Vec2 {
     }
 
     public Vec2 normalize() {
-        return this;
+        return this.divide(thisMagnitude());
     }
 
     //Misc

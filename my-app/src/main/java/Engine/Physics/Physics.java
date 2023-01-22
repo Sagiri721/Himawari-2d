@@ -17,6 +17,8 @@ public class Physics {
         if(direction.thisMagnitude() < raycast_detail) return new RayHit();
 
         Vec2 testPoint = position;
+        direction = direction.normalize();
+
         while(testPoint.subtractWith(position).thisMagnitude() < size){
 
             //Check for collision
@@ -29,8 +31,38 @@ public class Physics {
                 if(collider != null) {
 
                     Rectangle rectangle = Rectangle.CreateRectFromCollider(collider);
-                    //System.out.println(testPoint);
-                    if(rectangle.Contains(testPoint)){ System.out.println("miau?"); return new RayHit(o, collider, testPoint, position); }
+                    //System.out.println(rectangle.toString());
+                    if(rectangle.Contains(testPoint)){ return new RayHit(o, collider, testPoint, position); }
+                }
+            }
+
+            testPoint = testPoint.sumWith(direction.times(raycast_detail));
+        }
+
+        return new RayHit();
+    }
+
+    public static RayHit CastRay(Vec2 position, Vec2 direction, float size, Object self, int myLayer){
+
+        if(direction.thisMagnitude() < raycast_detail) return new RayHit();
+
+        Vec2 testPoint = position;
+        direction = direction.normalize();
+
+        while(testPoint.subtractWith(position).thisMagnitude() < size){
+
+            //Check for collision
+            Object[] objs = Object.objects.toArray(new Object[Object.objects.size()]);
+            for(Object o : objs) {
+
+                if(o==self || o.getLayer() != myLayer) continue;
+
+                RectCollider collider = (RectCollider) o.getComponent(RectCollider.class);
+                if(collider != null) {
+
+                    Rectangle rectangle = Rectangle.CreateRectFromCollider(collider);
+                    //System.out.println(rectangle.toString());
+                    if(rectangle.Contains(testPoint)){ return new RayHit(o, collider, testPoint, position); }
                 }
             }
 

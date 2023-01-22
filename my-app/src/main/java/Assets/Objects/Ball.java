@@ -123,8 +123,10 @@ public class Ball extends Object implements StdBehaviour {
         Widget.setColor(Color.PINK);
 
         //Debugging.drawRay(Physics.CastRay(transform.position, Vec2.DOWN, 5), g);
-        RayHit hit = Physics.CastRay(transform.position, Vec2.DOWN, 408, this);
-        Debugging.drawDebugLine(transform.position, transform.position.sumWith(Vec2.DOWN.times(408)), g);
+        RayHit hit = Physics.CastRay(transform.position, Vec2.DOWN, 70, this);
+
+        //System.out.println(hit.collider.getName());
+        //Debugging.drawDebugLine(transform.position, transform.position.sumWith(Vec2.DOWN.times(408)), g);
     }
 
     @Override
