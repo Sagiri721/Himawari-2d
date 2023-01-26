@@ -1,5 +1,6 @@
 Engine\Utils\Renderer$1.class
 Engine\Utils\Alarm$1.class
+Engine\Utils\Storage$STATUS.class
 Engine\Components\Transform.class
 Engine\Utils\Geom\Rectangle.class
 Engine\Components\Animator.class
@@ -44,6 +45,7 @@ Engine\Components\ImageRenderer.class
 Engine\Gfx\Sprite.class
 Engine\Physics\RayHit.class
 Engine\Utils\Geom\Shape.class
+Engine\Utils\Storage.class
 Engine\Utils\ObjectLoader.class
 Engine\Components\Camera.class
 Engine\Map\TileSet.class

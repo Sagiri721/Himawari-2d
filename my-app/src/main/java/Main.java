@@ -12,7 +12,9 @@ import Engine.Sound.Sound;
 import Engine.Utils.Alarm;
 import Engine.Utils.AlarmPack;
 import Engine.Utils.Renderer;
+import Engine.Utils.Storage;
 import Engine.Utils.Geom.Vec2;
+import javafx.util.Pair;
 
 public class Main extends HimawariCore{
 
@@ -47,5 +49,7 @@ public class Main extends HimawariCore{
 
         // Sound s = new Sound("idk but sounds decent.mp3", false);
         // s.play();
+
+        //Storage.put("Pontos", String.valueOf(1));
     }
 }
