@@ -2,6 +2,7 @@ import Assets.Objects.Alarm1;
 import Assets.Objects.GameCamera;
 import Engine.HimawariCore;
 import Engine.Components.RectCollider;
+import Engine.Database.Storage;
 import Engine.Entity.Object;
 import Engine.Gfx.Debugging;
 import Engine.Gfx.Sprite;
@@ -12,7 +13,6 @@ import Engine.Sound.Sound;
 import Engine.Utils.Alarm;
 import Engine.Utils.AlarmPack;
 import Engine.Utils.Renderer;
-import Engine.Utils.Storage;
 import Engine.Utils.Geom.Vec2;
 import javafx.util.Pair;
 
@@ -51,5 +51,7 @@ public class Main extends HimawariCore{
         // s.play();
 
         //Storage.put("Pontos", String.valueOf(1));
+
+        Storage.CreateCluster("newCluster", (byte) 4);
     }
 }

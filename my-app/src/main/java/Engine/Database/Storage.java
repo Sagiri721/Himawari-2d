@@ -1,20 +1,21 @@
-package Engine.Utils;
+package Engine.Database;
 
 import java.sql.Statement;
-import java.util.function.Function;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import Engine.Gfx.Sprite;
 import javafx.util.Pair;
 
-import java.io.ObjectInputFilter.Status;
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Storage {
+
+    public static Cluster localCluster = new Cluster("localStorage", 2);
 
     public static enum STATUS {
 
@@ -73,10 +74,14 @@ public class Storage {
             pstmt.setString(2, !(order) ? key : value);
 
             pstmt.executeUpdate();
+
+            logData("Added key: " + key + " | " + value + " to table: localStorage");
         
         } catch (SQLException e) {
             e.printStackTrace();
             close();
+
+            logData("Failed to add key: " + key + " | " + value + " to table: localStorage, " + e.getMessage());
             return STATUS.ERROR;
         }
 
@@ -101,6 +106,7 @@ public class Storage {
         } catch (SQLException e) {
          
             System.out.println("[ERROR] SQL Exception error\n"+e.getMessage());
+            logData("Failed to fetch key: " + key + " in table: localStorage, " + e.getMessage());
             status = new Pair<Storage.STATUS,String>(STATUS.ERROR, null);
         }
 
@@ -118,6 +124,7 @@ public class Storage {
             pstmt.setString(1, key);
             pstmt.executeUpdate();
 
+            logData("Flushed key: " + key + " in table: localStorage");
             close();
             return STATUS.SUCCESS;
             
@@ -125,6 +132,8 @@ public class Storage {
             
             e.printStackTrace();
             close();
+
+            logData("Failed to flush key: " + key + " in table: localStorage, " + e.getMessage());
             return STATUS.ERROR;
         }
     }
@@ -135,10 +144,58 @@ public class Storage {
         connect();
         try(Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
+            logData("Cleared localStorage");
 
-        }catch (SQLException e) {return STATUS.ERROR;}
+        }catch (SQLException e) {logData("Failed to clear localStorage, " + e.getMessage()); return STATUS.ERROR;}
 
         close();
         return STATUS.SUCCESS;
     }
+
+    private static void logData(String data) {
+
+        String sql = "INSERT INTO logs(description, log_date) VALUES(?, ?)";
+        connect();
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)){
+            
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();  
+
+            pstmt.setString(1, data);
+            pstmt.setString(2, dtf.format(now));
+
+            pstmt.executeUpdate();
+        
+        } catch (SQLException e) {
+            System.out.println("[ERROR] Error outputing to logs");
+        }
+
+        close();
+    }
+
+    public static Cluster CreateCluster(String name, byte capacity){
+        
+        if(capacity <= 1) return null;
+
+        Cluster cl = new Cluster(name, capacity);
+        String sql = "CREATE TABLE " + name + " (?);";
+
+        String values = "";
+        for (int i = 0; i < capacity; i++) { values += ("value" + i) + " VARCHAR(200)" + (i+1 == capacity ? "" : ","); }
+
+        sql = sql.replace("?", values);
+
+        connect();
+        try(Statement stmt = conn.createStatement()) {
+            
+            stmt.execute(sql);
+            logData("Created cluster: " + name);
+
+        }catch (SQLException e) {logData("Failed to create cluster: " + name + ", " + e.getMessage()); e.printStackTrace(); return null; }
+
+        close();
+        return cl;
+    }
+
 }
