@@ -1,6 +1,7 @@
 package Engine.Components;
 
 import Engine.Utils.Geom.Vec2;
+import Engine.Entity.Node;
 import Engine.Entity.Object;
 
 /**
@@ -13,24 +14,28 @@ public class Transform extends Component{
     public Vec2 scale;
 
     public Vec2 pivotPoint = new Vec2();
+    protected Object obj;
 
-    public Transform(){
+    public Transform(Object o){
 
         position = new Vec2();
         angle = 0;
         scale = new Vec2(1,1);
+        this.obj = o;
     }
 
-    public Transform(Vec2 position){
+    public Transform(Vec2 position, Object o){
 
         this.position = position;
+        this.obj = o;
     }
 
-    public Transform(Vec2 position, float angle, Vec2 scale){
+    public Transform(Vec2 position, float angle, Vec2 scale, Object o){
 
         this.position = position;
         this.angle = angle;
         this.scale = scale;
+        this.obj = o;
     }
 
     /**
@@ -49,8 +54,9 @@ public class Transform extends Component{
         Vec2 newPositionY = position.sumWith(new Vec2(0, dir.y)); 
 
         Vec2 newPosition = position.sumWith(dir);
-
-        for(Object o : Object.objects){
+        
+        Object[] objs  = Object.objects.toArray(new Object[Object.objects.size()]);
+        for(Object o : objs){
 
             RectCollider c = (RectCollider) o.getComponent("RectCollider");
             if(c == null || c == collider || c.solid == false) continue;
@@ -58,14 +64,26 @@ public class Transform extends Component{
             if(collider.willCollideWith(o, newPositionX)){
                 res = 2;
                 newPosition = newPositionY;
-            }
+            }    
             
             if(collider.willCollideWith(o, newPositionY)){
                 newPosition = newPositionX;
                 res = 1;
-            }
-        }
+            }    
+        }    
+        
+        //Move children
+        for(Node n : obj.node.children){
 
+            if(!n.isConnected()) continue;
+            
+            Transform t = (Transform) n.object.getComponent("Transform");
+            RectCollider r = (RectCollider) n.object.getComponent("RectCollider");
+
+            if(r == null){t.translate(newPosition.subtractWith(position));}else
+                t.translate(newPosition.subtractWith(position), r);
+        }
+        
         position = newPosition;
         return res;
     }
@@ -74,12 +92,34 @@ public class Transform extends Component{
 
         //Dont move if going to collide
         Vec2 newPosition = position.sumWith(dir);
+
+        //Move children
+        for(Node n : obj.node.children){
+            
+            if(!n.isConnected()) continue;
+
+            RectCollider c = (RectCollider) n.object.getComponent("RectCollider");
+            Transform t = (Transform) n.object.getComponent("Transform");
+
+            if(c == null)t.translate(dir);
+            else t.translate(dir, c);
+        }
+        
         position = newPosition;
     }
 
     public void rotate(float angle){
 
         setAngle(this.angle+angle);
+
+        //Rotate children
+        for(Node n : obj.node.children){
+            
+            if(!n.isConnected()) continue;
+
+            Transform t = (Transform) n.object.getComponent("Transform");
+            t.rotate(angle);
+        }
     }
 
     public void lookAt(Object target){
@@ -91,11 +131,20 @@ public class Transform extends Component{
         double angle = Math.toDegrees(Math.asin(x/h));
 
         setAngle((float)angle);
+        
+        //Rotate children
+        for(Node n : obj.node.children){
+            
+            if(!n.isConnected()) continue;
+            
+            Transform t = (Transform) n.object.getComponent("Transform");
+            t.lookAt(target);
+        }
     }
 
     public void updateCollider(){
 
-        RectCollider collider =  (RectCollider) Object.objectOfComponent(this).getComponent("RectCollider");
+        RectCollider collider =  (RectCollider) obj.getComponent("RectCollider");
 
         if(collider!=null)
             collider.resizeCollider(scale.times((Camera.getInstance() == null ? 1 : Camera.getSize())));

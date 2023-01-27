@@ -1,11 +1,15 @@
 package Engine;
 
+import java.lang.reflect.InvocationTargetException;
+
 import javax.swing.JFrame;
 
 import Engine.Components.Camera;
 import Engine.Map.Room;
 import Engine.Map.RoomHandler;
 import Engine.Utils.ObjectLoader;
+import Engine.Entity.Hierarchy;
+import Engine.Entity.Node;
 import Engine.Entity.Object;
 import Engine.Utils.Window;
 import Engine.Utils.Geom.Vec2;
@@ -42,6 +46,20 @@ public class HimawariCore {
         room.loadObjects();
     }
 
+    public static void LoadRoom(Room room, boolean loadObjects){
+
+        if(RoomHandler.startRoom == null){
+            RoomHandler.startRoom = room;
+            RoomHandler.currentRoom = room;
+        }else{
+
+            //Move to room
+        }
+
+        if(loadObjects)
+            room.loadObjects();
+    }
+
     public static void CloseWindow(){
 
         window.dispose();
@@ -72,14 +90,39 @@ public class HimawariCore {
     public static Object CreateObject(String name, Vec2 position, float angle, Vec2 scale){
 
         Object newObj = ObjectLoader.LoadObjectOfName(name, position, angle, scale);
-
         return newObj;
     }
+
+    public static Object CreateObject(Class c, Vec2 position, float angle, Vec2 scale){
+
+        if(c.getSuperclass() == Object.class){
+
+            Object o;
+            try {
+
+                o = (Object) c.getDeclaredConstructor().newInstance();
+                o.transform.position.setValues(position);
+                o.transform.angle = angle;
+                o.transform.scale.setValues(scale);
+
+                return o;
+
+            } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+                    | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+                
+                System.out.println("[ERROR] The input class does not have an accessible constructor");
+                e.printStackTrace();
+                return null;
+            }
+        }   
+
+        System.out.println("[ERROR] The input class does not match an object type");
+        return null;
+    }
     
-    public static Object creaObject(String name){
+    public static Object createObject(String name){
 
         Object newObj = ObjectLoader.LoadObjectOfName(name, new Vec2(0, 0), 0, new Vec2(0,0));
-
         return newObj;
     }
 }

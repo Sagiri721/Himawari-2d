@@ -7,7 +7,7 @@
     "start_fullscreen": false,
     "use_splashscreen": false,
     "splashscreen_path": "splashscreen.png",
-    "alloow_fullscreen": true,
+    "allow_fullscreen": true,
     "resize_window": false,
     "icon": "icon.ico"
 }

@@ -2,7 +2,11 @@ package Engine.Components;
 
 import Engine.Gfx.ImageUtil;
 import Engine.Gfx.Sprite;
+import Engine.Utils.GameMaths;
 import Engine.Utils.Geom.Vec2;
+
+import Engine.Entity.*;
+import Engine.Entity.Object;
 
 import java.awt.image.BufferedImage;
 import java.awt.Image;
@@ -14,10 +18,12 @@ public class ImageRenderer extends Component{
         FAST
     }
 
+    private float alpha = 1;
     public boolean isFlippedX = false, isFlippedY = false;
     public boolean visible = true;
     public void setVisible(boolean visible) { this.visible = visible;}
 
+    private Engine.Entity.Object object;
     private Sprite sprite = null;
     private Sprite currentSprite = null;
 
@@ -28,7 +34,12 @@ public class ImageRenderer extends Component{
 
     public ImageRenderer() {visible = false;}
 
-    public ImageRenderer(Sprite img) { this.sprite = img; this.currentSprite = this.sprite; }
+    public ImageRenderer(Sprite img, Object object) 
+    { 
+        this.sprite = img; 
+        this.currentSprite = this.sprite; 
+        this.object = object;
+    }
 
     public Vec2 getDimensions() { return new Vec2(sprite.width, sprite.height); }
 
@@ -57,4 +68,23 @@ public class ImageRenderer extends Component{
         isFlippedY = !isFlippedY;
     }
 
+    public void setAlpha(float alpha) {
+     
+        alpha = GameMaths.clamp(alpha, 0, 1);
+        this.alpha = alpha;
+
+        //Set alpha of childern
+        for (Node n : object.node.children) {
+            
+            ImageRenderer renderer = (ImageRenderer) n.object.getComponent("ImageRenderer");
+            if(renderer != null) {
+
+                renderer.setAlpha(alpha);
+            }
+        }
+    }
+
+    public float getAlpha(){
+        return alpha;
+    }
 }

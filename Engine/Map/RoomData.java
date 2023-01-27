@@ -81,6 +81,12 @@ public class RoomData {
             Vec2 scale = new Vec2(Integer.valueOf(scaleFactor[0]), Integer.valueOf(scaleFactor[1]));
 
             Object obj = ObjectLoader.LoadObjectOfName(data[0], newPosition, Float.valueOf(data[2]), scale);
+
+            if(data.length >= 5){
+
+                obj.setName(data[4]);
+            }
+
             Transform transform = (Transform) obj.getComponent("Transform");
             transform.updateCollider();
         }

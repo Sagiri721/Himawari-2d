@@ -1,5 +1,6 @@
 package Engine.Input;
 
+import java.awt.event.*;
 import java.awt.MouseInfo;
 
 public class Input {
@@ -10,7 +11,9 @@ public class Input {
     public static int mouseX = 0;
     public static int mouseY = 0;
 
-    public static boolean[] mousePressed = new boolean[3];
+    protected static char[] keyMap = { KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_UP, KeyEvent.VK_DOWN };
+
+    protected static boolean[] mousePressed = new boolean[3];
 
     public static void updateMousePosition() {
 

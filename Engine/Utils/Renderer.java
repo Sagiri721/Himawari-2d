@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
+import java.awt.AlphaComposite;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
@@ -12,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import Engine.Components.Animator;
+import Engine.Components.Body;
 import Engine.Components.Camera;
 import Engine.Components.ImageRenderer;
 import Engine.Components.RectCollider;
@@ -56,22 +58,29 @@ public class Renderer extends JPanel implements ActionListener {
 
         for (int i = 0; i <= Object.maxLayer; i++) {
 
-            for (Iterator<Object> obj = Object.objects.iterator(); obj.hasNext();) {
-                Object o = obj.next();
+            //Convert the current objects array to a copy for the rendering time to avoid concurent modifications
+            Object[] copyArray = Object.objects.toArray(new Object[Object.objects.size()]);
+
+            for (int j = 0; j < copyArray.length; j++) {
+                Object o = copyArray[j];
 
                 if (o.getLayer() == i) {
 
-                    // Run user code every frame
+                    //Run physics updates
+                    Body b = (Body) o.getComponent("Body");
+                    if (b!= null) b.PhysicsUpdate(deltaTime);
+
+                    // Run user graphics code every frame
                     o.getBehaviour().DrawGUI(g2d);
                     g2d.setColor(Color.BLACK);
 
                     ImageRenderer r = (ImageRenderer) o.getComponent("ImageRenderer");
 
                     // Draw every sprite that needs to be drawn
-                    if (r != null && r.hasImage() && r.visible && r.hasImage()) {
+                    if (r != null && r.hasImage() && r.visible) {
                         /**
                          * If the game has a camera, we want to draw every sprite according to the
-                         * cameras perspective
+                         * camera's perspective
                          * Otherwise we just draw the sprites in their world positions
                          */
 
@@ -81,6 +90,9 @@ public class Renderer extends JPanel implements ActionListener {
                             Transform t = (Transform) o.getComponent("Transform");
 
                             if (t != null) {
+
+                                AlphaComposite alcom = AlphaComposite.getInstance(AlphaComposite.CLEAR, 0.5f);
+                                g2d.setComposite(alcom);
 
                                 BufferedImage fnImg = ImageUtil.rotate(r.getImage(), (double) t.angle);
                                 if(r.isFlippedX) fnImg = ImageUtil.flipImageHorizontal(fnImg);
@@ -99,19 +111,25 @@ public class Renderer extends JPanel implements ActionListener {
 
                             if (t != null) {
 
+                                AlphaComposite alcom = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, r.getAlpha());
+                                g2d.setComposite(alcom);
+
                                 BufferedImage fnImg = ImageUtil.rotate(r.getImage(), (double) t.angle);
                                 if(r.isFlippedX) fnImg = ImageUtil.flipImageHorizontal(fnImg);
                                 if(r.isFlippedY) fnImg = ImageUtil.flipImageVertical(fnImg);
 
                                 g2d.drawImage(fnImg,
-                                        (int) (t.position.x - Camera.position.position.x + Camera.getOffset().x) * Camera.getSize(),
-                                        (int) (t.position.y - Camera.position.position.y + Camera.getOffset().y) * Camera.getSize(),
-                                        (r.getImage().getWidth() * (int) t.scale.x) * Camera.getSize(),
-                                        (r.getImage().getHeight() * (int) t.scale.y) * Camera.getSize(),
+                                        (int) (t.position.x - Camera.position.position.x + Camera.getOffset().x),
+                                        (int) (t.position.y - Camera.position.position.y + Camera.getOffset().y),
+                                        (r.getImage().getWidth() * (int) t.scale.x),
+                                        (r.getImage().getHeight() * (int) t.scale.y),
                                         null);
                             }
                         }
                     }
+
+                    AlphaComposite alcom = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
+                    g2d.setComposite(alcom);
 
                     if(Debugging.drawColliders){
 
@@ -120,8 +138,9 @@ public class Renderer extends JPanel implements ActionListener {
 
                         if(c != null && t != null){
                             
-                            g2d.setColor(Color.red);
-                            g2d.drawRect((int) Camera.calculateWindowTowindowPoint(t.position).x, (int) Camera.calculateWindowTowindowPoint(t.position).y, (int) c.bounds.x, (int) c.bounds.y);
+                            g2d.setColor(Color.RED);
+                            g2d.drawRect((int) (int) (t.position.x - Camera.position.position.x + Camera.getOffset().x),
+                            (int) (t.position.y - Camera.position.position.y + Camera.getOffset().y), (int) c.bounds.x, (int) c.bounds.y);
                         }
 
                         g2d.setColor(Color.WHITE);
@@ -168,9 +187,11 @@ public class Renderer extends JPanel implements ActionListener {
             deltai = 0;
         }
 
-        for (Iterator<Object> obj = Object.objects.iterator(); obj.hasNext();) {
+        Object[] copyArray = Object.objects.toArray(new Object[Object.objects.size()]);
 
-            Object object = obj.next();
+        for (int j = 0; j < copyArray.length; j++) {
+            Object object = copyArray[j];
+            
             // Run the necessary component updates
             Animator a = (Animator) object.getComponent("Animator");
             if (a != null) {

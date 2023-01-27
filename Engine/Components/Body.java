@@ -20,7 +20,8 @@ public class Body extends Component{
     public Body(Transform transform, RectCollider collider, float mass){
 
         this.transform = transform;
-        this.mass = mass;
+        //this.mass = mass;
+        this.mass = 1;
 
         this.collider = collider;
     }
@@ -39,7 +40,11 @@ public class Body extends Component{
             ApplyForce(totalForce.inverse());
         }
 
-        transform.translate(totalForce, collider);   
+        // Cap acceleration
+        if(Physics.accelearion_capped) totalForce = totalForce.clampY(-Physics.acceleration_treshold, Physics.acceleration_treshold);
+
+        transform.translate(totalForce.times(deltaTime).times(mass * 60), collider);   
+        //System.out.println(totalForce.toString());
     }
 
     public float calculateAcceleration(){

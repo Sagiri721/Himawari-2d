@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.google.common.graph.ElementOrder.Type;
+
 import Engine.Components.*;
 
 import Engine.Utils.*;
@@ -13,6 +15,8 @@ import Engine.Utils.Geom.Vec2;
  * Standard class for all the objects that take part in the game
  */
 public class Object{
+
+    public Node node = null;
 
     /**
      * List of all existing objects at a certain point in time
@@ -28,6 +32,8 @@ public class Object{
     private int layer = 0;
     public void setLayer(int layer) { if(layer < 0 || layer > 100) return; if(layer > maxLayer) maxLayer = layer; this.layer = layer; }
     public int getLayer() { return this.layer; }
+
+    public String getName() {return name;}
 
     /*
      * List of functional components
@@ -48,6 +54,20 @@ public class Object{
         return null;
     }
 
+    public Component getComponent(Class comp){
+
+        for(Component c : components){
+
+            if(c.getClass() == comp) return c;
+        }
+
+        return null;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
     //Is eligeble to Update?
     public boolean active = true;
     public void setActive(boolean active) { this.active = active; } //Is active on scene?
@@ -63,7 +83,9 @@ public class Object{
     public Transform transform;
     protected Object(String name){
 
-        Transform transform = new Transform();
+        Hierarchy.CreateHierarchyNode(this);
+
+        Transform transform = new Transform(this);
         addComponent(transform);
 
         this.transform = transform;
@@ -73,7 +95,25 @@ public class Object{
 
         if(nameExists(name)){
 
-           System.out.println("[WARNING] The name '" + name + "' was already atrribueted to a different object"); 
+            autoNameChangeProtocol();
+           System.out.println("[WARNING] The name '" + name + "' was already atributed to a different object, The new name of this object will be: " + this.name); 
+        }
+
+        objects.add(this);
+    }
+
+    private void autoNameChangeProtocol(){
+
+        int index = 0;
+        while (true) {
+            
+            String tempName = this.name + String.valueOf(index);
+
+            if(!nameExists(tempName)){
+                this.name = tempName;
+                break;
+            }
+            index++;
         }
     }
 
@@ -112,20 +152,6 @@ public class Object{
         }
 
         return null;
-    }
-
-    public static List<Object> FindObjects(String name) {
-
-        name = name.replace(" ", "-");
-        List<Object> out = new ArrayList<Object>();
-        for(Iterator<Object> inter = objects.iterator(); inter.hasNext();)  {
-            Object obj = inter.next();
-
-            if(obj.name.equals(name))
-                out.add(obj);
-        }
-
-        return out;
     }
 
     /**
@@ -210,7 +236,6 @@ public class Object{
         return newObj;
     }
 
-
     public void DestroyInstance(){
 
         objects.remove(this);
@@ -225,20 +250,20 @@ public class Object{
      * Sends a call to the ReceiveMessage() function of the first object with the specified name
      * @param name
      */
-    public void sendMessageTo(String name){
+    public static void sendMessageTo(String name, String message){
 
         for(Iterator<Object> inter = objects.iterator(); inter.hasNext();)  {
             Object obj = inter.next();
         
             if(obj.name.equals(name)){
 
-                obj.getBehaviour().ReceiveMessage(this.name);
+                obj.getBehaviour().ReceiveMessage(message);
                 return;
             }
         }
     }
 
-    public void sendMessageToAll(String className){
+    public static void sendMessageToAll(String className){
 
         for(Iterator<Object> inter = objects.iterator(); inter.hasNext();)  {
             Object obj = inter.next();

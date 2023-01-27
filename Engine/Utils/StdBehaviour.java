@@ -9,5 +9,5 @@ public interface StdBehaviour {
 
     public void DrawGUI(Graphics2D g);
 
-    public void ReceiveMessage(String origin);
+    public void ReceiveMessage(String message);
 }

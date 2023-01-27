@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import javax.swing.JOptionPane;
 
 import Engine.Components.Camera;
+import Engine.Physics.RayHit;
 import Engine.Utils.Geom.Circle;
 import Engine.Utils.Geom.Rectangle;
 import Engine.Utils.Geom.Vec2;
@@ -71,8 +72,19 @@ public class Debugging {
         if(showDebug){
 
             g.setColor(debugColor);
-            Vec2 point1 = Camera.calculateWindowTowindowPoint(new Vec2((int)-start.x, (int)-start.y));
-            Vec2 point2 = Camera.calculateWindowTowindowPoint(new Vec2((int)-end.x, (int)-end.y));
+            Vec2 point1 = Camera.calculateWorldToWindowPosition(new Vec2((int)-start.x, (int)-start.y));
+            Vec2 point2 = Camera.calculateWorldToWindowPosition(new Vec2((int)-end.x, (int)-end.y));
+            g.drawLine((int)point1.x, (int)point1.y, (int)point2.x, (int)point2.y);
+        }
+    }
+
+    public static void drawRay(RayHit hit, Graphics2D g){
+
+        if(showDebug){
+
+            g.setColor(debugColor);
+            Vec2 point1 = Camera.calculateWindowTowindowPoint(new Vec2((int)-hit.getOrigin().x, (int)-hit.getOrigin().y));
+            Vec2 point2 = Camera.calculateWindowTowindowPoint(new Vec2((int)-hit.point.x, (int)-hit.point.y));
             g.drawLine((int)point1.x, (int)point1.y, (int)point2.x, (int)point2.y);
         }
     }

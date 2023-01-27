@@ -1,5 +1,8 @@
 package Engine.Utils;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 import java.awt.Color;
 
@@ -38,7 +41,7 @@ public class GameMaths {
 
     public static int randomInteger(int lower, int highest){
 
-        return new Random().nextInt(lower, highest+1);
+        return new Random().nextInt();
     }
 
     public static Color generateRandomColor(){
@@ -77,5 +80,13 @@ public class GameMaths {
         int b = (int)((b1 * iRatio) + (b2 * ratio));
     
         return new Color( a << 24 | r << 16 | g << 8 | b );
+    }
+
+    public static Object[] sortArray(Object[] a){
+
+        if(a.length == 0 || a.length == 1) {System.out.println("[WARNING] The given array is of length 0 or 1, so it won't be ordered");return a;}
+
+        Arrays.sort(a);
+        return a;
     }
 }

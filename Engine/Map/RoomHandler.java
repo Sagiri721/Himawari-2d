@@ -110,7 +110,7 @@ public class RoomHandler {
             }else{
 
                 /**
-                 * To save a loot of memory, we need to just draw the camera viewport and not the entire map
+                 * To save a lot of memory, we need to just draw the camera viewport and not the entire map
                  
 
                 for(int i = 0; i < (int)((Window.width / currentRoom.tileset.width)); i++){
@@ -130,7 +130,7 @@ public class RoomHandler {
                 }
                 */
 
-                System.out.println(Camera.ViewPort.y + (int) Camera.getViewPortOffset().y + viewportOffset.x);
+                //System.out.println(Camera.ViewPort.y + (int) Camera.getViewPortOffset().y + viewportOffset.x);
                 for(int i = (int) Camera.getViewPortOffset().x; i < Camera.ViewPort.y + (int) Camera.getViewPortOffset().x + viewportOffset.y; i++){
                     for(int j = (int) Camera.getViewPortOffset().y; j < Camera.ViewPort.x + (int) Camera.getViewPortOffset().y + viewportOffset.x; j++) {
 
