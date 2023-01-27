@@ -1,7 +1,5 @@
 import java.awt.Color;
 
-import Assets.Objects.Ball;
-import Assets.Objects.Wall;
 import Engine.HimawariCore;
 import Engine.Entity.Object;
 import Engine.Gfx.Sprite;
