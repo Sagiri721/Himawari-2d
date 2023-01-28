@@ -26,10 +26,10 @@ public class Storage {
         ERROR
     }
     
-    private static Connection conn = null;
+    protected static Connection conn = null;
     private static String url = "jdbc:sqlite:" + Sprite.RelativeEngineResourcePath + "storage.db";
 
-    private static void connect() {
+    protected static void connect() {
 
         try {
             
@@ -41,7 +41,7 @@ public class Storage {
         }
     }
 
-    private static void close() {
+    protected static void close() {
 
         try {
 
@@ -152,7 +152,7 @@ public class Storage {
         return STATUS.SUCCESS;
     }
 
-    private static void logData(String data) {
+    protected static void logData(String data) {
 
         String sql = "INSERT INTO logs(description, log_date) VALUES(?, ?)";
         connect();

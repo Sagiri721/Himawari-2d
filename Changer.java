@@ -9,8 +9,8 @@ public class Changer {
 
 		String spackage = "";
 
-		File loader = new File("my-app\\src\\main\\java\\Engine\\Utils\\ObjectLoader.java");
-		File objects = new File("my-app\\src\\main\\java\\Assets\\Objects");
+		File loader = new File("my-app\\src\\main\\java\\" + spackage + "\\Engine\\Utils\\ObjectLoader.java");
+		File objects = new File("my-app\\src\\main\\java\\" + spackage + "\\Assets\\Objects");
 
 		String cases = "";
 
@@ -29,9 +29,9 @@ public class Changer {
 				while (s.hasNextLine()) {
 
 					if (s.nextLine().contains("extends Object implements StdBehaviour")) {
-						
-						String name = f.getName().substring(0, f.getName().lastIndexOf("."));	
-						cases += "case \""+ name +"\" : obj = new "+ name +"(); break;\n";
+
+						String name = f.getName().substring(0, f.getName().lastIndexOf("."));
+						cases += "case \"" + name + "\" : obj = new " + name + "(); break;\n";
 						objectList.add(f.getName());
 						break;
 					}
