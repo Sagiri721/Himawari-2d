@@ -6,7 +6,7 @@ import java.util.Set;
 public class Node {
     
     public Set<Node> children = new HashSet<Node>();
-    protected Node parent = null;
+    public Node parent = null;
     protected boolean connected = true;
 
     public Object object;

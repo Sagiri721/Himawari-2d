@@ -87,7 +87,7 @@ public class RoomData {
                 obj.setName(data[4]);
             }
 
-            Transform transform = (Transform) obj.getComponent("Transform");
+            Transform transform = (Transform) obj.getComponent(Transform.class);
             transform.updateCollider();
         }
 

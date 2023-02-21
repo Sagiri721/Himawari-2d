@@ -4,12 +4,9 @@ import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JFrame;
 
-import Engine.Components.Camera;
 import Engine.Map.Room;
 import Engine.Map.RoomHandler;
 import Engine.Utils.ObjectLoader;
-import Engine.Entity.Hierarchy;
-import Engine.Entity.Node;
 import Engine.Entity.Object;
 import Engine.Utils.Window;
 import Engine.Utils.Geom.Vec2;
@@ -25,12 +22,14 @@ public class HimawariCore {
         FULLSCREEN
     }
     
-    public static void CreateWindow(int width, int height, String name){
+    public static Window CreateWindow(int width, int height, String name){
 
         window = new Window();
         window.initWindow(width, height, name);
 
         savedWindowSize = new Vec2(window.getWidth(), window.getHeight());
+
+        return window;
     }
 
     public static void LoadRoom(Room room){

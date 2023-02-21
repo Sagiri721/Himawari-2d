@@ -7,6 +7,7 @@ import java.awt.event.*;
 public class KeyboardReader implements KeyListener {
 
     protected static boolean[] keys = new boolean[61];
+    public static int limit = 1;
 
     public static void mapAxis(Keys LEFT, Keys RIGHT, Keys UP, Keys DOWN) {
 
@@ -22,16 +23,16 @@ public class KeyboardReader implements KeyListener {
 
         // Deal with axis X
         if (e.getKeyCode() == Input.keyMap[0] || e.getKeyCode() == Input.keyMap[4]) {
-            Input.axisX = -1;
+            Input.axisX = -limit;
         } else if (e.getKeyCode() == Input.keyMap[1] || e.getKeyCode() == Input.keyMap[5]) {
-            Input.axisX = 1;
+            Input.axisX = limit;
         }
 
         // Deal with axis Y
         if (e.getKeyCode() == Input.keyMap[2] || e.getKeyCode() == Input.keyMap[6]) {
-            Input.axisY = -1;
+            Input.axisY = -limit;
         } else if (e.getKeyCode() == Input.keyMap[3] || e.getKeyCode() == Input.keyMap[7]) {
-            Input.axisY = 1;
+            Input.axisY = limit;
         }
 
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {

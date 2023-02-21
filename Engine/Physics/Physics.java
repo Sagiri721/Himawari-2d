@@ -8,7 +8,7 @@ import Engine.Utils.Geom.Vec2;
 public class Physics {
     
     public static final float G = 1f;
-    public static final boolean accelearion_capped = true;
+    public static final boolean accelearion_capped = true, ignoreSelf = true;
     public static final float acceleration_treshold = 60f;
     public static final float raycast_detail = 1f;
 

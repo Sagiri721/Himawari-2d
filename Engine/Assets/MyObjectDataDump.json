@@ -1,0 +1,128 @@
+[
+  {
+    "id": 0,
+    "name": "Ball",
+    "className": "Assets.Objects.Ball",
+    "components": [
+      "ImageRenderer",
+      "RectCollider",
+      "Animator",
+      "Transform",
+      "Body"
+    ],
+    "position": {
+      "x": -38.0,
+      "y": -59.0
+    },
+    "scale": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "angle": 0.0,
+    "tag": "",
+    "image": "D:\\TIAGO\\program\\himawari\\my-app\\src\\main\\java\\Assets\\Sprites\\mini idle.png",
+    "layer": 0,
+    "active": true,
+    "visible": true
+  },
+  {
+    "id": 1,
+    "name": "Camera",
+    "className": "Assets.Objects.GameCamera",
+    "components": [
+      "Camera",
+      "Transform"
+    ],
+    "position": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "scale": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "angle": 0.0,
+    "tag": "",
+    "layer": 0,
+    "active": true,
+    "visible": false
+  },
+  {
+    "id": 2,
+    "name": "Player",
+    "className": "Assets.Objects.Player",
+    "components": [
+      "ImageRenderer",
+      "Animator",
+      "RectCollider",
+      "Transform"
+    ],
+    "position": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "scale": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "angle": 0.0,
+    "tag": "",
+    "image": "D:\\TIAGO\\program\\himawari\\my-app\\src\\main\\java\\Assets\\Sprites\\player.png",
+    "layer": 6,
+    "active": true,
+    "visible": true
+  },
+  {
+    "id": 0,
+    "layer": 0,
+    "active": false,
+    "visible": false
+  },
+  {
+    "id": 4,
+    "name": "Wall",
+    "className": "Assets.Objects.Wall",
+    "components": [
+      "ImageRenderer",
+      "RectCollider",
+      "Transform"
+    ],
+    "position": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "scale": {
+      "x": 2.0,
+      "y": 2.0
+    },
+    "angle": 0.0,
+    "tag": "",
+    "image": "D:\\TIAGO\\program\\himawari\\my-app\\src\\main\\java\\Assets\\Sprites\\square.png",
+    "layer": 1,
+    "active": true,
+    "visible": true
+  },
+  {
+    "id": 5,
+    "name": "WallChild",
+    "className": "Assets.Objects.WallChild",
+    "components": [
+      "ImageRenderer",
+      "Transform"
+    ],
+    "position": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "scale": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "angle": 0.0,
+    "tag": "",
+    "image": "D:\\TIAGO\\program\\himawari\\my-app\\src\\main\\java\\Assets\\Sprites\\square.png",
+    "layer": 1,
+    "active": true,
+    "visible": true
+  }
+]

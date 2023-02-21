@@ -44,10 +44,10 @@ public class RectCollider extends Component{
 
             if(o == obj){
 
-                RectCollider r = (RectCollider) obj.getComponent("RectCollider");
+                RectCollider r = (RectCollider) obj.getComponent(RectCollider.class);
                 if(r != null){
 
-                    Transform t = (Transform) obj.getComponent("Transform");
+                    Transform t = o.transform;
                     
                     Rectangle rect = new Rectangle(t.position.x, t.position.y, r.bounds.x, r.bounds.y);
                     Rectangle myRect = new Rectangle(transform.position.x, transform.position.y, bounds.x, bounds.y);
@@ -56,7 +56,7 @@ public class RectCollider extends Component{
                         return true;
 
                 }else
-                    return false; 
+                    continue;
 
             }
         }
@@ -72,10 +72,10 @@ public class RectCollider extends Component{
 
             if(o==object) continue;
 
-            RectCollider r = (RectCollider) o.getComponent("RectCollider");
+            RectCollider r = (RectCollider) o.getComponent(RectCollider.class);
             if(r != null){
 
-                Transform t = (Transform) o.getComponent("Transform");
+                Transform t = o.transform;
                 
                 Rectangle rect = new Rectangle(t.position.x, t.position.y, r.bounds.x, r.bounds.y);
                 Rectangle myRect = new Rectangle(transform.position.x, transform.position.y, bounds.x, bounds.y);
@@ -85,7 +85,7 @@ public class RectCollider extends Component{
                 }
 
             }else
-                return false; 
+                continue;
         }
 
         return false;
@@ -97,12 +97,14 @@ public class RectCollider extends Component{
         for(int i = 0; i < objs.size(); i++){
             Object o = objs.get(i);
 
+            System.out.println(o);
+
             if(o == obj){
 
-                RectCollider r = (RectCollider) obj.getComponent("RectCollider");
+                RectCollider r = (RectCollider) obj.getComponent(RectCollider.class);
                 if(r != null){
 
-                    Transform t = (Transform) obj.getComponent("Transform");
+                    Transform t = o.transform;
                     
                     Rectangle rect = new Rectangle(t.position.x, t.position.y, r.bounds.x, r.bounds.y);
                     Rectangle myRect = new Rectangle(position.x, position.y, bounds.x, bounds.y);
@@ -111,7 +113,7 @@ public class RectCollider extends Component{
                         return true;
 
                 }else
-                    return false; 
+                    continue;
 
             }
         }
@@ -128,10 +130,10 @@ public class RectCollider extends Component{
             if(o==object)
                 continue;
 
-            RectCollider r = (RectCollider) o.getComponent("RectCollider");
+            RectCollider r = (RectCollider) o.getComponent(RectCollider.class);
             if(r != null){
 
-                Transform t = (Transform) o.getComponent("Transform");
+                Transform t = o.transform;
                 
                 Rectangle rect = new Rectangle(t.position.x, t.position.y, r.bounds.x, r.bounds.y);
                 Rectangle myRect = new Rectangle(position.x, position.y, bounds.x, bounds.y);
@@ -140,7 +142,7 @@ public class RectCollider extends Component{
                     return true;
 
             }else
-                return false; 
+                continue;
 
         }
 
