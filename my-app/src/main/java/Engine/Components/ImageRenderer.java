@@ -9,6 +9,7 @@ import Engine.Entity.*;
 import Engine.Entity.Object;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.awt.Image;
 
 public class ImageRenderer extends Component{
@@ -29,6 +30,7 @@ public class ImageRenderer extends Component{
 
     public boolean hasImage() { return sprite.sprite != null; }
     public BufferedImage getImage() {return currentSprite.sprite; }
+    public Sprite getSprite() {return currentSprite; }
 
     public void setImage(Sprite img) { currentSprite = img; }
 

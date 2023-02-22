@@ -2,6 +2,7 @@ package Engine.Utils;
 import Engine.Entity.Object;
 import Engine.Utils.Geom.*;
 import Assets.Objects.*;
+import Engine.Components.Camera;
 public class ObjectLoader {
 public static Object LoadObjectOfName(String name, Vec2 position, float angle, Vec2 scale){
 			Object obj = null;
@@ -13,15 +14,15 @@ case "Wall" : obj = new Wall(); break;
 case "WallChild" : obj = new WallChild(); break;
 
 }
-			if(obj.getComponent("Camera") != null){
+			if(obj.getComponent(Camera.class) != null){
 						System.out.println("[ERROR] Can't instantiate the Camera");
 return null;
 }
-obj.getBehaviour().Start();
 //Apply the objects properties
 obj.transform.setPosition(position);
 obj.transform.setAngle(angle);
 obj.transform.setScale(scale);
+obj.getBehaviour().Start();
 			return obj;
 }
 }

@@ -27,23 +27,21 @@ public class Main extends HimawariCore{
 
         //TileSet set = new TileSet(new Sprite("Grass.png"), 16, 16);
         Room r = new Room(null,  new RoomData("room1"));
-
-        LoadRoom(r, false);
-        CreateObject("Wall", new Vec2(0, 80), 0, new Vec2(10, 2));
-
-        Object player = CreateObject("Ball", new Vec2(40,0), 0, new Vec2(1, 1));
-        player.node.setConnected(false);
+        LoadRoom(r);
+        System.out.println(Object.objects.size());
+        
+        CreateObject("Ball", new Vec2(40,0), 0, new Vec2(1, 1));
+        CreateObject("GameCamera", Vec2.ZERO, 0, Vec2.ZERO);
 
         /*Object obj = CreateObject("Wall", new Vec2(50, -50), 0, new Vec2(1,1));
         //Object objOther = CreateObject("WallChild", new Vec2(50, -100), 0, new Vec2(1,1));
         player.node.addChild(obj);
         //obj.node.addChild(objOther);
-*/
+        */
         //player.getComponent(RectCollider.class);
 
         Debugging.drawColliders = true;
 
-        CreateObject("GameCamera", Vec2.ZERO, 0, Vec2.ZERO);
 
         //Object.sendMessageTo("Paredezinha", null);
 
@@ -52,6 +50,6 @@ public class Main extends HimawariCore{
 
         //Storage.put("Pontos", String.valueOf(1));
 
-        Storage.CreateCluster("newCluster", (byte) 4);
+        //Storage.CreateCluster("newCluster", (byte) 4);
     }
 }

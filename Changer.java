@@ -44,16 +44,20 @@ public class Changer {
 		}
 
 		try {
-			FileWriter fw = new FileWriter(loader);
+            FileWriter fw = new FileWriter(loader);
+            spackage = spackage.replace("\\", ".") + (spackage == "" ? "" : ("."));
 
-			fw.write("package " + spackage + "Engine.Utils;\nimport " + spackage + "Engine.Entity.Object;\nimport "
-					+ spackage + "Engine.Utils.Geom.*;\nimport " + spackage
-					+ "Assets.Objects.*;\npublic class ObjectLoader {\npublic static Object LoadObjectOfName(String name, Vec2 position, float angle, Vec2 scale){\n			Object obj = null;\n			switch (name){\n"
-					+ cases
-					+ "\n}\n			if(obj.getComponent(\"Camera\") != null){\n						System.out.println(\"[ERROR] Can't instantiate the Camera\");\nreturn null;\n}\nobj.getBehaviour().Start();\n//Apply the objects properties\nobj.transform.setPosition(position);\nobj.transform.setAngle(angle);\nobj.transform.setScale(scale);\n			return obj;\n}\n}");
-			fw.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+            fw.write("package " + spackage + "Engine.Utils;\nimport " + spackage + "Engine.Entity.Object;\nimport "
+                    + spackage + "Engine.Utils.Geom.*;\nimport " + spackage + "Assets.Objects.*;"
+                    + "\nimport " + spackage + "Engine.Components.Camera;"
+                    + "\npublic class ObjectLoader {\npublic static Object LoadObjectOfName(String name, Vec2 position, float angle, Vec2 scale){\n			Object obj = null;\n			switch (name){\n"
+                    + cases
+                    + "\n}\n			if(obj.getComponent(Camera.class) != null){\n						System.out.println(\"[ERROR] Can't instantiate the Camera\");\nreturn null;\n}\n//Apply the objects properties\nobj.transform.setPosition(position);\nobj.transform.setAngle(angle);\nobj.transform.setScale(scale);\nobj.getBehaviour().Start();\n			return obj;\n}\n}");
+            fw.close();
+
+            System.out.println("-Objects Compiled");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 	}
 }

@@ -16,12 +16,13 @@ public class Sprite {
     
     //The image
     public BufferedImage sprite;
+    public File imageFile = null;
 
     public Sprite(BufferedImage image) { sprite = image; width = image.getWidth(); height = image.getHeight();}
 
-    public Sprite(String path, int x, int y, int w, int h) {BufferedImage image = getBufferedImageFromFile(path); sprite = image.getSubimage(x, y, w, h); width = sprite.getWidth(); height = sprite.getHeight(); }
+    public Sprite(String path, int x, int y, int w, int h) {imageFile = new File(Window.RelativeResourcePath + "Sprites/" + path); BufferedImage image = getBufferedImageFromFile(path); sprite = image.getSubimage(x, y, w, h); width = sprite.getWidth(); height = sprite.getHeight(); }
 
-    public Sprite(String path) { sprite = getBufferedImageFromFile(path); width = sprite.getWidth(); height = sprite.getHeight(); }
+    public Sprite(String path) { imageFile = new File(Window.RelativeResourcePath + "Sprites/" + path); sprite = getBufferedImageFromFile(path); width = sprite.getWidth(); height = sprite.getHeight(); }
 
     public Sprite(int i) { 
         
@@ -70,6 +71,7 @@ public class Sprite {
         try{
 
             File src = new File(RelativeEngineResourcePath + path);
+            imageFile = src; 
             BufferedImage img = ImageIO.read(src);
 
             return img;

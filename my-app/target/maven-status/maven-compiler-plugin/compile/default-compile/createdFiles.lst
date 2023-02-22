@@ -25,6 +25,7 @@ Engine\Sound\Sound$1.class
 Engine\HimawariCore.class
 Engine\Input\Input.class
 Assets\Objects\GameCamera.class
+Engine\Utils\Exporter$EngineData.class
 Engine\Map\RoomData.class
 Engine\Gfx\Animation.class
 Engine\Gfx\ImageUtil.class
@@ -32,6 +33,7 @@ Engine\Entity\Object.class
 Assets\Objects\Wall.class
 Engine\Components\RectCollider.class
 Engine\Map\RoomHandler.class
+Engine\Utils\Exporter.class
 Engine\Sound\SupportedFileFormats.class
 Engine\Database\Storage$STATUS.class
 Engine\Map\Room.class
@@ -56,6 +58,7 @@ Engine\Input\KeyboardReader.class
 Engine\Input\Input$Keys.class
 Engine\HimawariCore$Windowmode.class
 Engine\Utils\Geom\Circle.class
+Engine\Utils\Exporter$ObjectAdaptation.class
 Engine\Entity\Node.class
 Engine\Gfx\Widget.class
 Engine\Input\MouseReader.class

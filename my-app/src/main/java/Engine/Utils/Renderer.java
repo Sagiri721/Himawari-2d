@@ -28,6 +28,7 @@ public class Renderer extends JPanel implements ActionListener {
 
     private Timer timer;
     public static int DELAY = 10;
+    public static boolean fixedDelta = false; 
 
     // Handle framing and delta time
     public static float deltaTime = 0;
@@ -67,14 +68,14 @@ public class Renderer extends JPanel implements ActionListener {
                 if (o.getLayer() == i) {
 
                     //Run physics updates
-                    Body b = (Body) o.getComponent("Body");
+                    Body b = (Body) o.getComponent(Body.class);
                     if (b!= null) b.PhysicsUpdate(deltaTime);
 
                     // Run user graphics code every frame
                     o.getBehaviour().DrawGUI(g2d);
                     g2d.setColor(Color.BLACK);
 
-                    ImageRenderer r = (ImageRenderer) o.getComponent("ImageRenderer");
+                    ImageRenderer r = (ImageRenderer) o.getComponent(ImageRenderer.class);
 
                     // Draw every sprite that needs to be drawn
                     if (r != null && r.hasImage() && r.visible) {
@@ -87,11 +88,11 @@ public class Renderer extends JPanel implements ActionListener {
                         if (Camera.getInstance() == null) {
 
                             // Normal rendering
-                            Transform t = (Transform) o.getComponent("Transform");
+                            Transform t = (Transform) o.getComponent(Transform.class);
 
                             if (t != null) {
 
-                                AlphaComposite alcom = AlphaComposite.getInstance(AlphaComposite.CLEAR, 0.5f);
+                                AlphaComposite alcom = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, r.getAlpha());
                                 g2d.setComposite(alcom);
 
                                 BufferedImage fnImg = ImageUtil.rotate(r.getImage(), (double) t.angle);
@@ -107,10 +108,9 @@ public class Renderer extends JPanel implements ActionListener {
                         } else {
                             // Combined with camera
                             // Normal rendering
-                            Transform t = (Transform) o.getComponent("Transform");
+                            Transform t = (Transform) o.getComponent(Transform.class);
 
                             if (t != null) {
-
                                 AlphaComposite alcom = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, r.getAlpha());
                                 g2d.setComposite(alcom);
 
@@ -133,8 +133,8 @@ public class Renderer extends JPanel implements ActionListener {
 
                     if(Debugging.drawColliders){
 
-                        Transform t = (Transform) o.getComponent("Transform");
-                        RectCollider c = (RectCollider) o.getComponent("RectCollider");
+                        Transform t = (Transform) o.getComponent(Transform.class);
+                        RectCollider c = (RectCollider) o.getComponent(RectCollider.class);
 
                         if(c != null && t != null){
                             

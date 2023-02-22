@@ -63,7 +63,6 @@ public class Room {
         if(tileset == null){
 
             //Search fot tileset in folder
-            System.out.println(roomData.path);
             File[] files = new File(Window.RelativeResourcePath + "Rooms/" + roomData.path).listFiles();
 
             for (File file : files) {

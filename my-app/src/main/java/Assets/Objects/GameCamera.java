@@ -29,9 +29,9 @@ public class GameCamera extends Object implements StdBehaviour{
         addComponent(transform);
         addComponent(camera);
 
-        targetTransform = (Transform) player.getComponent("Transform");
+        targetTransform = (Transform) player.getComponent(Transform.class);
 
-        ImageRenderer sprite = (ImageRenderer) player.getComponent("ImageRenderer");
+        ImageRenderer sprite = (ImageRenderer) player.getComponent(ImageRenderer.class);
 
         if(sprite != null)
             Camera.setOffset(Window.getViewportCenter().subtractWith(new Vec2(sprite.getImage().getWidth()/2, sprite.getImage().getHeight()/2)));

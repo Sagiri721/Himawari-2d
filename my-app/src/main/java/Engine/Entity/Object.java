@@ -1,5 +1,6 @@
 package Engine.Entity;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -40,8 +41,11 @@ public class Object{
      */
     protected List<Component> components = new ArrayList<Component>();
 
+    public int componentCount() {return components.size();}
+
     public void addComponent(Component component){ components.add(component); }
 
+    @Deprecated
     public Component getComponent(String name){
         
         for(Component c : components){
@@ -52,6 +56,11 @@ public class Object{
         }
 
         return null;
+    }
+
+    public Component[] getComponents(){
+
+        return components.toArray(new Component[components.size()]);
     }
 
     public Component getComponent(Class comp){
@@ -228,11 +237,38 @@ public class Object{
 
         return newObj;
     }
+
+    public static Object CreateObject(Class c, Vec2 position, float angle, Vec2 scale){
+
+        if(c.getSuperclass() == Object.class){
+
+            Object o;
+            try {
+
+                o = (Object) c.getDeclaredConstructor().newInstance();
+                o.transform.position.setValues(position);
+                o.transform.angle = angle;
+                o.transform.scale.setValues(scale);
+
+                return o;
+
+            } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+                    | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+                
+                System.out.println("[ERROR] The input class does not have an accessible constructor");
+                e.printStackTrace();
+                return null;
+            }
+        }   
+
+        System.out.println("[ERROR] The input class does not match an object type");
+        return null;
+    }
+    
     
     public static Object Instantiate(String name){
 
         Object newObj = ObjectLoader.LoadObjectOfName(name, new Vec2(0, 0), 0, new Vec2(0,0));
-
         return newObj;
     }
 

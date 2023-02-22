@@ -3,6 +3,7 @@ package Engine.Utils.Geom;
 public class Vec2 {
 
     public static final Vec2 ZERO = new Vec2();
+    public static final Vec2 ONE = new Vec2(1, 1);
     public static final Vec2 LEFT = new Vec2(-1,0);
     public static final Vec2 RIGHT = new Vec2(1,0);
     public static final Vec2 UP = new Vec2(0,-1);
@@ -87,6 +88,14 @@ public class Vec2 {
     }
     public Vec2 inverse(){
         return new Vec2(-x, -y);
+    }
+
+    public Vec2 invertX(){
+        return new Vec2(-x, y);
+    }
+
+    public Vec2 invertY(){
+        return new Vec2(x, -y);
     }
 
     public Vec2 normalize() {
