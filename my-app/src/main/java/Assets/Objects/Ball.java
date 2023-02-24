@@ -60,14 +60,12 @@ public class Ball extends Object implements StdBehaviour {
 
         addComponent(renderer);
 
-        transform.setPosition(new Vec2(Window.width/2 - renderer.getImage().getWidth(), Window.height/2 - renderer.getImage().getHeight()));
-
         collider = new RectCollider(transform, new Vec2(64, 58));
         addComponent(collider);
         addComponent(animator);
 
         b = new Body(transform, collider, 1);
-        addComponent(b);
+        //addComponent(b);
 
         updateable = true;
     }

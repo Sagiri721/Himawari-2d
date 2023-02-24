@@ -24,7 +24,7 @@ public class Window extends JFrame implements ComponentListener{
     private static Color background = null;
 
     public static boolean focus = true;
-    private static Window window;
+    protected static Window window;
 
     //Local class data
     Renderer gameRenderer = new Renderer();

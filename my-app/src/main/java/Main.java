@@ -1,3 +1,5 @@
+import javax.swing.JButton;
+
 import Assets.Objects.Alarm1;
 import Assets.Objects.GameCamera;
 import Engine.HimawariCore;
@@ -28,9 +30,8 @@ public class Main extends HimawariCore{
         //TileSet set = new TileSet(new Sprite("Grass.png"), 16, 16);
         Room r = new Room(null,  new RoomData("room1"));
         LoadRoom(r);
-        System.out.println(Object.objects.size());
         
-        CreateObject("Ball", new Vec2(40,0), 0, new Vec2(1, 1));
+        CreateObject("Ball", new Vec2(0, 0), 0, new Vec2(1, 1));
         CreateObject("GameCamera", Vec2.ZERO, 0, Vec2.ZERO);
 
         /*Object obj = CreateObject("Wall", new Vec2(50, -50), 0, new Vec2(1,1));
@@ -51,5 +52,7 @@ public class Main extends HimawariCore{
         //Storage.put("Pontos", String.valueOf(1));
 
         //Storage.CreateCluster("newCluster", (byte) 4);
+
+        //Renderer.AddComponent(new JButton("Click me"), new Vec2(5, 5), new Vec2(300, 30));
     }
 }

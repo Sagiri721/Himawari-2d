@@ -7,8 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.AlphaComposite;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.util.Iterator;
 
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -23,6 +23,7 @@ import Engine.Gfx.Debugging;
 import Engine.Gfx.ImageUtil;
 import Engine.Input.Input;
 import Engine.Map.RoomHandler;
+import Engine.Utils.Geom.Vec2;
 
 public class Renderer extends JPanel implements ActionListener {
 
@@ -85,47 +86,26 @@ public class Renderer extends JPanel implements ActionListener {
                          * Otherwise we just draw the sprites in their world positions
                          */
 
-                        if (Camera.getInstance() == null) {
+                        Transform t = o.transform;
+                        boolean camera = Camera.getInstance() != null;
+                        int x = camera ? (int) (t.position.x - Camera.position.position.x + Camera.getOffset().x) : (int) t.position.x;
+                        int y = camera ? (int) (t.position.y - Camera.position.position.y + Camera.getOffset().y) : (int) t.position.y;
 
-                            // Normal rendering
-                            Transform t = (Transform) o.getComponent(Transform.class);
+                        if (t != null) {
 
-                            if (t != null) {
+                            AlphaComposite alcom = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, r.getAlpha());
+                            g2d.setComposite(alcom);
 
-                                AlphaComposite alcom = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, r.getAlpha());
-                                g2d.setComposite(alcom);
+                            BufferedImage fnImg = ImageUtil.rotate(r.getImage(), (double) t.angle);
+                            if(r.isFlippedX) fnImg = ImageUtil.flipImageHorizontal(fnImg);
+                            if(r.isFlippedY) fnImg = ImageUtil.flipImageVertical(fnImg);
 
-                                BufferedImage fnImg = ImageUtil.rotate(r.getImage(), (double) t.angle);
-                                if(r.isFlippedX) fnImg = ImageUtil.flipImageHorizontal(fnImg);
-                                if(r.isFlippedY) fnImg = ImageUtil.flipImageVertical(fnImg);
-
-                                g2d.drawImage(fnImg, (int) t.position.x, (int) t.position.y,
-                                        (int)((r.getImage().getWidth() * (int) t.scale.x)),
-                                        (int)((r.getImage().getHeight() * (int) t.scale.y)),
-                                        null);
-                            }
-
-                        } else {
-                            // Combined with camera
-                            // Normal rendering
-                            Transform t = (Transform) o.getComponent(Transform.class);
-
-                            if (t != null) {
-                                AlphaComposite alcom = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, r.getAlpha());
-                                g2d.setComposite(alcom);
-
-                                BufferedImage fnImg = ImageUtil.rotate(r.getImage(), (double) t.angle);
-                                if(r.isFlippedX) fnImg = ImageUtil.flipImageHorizontal(fnImg);
-                                if(r.isFlippedY) fnImg = ImageUtil.flipImageVertical(fnImg);
-
-                                g2d.drawImage(fnImg,
-                                        (int) (t.position.x - Camera.position.position.x + Camera.getOffset().x),
-                                        (int) (t.position.y - Camera.position.position.y + Camera.getOffset().y),
-                                        (r.getImage().getWidth() * (int) t.scale.x),
-                                        (r.getImage().getHeight() * (int) t.scale.y),
-                                        null);
-                            }
+                            g2d.drawImage(fnImg, x,  y,
+                                    (int)((r.getImage().getWidth() * (int) t.scale.x)),
+                                    (int)((r.getImage().getHeight() * (int) t.scale.y)),
+                                    null);
                         }
+                        
                     }
 
                     AlphaComposite alcom = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
@@ -193,7 +173,7 @@ public class Renderer extends JPanel implements ActionListener {
             Object object = copyArray[j];
             
             // Run the necessary component updates
-            Animator a = (Animator) object.getComponent("Animator");
+            Animator a = (Animator) object.getComponent(Animator.class);
             if (a != null) {
                 a.PlayAnimation();
             }
@@ -206,12 +186,13 @@ public class Renderer extends JPanel implements ActionListener {
         Input.updateMousePosition();
     }
 
-    public static int getFPS() {
-        return Renderer.fps;
-    }
+    public static int getFPS() { return Renderer.fps;  }
+    public static float getDeltaTime() { return Renderer.deltaTime;  }
 
-    public static float getDeltaTime() {
-        return Renderer.deltaTime;
+    public static void AddComponent(JComponent component, Vec2 position, Vec2 dimensions){
+
+        component.setBounds((int) position.x, (int) position.y, (int) dimensions.x, (int) dimensions.y);
+        Window.window.add(component);
     }
 
     @Override
