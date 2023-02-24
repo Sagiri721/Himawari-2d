@@ -14,6 +14,9 @@ import Engine.Gfx.Sprite;
 import Engine.Gfx.Widget;
 import Engine.Input.Input;
 import Engine.Input.Input.Keys;
+import Engine.Map.Room;
+import Engine.Map.RoomData;
+import Engine.Map.RoomHandler;
 import Engine.Physics.Physics;
 import Engine.Physics.RayHit;
 import Engine.Utils.Renderer;
@@ -65,9 +68,11 @@ public class Ball extends Object implements StdBehaviour {
         addComponent(animator);
 
         b = new Body(transform, collider, 1);
-        //addComponent(b);
+        addComponent(b);
 
         updateable = true;
+
+        setStatic(true);
     }
 
     // Called every frame
@@ -106,7 +111,9 @@ public class Ball extends Object implements StdBehaviour {
             
             if(Input.mousePressed(0)){
 
-                renderer.setAlpha(renderer.getAlpha() - 0.01f);
+                //renderer.setAlpha(renderer.getAlpha() - 0.01f);
+                Room r = new Room(null, new RoomData("room2"));
+                RoomHandler.gotoRoom(r);
             }
         }
     }

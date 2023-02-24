@@ -39,12 +39,8 @@ public class Wall extends Object implements StdBehaviour {
         addComponent(rend);
         addComponent(collider);
 
-        transform.setPosition(0, 0);
-
         TileSet letters = new TileSet(new Sprite("font.png"), 16, 16);
         f = new Fonts(0, 0, true, new FontMap("map01.json", letters));
-
-        transform.setScale(2, 2);
 
         updateable = true;
     }

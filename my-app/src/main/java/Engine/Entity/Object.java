@@ -2,10 +2,9 @@ package Engine.Entity;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-
-import com.google.common.graph.ElementOrder.Type;
 
 import Engine.Components.*;
 
@@ -29,12 +28,15 @@ public class Object{
     //Unique identifier of the object
     protected int id = -1;
     protected String name = "";
+    private boolean staticObject = false;
 
     private int layer = 0;
     public void setLayer(int layer) { if(layer < 0 || layer > 100) return; if(layer > maxLayer) maxLayer = layer; this.layer = layer; }
     public int getLayer() { return this.layer; }
 
     public String getName() {return name;}
+    public boolean isStatic() {return staticObject;}
+    public void setStatic(boolean isStatic) {this.staticObject = isStatic; }
 
     /*
      * List of functional components
@@ -308,6 +310,22 @@ public class Object{
 
                 obj.getBehaviour().ReceiveMessage(this.name);
             }*/
+        }
+    }
+
+    public static void clearNonStatic(){
+
+        Object[] copy = objects.toArray(new Object[objects.size()]);
+        objects.clear();
+        try {
+         
+            List<Object> toSave = Arrays.stream(copy).filter(obj -> obj.isStatic()).toList();
+            objects.addAll(toSave);
+
+        } catch (Exception e) {
+            
+            //Repair array
+            objects.addAll(Arrays.asList(copy));
         }
     }
 }

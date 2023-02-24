@@ -75,6 +75,7 @@ public class Exporter {
             models[i].position = obj.transform.position;
             models[i].tag = obj.getTag();
             models[i].scale = obj.transform.scale;
+            models[i].isStatic = obj.isStatic();
             models[i].className = obj.getClass().getName();
 
             // Components
@@ -152,7 +153,7 @@ public class Exporter {
         public String image;
         public byte layer;
         public String parent;
-        public boolean active, visible;
+        public boolean active, visible, isStatic;
     }
 
     static class EngineData {

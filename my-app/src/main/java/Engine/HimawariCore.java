@@ -39,7 +39,7 @@ public class HimawariCore {
             RoomHandler.currentRoom = room;
         }else{
 
-            //Move to room
+            RoomHandler.gotoRoom(room);
         }
 
         room.loadObjects();

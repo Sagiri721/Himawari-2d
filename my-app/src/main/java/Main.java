@@ -52,7 +52,5 @@ public class Main extends HimawariCore{
         //Storage.put("Pontos", String.valueOf(1));
 
         //Storage.CreateCluster("newCluster", (byte) 4);
-
-        //Renderer.AddComponent(new JButton("Click me"), new Vec2(5, 5), new Vec2(300, 30));
     }
 }

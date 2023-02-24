@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -31,6 +32,8 @@ public class Renderer extends JPanel implements ActionListener {
     public static int DELAY = 10;
     public static boolean fixedDelta = false; 
 
+    private static JLayeredPane layers = null;
+
     // Handle framing and delta time
     public static float deltaTime = 0;
     private static int fps = 0;
@@ -39,6 +42,7 @@ public class Renderer extends JPanel implements ActionListener {
 
     public Renderer() {
 
+        Renderer.layers = Window.window.getLayeredPane();
         timer = new Timer(DELAY, this);
         timer.start();
     }
@@ -171,6 +175,8 @@ public class Renderer extends JPanel implements ActionListener {
 
         for (int j = 0; j < copyArray.length; j++) {
             Object object = copyArray[j];
+
+            if(object == null) continue;
             
             // Run the necessary component updates
             Animator a = (Animator) object.getComponent(Animator.class);
@@ -192,7 +198,7 @@ public class Renderer extends JPanel implements ActionListener {
     public static void AddComponent(JComponent component, Vec2 position, Vec2 dimensions){
 
         component.setBounds((int) position.x, (int) position.y, (int) dimensions.x, (int) dimensions.y);
-        Window.window.add(component);
+        layers.add(component, 10);
     }
 
     @Override

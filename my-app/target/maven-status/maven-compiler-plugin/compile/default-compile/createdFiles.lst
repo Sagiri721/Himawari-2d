@@ -25,6 +25,7 @@ Engine\Sound\Sound$1.class
 Engine\HimawariCore.class
 Engine\Input\Input.class
 Assets\Objects\GameCamera.class
+Engine\Map\RoomHandler$1.class
 Engine\Utils\Exporter$EngineData.class
 Engine\Map\RoomData.class
 Engine\Gfx\Animation.class
@@ -56,6 +57,7 @@ Engine\Components\ImageRenderer$scaleAlgorithm.class
 Engine\Gfx\Debugging$type.class
 Engine\Input\KeyboardReader.class
 Engine\Input\Input$Keys.class
+Engine\Map\RoomHandler$1$1.class
 Engine\HimawariCore$Windowmode.class
 Engine\Utils\Geom\Circle.class
 Engine\Utils\Exporter$ObjectAdaptation.class

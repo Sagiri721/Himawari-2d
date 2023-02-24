@@ -23,7 +23,7 @@ public class GameCamera extends Object implements StdBehaviour{
         transformCamera = new Transform(this);
 
         Object player = Object.FindObject("Ball");
-
+        setStatic(true);
         Camera camera = new Camera(transformCamera, player);
 
         addComponent(transform);

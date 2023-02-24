@@ -2,7 +2,12 @@ package Engine.Map;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Scanner;
+
+import com.google.common.io.Files;
 
 import Engine.Components.Transform;
 import Engine.Utils.ObjectLoader;
@@ -21,13 +26,20 @@ public class RoomData {
     public boolean hasObjectLayer() { return objectLayer != null; }
 
     //Tile map
-    private int[][] tiles = new int[9999][9999];
+    private int[][] tiles;
 
     private int effectiveWidth, effectiveHeight;
 
     public int getTile(int x, int y){
 
-        return tiles[x][y];
+        try {
+            
+            return tiles[x][y];
+        } catch (Exception e) {
+            
+            System.out.println("[INTERNAL ERROR] Tile out of bounds no such tile of position (" + x + ", " + y + ")");
+            return 0;
+        }
     }
 
     public int getWidth() { return effectiveWidth; }
@@ -40,28 +52,26 @@ public class RoomData {
         tileLayer = new File(Window.RelativeResourcePath + "Rooms/" + path + "/room-tiles.txt");
         objectLayer = new File(Window.RelativeResourcePath + "Rooms/" + path + "/room-objects.txt");
 
-        //reader of files
-        Scanner reader;
+        // Calculate the tile matrix size
         try {
-            reader = new Scanner(tileLayer);
-
-            //Read and output the layer file to the matrix
-            int line = 0;
-            while(reader.hasNextLine()){
-
-                String[] data = reader.nextLine().split(" ");
-
-                for(int i = 0; i < data.length; i++) { tiles[i][line] = Integer.parseInt(data[i]); }
-                line++;
             
-                effectiveWidth = data.length;
+            List<String> tileLines = Files.readLines(tileLayer, StandardCharsets.UTF_8);
+            effectiveWidth = tileLines.get(0).split(" ").length;
+            effectiveHeight = tileLines.size();
+
+            tiles = new int[effectiveWidth+2][effectiveHeight+2];
+
+            int index = 0;
+            for (String line : tileLines) {
+                
+                String[] data = line.split(" ");
+                for(int i = 0; i < data.length; i++) { tiles[i][index] = Integer.parseInt(data[i]); }
+                index++;
             }
-            effectiveHeight = line;
 
-            reader.close();
-
-        } catch (FileNotFoundException e ) {
-            e.printStackTrace();
+        } catch (IOException e ) {
+            
+            System.out.println("[ERROR] Room file is unreadable");
         }
     }
 

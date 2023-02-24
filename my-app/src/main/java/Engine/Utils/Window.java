@@ -27,7 +27,7 @@ public class Window extends JFrame implements ComponentListener{
     protected static Window window;
 
     //Local class data
-    Renderer gameRenderer = new Renderer();
+    Renderer gameRenderer;
     KeyboardReader reader = new KeyboardReader();
     MouseReader mouseReader = new MouseReader();
 
@@ -46,6 +46,7 @@ public class Window extends JFrame implements ComponentListener{
         Window.height = height;
 
         Window.name = name;
+        Window.window = this;
 
         setTitle(name);
         setSize(width, height);
@@ -58,7 +59,9 @@ public class Window extends JFrame implements ComponentListener{
         addKeyListener(reader);
         addMouseListener(mouseReader);
         requestFocus();
+
         //Add a renderer
+        gameRenderer = new Renderer();
         add(gameRenderer);
 
         //Define a background color
@@ -66,7 +69,6 @@ public class Window extends JFrame implements ComponentListener{
 
         setVisible(true);
 
-        Window.window = this;
 
         addComponentListener(this);
     }

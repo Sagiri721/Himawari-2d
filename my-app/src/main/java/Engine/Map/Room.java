@@ -85,6 +85,29 @@ public class Room {
         RoomHandler.addRoom(this);
     }
 
+    public Room(RoomData roomData) {
+
+        //Search fot tileset in folder
+        File[] files = new File(Window.RelativeResourcePath + "Rooms/" + roomData.path).listFiles();
+
+        for (File file : files) {
+            
+            if(file.getName().startsWith("tiles-")){
+                
+                String rest = file.getName().split("tiles-")[1];
+                int size = Integer.valueOf(rest.substring(0, rest.lastIndexOf(".")));
+                try {
+                    tileset = new TileSet(new Sprite(ImageIO.read(file)), size, size);
+                } catch (IOException e) {  e.printStackTrace(); }
+            }
+        }
+
+        this.name = roomData.path;
+        this.roomData = roomData;
+
+        RoomHandler.addRoom(this);
+    }
+
     public void loadObjects() {
 
         if (roomData.hasObjectLayer()) {

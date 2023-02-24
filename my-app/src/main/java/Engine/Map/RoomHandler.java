@@ -2,15 +2,22 @@ package Engine.Map;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import Engine.Components.Camera;
 import Engine.Components.ImageRenderer.scaleAlgorithm;
+import Engine.Entity.Object;
 import Engine.Gfx.ImageUtil;
 import Engine.Gfx.Sprite;
 import Engine.Utils.Window;
 import Engine.Utils.Geom.Vec2;
 
 import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
 import java.awt.Graphics2D;
 
 public class RoomHandler {
@@ -152,6 +159,46 @@ public class RoomHandler {
                 }
             }
         }
+    }
+
+    private static boolean saveBlock = false;
+    private static int blockTime = 300; //300 milis
+    private static long start = 0;
+
+    public static boolean gotoRoom(Room newRoom){
+
+        if(saveBlock){
+
+            System.out.println("[WARNING] Room loading is self-repairing, wait " + (System.currentTimeMillis() - start) + " more milliseconds");
+            return false;
+        }
+        RoomHandler.currentRoom = newRoom;
+        System.out.println("[ROOM LOADED] A new room was loaded by the name of " + newRoom.name);
+        Object.clearNonStatic();
+        
+        new Thread(new Runnable(){
+
+            @Override
+            public void run() {
+                
+                System.out.println("[ROOM LOADED] Unpacking room objects");
+                newRoom.loadObjects();
+                saveBlock = true;
+
+                // Unlock the process
+                Timer timer = new Timer();
+                start = System.currentTimeMillis();
+                timer.schedule(new TimerTask() {
+
+                    @Override
+                    public void run() { saveBlock = false; }
+                    
+                }, blockTime);
+            }
+
+        }).run();
+
+        return true;
     }
 }
 
