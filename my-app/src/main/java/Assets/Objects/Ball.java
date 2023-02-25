@@ -107,14 +107,6 @@ public class Ball extends Object implements StdBehaviour {
             }
 
             transform.translate(movement.times(300).times(deltaTime), collider);
-
-            
-            if(Input.mousePressed(0)){
-
-                //renderer.setAlpha(renderer.getAlpha() - 0.01f);
-                Room r = new Room(null, new RoomData("room2"));
-                RoomHandler.gotoRoom(r);
-            }
         }
     }
 

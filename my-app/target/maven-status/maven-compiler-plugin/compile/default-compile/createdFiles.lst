@@ -35,6 +35,8 @@ Assets\Objects\Wall.class
 Engine\Components\RectCollider.class
 Engine\Map\RoomHandler.class
 Engine\Utils\Exporter.class
+Engine\Utils\Path.class
+Assets\Objects\Fumo.class
 Engine\Sound\SupportedFileFormats.class
 Engine\Database\Storage$STATUS.class
 Engine\Map\Room.class

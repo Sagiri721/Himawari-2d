@@ -4,7 +4,9 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
+import Engine.Components.ImageRenderer.scaleAlgorithm;
 import Engine.Utils.Window;
+import Engine.Utils.Geom.Vec2;
 
 import java.io.File;
 
@@ -115,5 +117,10 @@ public class Sprite {
             frames = getFramesOfVertical(spriteSheet.sprite, width,height, startX, startY);
         
         return new Animation(frames, startX, startY, width, height);
+    }
+
+    public Sprite getScaledSprite(Vec2 dimensions){
+
+        return new Sprite(ImageUtil.resizeImage((int) dimensions.x, (int) dimensions.y, scaleAlgorithm.SMOOTH, sprite));
     }
 }

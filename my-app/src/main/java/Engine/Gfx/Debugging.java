@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 import Engine.Components.Camera;
 import Engine.Physics.RayHit;
+import Engine.Utils.Path;
 import Engine.Utils.Geom.Circle;
 import Engine.Utils.Geom.Rectangle;
 import Engine.Utils.Geom.Vec2;
@@ -110,9 +111,26 @@ public class Debugging {
         }
     }
 
+    public static void debugPath(Path path, Graphics2D g){
+
+        
+        if(showDebug){
+
+            g.setColor(debugColor);
+            if(path == null) return;
+
+            Vec2 point = Camera.calculateWindowTowindowPoint(path.getKnot(0).inverse()).sumWith(Camera.getOffset());
+            Vec2[] points = path.getKnots();
+            for (int i = points.length-1; i > 0; i--) {
+                
+                g.drawLine((int) (point.x + points[i].x), (int) (point.y +points[i].y), (int) (point.x + points[i-1].x), (int) (point.y + points[i-1].y));
+            }
+        }
+    }
+
     public static void printOut(String text){
 
-        System.out.println("[USER_MESSAGE] " + text);
+        System.out.println("[USER MESSAGE] " + text);
     }
 
     public static void sendMessage(String title, String content, int messageType){

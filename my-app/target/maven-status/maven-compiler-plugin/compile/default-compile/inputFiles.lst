@@ -13,6 +13,7 @@ D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Utils\Geom\Rectangle.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Utils\Alarm.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Utils\Exporter.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Components\ImageRenderer.java
+D:\TIAGO\program\himawari\my-app\src\main\java\Assets\Objects\Fumo.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Map\TileSet.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Assets\Objects\GameCamera.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Assets\Objects\Wall.java
@@ -37,6 +38,7 @@ D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Sound\SupportedFileFormats
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Utils\Geom\Vec2.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Entity\Object.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Map\Room.java
+D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Utils\Path.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Input\KeyboardReader.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Gfx\Sprite.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Components\Transform.java
