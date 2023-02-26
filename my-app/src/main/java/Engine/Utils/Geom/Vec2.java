@@ -24,6 +24,7 @@ public class Vec2 {
     }
 
     public void setValues(Vec2 newPosition) { x = newPosition.x; y = newPosition.y; }
+    public void setValues(float x, float y) { this.x = x; this.y = y; }
 
     //Arithmetic
     public Vec2 subtractWith(Vec2 other){ return new Vec2(x - other.x, y - other.y); }

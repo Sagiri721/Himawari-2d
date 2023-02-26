@@ -28,8 +28,10 @@ D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Input\MouseReader.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Sound\Sound.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Gfx\Debugging.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Map\RoomHandler.java
+D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Gfx\Shaders\Gradient.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Components\Camera.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Gfx\Fonts.java
+D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Gfx\ShaderInterface.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Gfx\ImageUtil.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Gfx\Widget.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Database\Storage.java
@@ -39,6 +41,8 @@ D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Utils\Geom\Vec2.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Entity\Object.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Map\Room.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Utils\Path.java
+D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Gfx\ShaderPane.java
+D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Gfx\Shaders\LightShader.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Input\KeyboardReader.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Gfx\Sprite.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Components\Transform.java
@@ -51,3 +55,4 @@ D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Utils\AlarmPack.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Assets\Objects\Ball.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Entity\Node.java
 D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Utils\Window.java
+D:\TIAGO\program\himawari\my-app\src\main\java\Engine\Gfx\Shaders\EngineShaders.java

@@ -7,7 +7,10 @@ import Engine.Components.RectCollider;
 import Engine.Database.Storage;
 import Engine.Entity.Object;
 import Engine.Gfx.Debugging;
+import Engine.Gfx.ShaderPane;
 import Engine.Gfx.Sprite;
+import Engine.Gfx.Shaders.Gradient;
+import Engine.Gfx.Shaders.LightShader;
 import Engine.Map.Room;
 import Engine.Map.RoomData;
 import Engine.Map.TileSet;
@@ -53,5 +56,7 @@ public class Main extends HimawariCore{
         //Storage.put("Pontos", String.valueOf(1));
 
         //Storage.CreateCluster("newCluster", (byte) 4);
+
+        ShaderPane.LoadShader(new Gradient());
     }
 }

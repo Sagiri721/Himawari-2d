@@ -1,6 +1,7 @@
 Engine\Utils\Renderer$1.class
 Engine\Utils\Alarm$1.class
 Engine\Components\Transform.class
+Engine\Gfx\ShaderPane.class
 Engine\Utils\Geom\Rectangle.class
 Engine\Components\Animator.class
 Assets\Objects\Alarm1.class
@@ -18,6 +19,7 @@ Engine\Gfx\Debugging.class
 Engine\Input\Input$MouseButtons.class
 Engine\Utils\AlarmFunctionality.class
 Engine\Utils\Window.class
+Engine\Gfx\Shaders\Gradient.class
 Assets\Objects\Ball.class
 Engine\Sound\Sound.class
 Engine\Gfx\Fonts.class
@@ -27,6 +29,7 @@ Engine\Input\Input.class
 Assets\Objects\GameCamera.class
 Engine\Map\RoomHandler$1.class
 Engine\Utils\Exporter$EngineData.class
+Engine\Gfx\Shaders\EngineShaders.class
 Engine\Map\RoomData.class
 Engine\Gfx\Animation.class
 Engine\Gfx\ImageUtil.class
@@ -34,6 +37,7 @@ Engine\Entity\Object.class
 Assets\Objects\Wall.class
 Engine\Components\RectCollider.class
 Engine\Map\RoomHandler.class
+Engine\Gfx\ShaderInterface.class
 Engine\Utils\Exporter.class
 Engine\Utils\Path.class
 Assets\Objects\Fumo.class
@@ -48,6 +52,7 @@ Engine\Utils\Geom\Vec2.class
 Engine\Database\Storage.class
 Engine\Utils\StdBehaviour.class
 Engine\Components\ImageRenderer.class
+Engine\Gfx\Shaders\LightShader.class
 Engine\Gfx\Sprite.class
 Engine\Physics\RayHit.class
 Engine\Utils\Geom\Shape.class

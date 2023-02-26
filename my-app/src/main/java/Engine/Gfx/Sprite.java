@@ -121,6 +121,8 @@ public class Sprite {
 
     public Sprite getScaledSprite(Vec2 dimensions){
 
+        width = (int) dimensions.x;
+        height = (int) dimensions.y;
         return new Sprite(ImageUtil.resizeImage((int) dimensions.x, (int) dimensions.y, scaleAlgorithm.SMOOTH, sprite));
     }
 }
