@@ -37,6 +37,7 @@ Engine\Entity\Object.class
 Assets\Objects\Wall.class
 Engine\Components\RectCollider.class
 Engine\Map\RoomHandler.class
+Engine\Gfx\Shaders\Vignette.class
 Engine\Gfx\ShaderInterface.class
 Engine\Utils\Exporter.class
 Engine\Utils\Path.class

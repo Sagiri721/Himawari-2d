@@ -1,25 +1,11 @@
-import javax.swing.JButton;
-
-import Assets.Objects.Alarm1;
-import Assets.Objects.GameCamera;
 import Engine.HimawariCore;
-import Engine.Components.RectCollider;
-import Engine.Database.Storage;
-import Engine.Entity.Object;
 import Engine.Gfx.Debugging;
 import Engine.Gfx.ShaderPane;
-import Engine.Gfx.Sprite;
-import Engine.Gfx.Shaders.Gradient;
+import Engine.Gfx.Shaders.EngineShaders;
 import Engine.Gfx.Shaders.LightShader;
 import Engine.Map.Room;
 import Engine.Map.RoomData;
-import Engine.Map.TileSet;
-import Engine.Sound.Sound;
-import Engine.Utils.Alarm;
-import Engine.Utils.AlarmPack;
-import Engine.Utils.Renderer;
 import Engine.Utils.Geom.Vec2;
-import javafx.util.Pair;
 
 public class Main extends HimawariCore{
 
@@ -38,7 +24,8 @@ public class Main extends HimawariCore{
         CreateObject("GameCamera", Vec2.ZERO, 0, Vec2.ZERO);
         CreateObject("Fumo", new Vec2(30, 30), 0, new Vec2(1,1));
 
-        /*Object obj = CreateObject("Wall", new Vec2(50, -50), 0, new Vec2(1,1));
+        /*
+        Object obj = CreateObject("Wall", new Vec2(50, -50), 0, new Vec2(1,1));
         //Object objOther = CreateObject("WallChild", new Vec2(50, -100), 0, new Vec2(1,1));
         player.node.addChild(obj);
         //obj.node.addChild(objOther);
@@ -46,7 +33,6 @@ public class Main extends HimawariCore{
         //player.getComponent(RectCollider.class);
 
         Debugging.drawColliders = true;
-
 
         //Object.sendMessageTo("Paredezinha", null);
 
@@ -57,6 +43,6 @@ public class Main extends HimawariCore{
 
         //Storage.CreateCluster("newCluster", (byte) 4);
 
-        ShaderPane.LoadShader(new Gradient());
+        ShaderPane.LoadShader(EngineShaders.VIGNETTE.build());
     }
 }
