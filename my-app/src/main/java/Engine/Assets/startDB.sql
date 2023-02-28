@@ -4,7 +4,6 @@ CREATE TABLE IF NOT EXISTS localStorage(
 )
 
 CREATE TABLE IF NOT EXISTS logs(
-    key INT PRIMARY KEY NOT NULL,
     description VARCHAR(200) NOT NULL,
     log_date VARCHAR(100)
 )

@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import Engine.Gfx.Sprite;
 import javafx.util.Pair;
 
+import java.io.ObjectInputFilter.Status;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -169,6 +170,7 @@ public class Storage {
         
         } catch (SQLException e) {
             System.out.println("[ERROR] Error outputing to logs");
+            e.printStackTrace();
         }
 
         close();
@@ -196,6 +198,14 @@ public class Storage {
 
         close();
         return cl;
+    }
+
+    public static void RunSQL(String sql) throws SQLException {
+
+        connect();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.executeUpdate();
+        close();
     }
 
 }

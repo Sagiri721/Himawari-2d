@@ -1,4 +1,5 @@
 import Engine.HimawariCore;
+import Engine.Database.Storage;
 import Engine.Gfx.Debugging;
 import Engine.Gfx.ShaderPane;
 import Engine.Gfx.Shaders.EngineShaders;
@@ -43,6 +44,5 @@ public class Main extends HimawariCore{
 
         //Storage.CreateCluster("newCluster", (byte) 4);
 
-        ShaderPane.LoadShader(EngineShaders.VIGNETTE.build());
     }
 }
