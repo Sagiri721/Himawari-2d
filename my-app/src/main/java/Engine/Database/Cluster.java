@@ -27,13 +27,13 @@ public class Cluster {
         return true;
     }
 
-    public STATUS put(String key, String value) {
+    public STATUS put(String key, String[] value) {
 
         STATUS status = STATUS.UNIDENTIFIABLE;
         String sql = "INSERT INTO "+this.name+" VALUES(?, ?)";
 
         //Before inserting check if already exists
-        Pair<STATUS, String> p = get(key);
+        Pair<STATUS, String[]> p = get(key);
         if(p.getKey() == STATUS.VALUE){
             
             //Update
@@ -44,12 +44,15 @@ public class Cluster {
         try (PreparedStatement pstmt = Storage.conn.prepareStatement(sql)){
             
             boolean order = sql.startsWith("INSERT");
-            pstmt.setString(1, order ? key : value);
-            pstmt.setString(2, !(order) ? key : value);
+            for (String string : value) {
+                
+                pstmt.setString(1, order ? key : string);
+                pstmt.setString(2, !(order) ? key : string);
+            }
 
             pstmt.executeUpdate();
 
-            Storage.logData("Added key: " + key + " | " + value + " to table: "+this.name);
+            Storage.logData("Added key: " + key + " | " + value.length + " values to table: "+this.name);
         
         } catch (SQLException e) {
             e.printStackTrace();
@@ -63,9 +66,9 @@ public class Cluster {
         return status;
     }
 
-    public Pair<Storage.STATUS, String> get(String key) {
+    public Pair<Storage.STATUS, String[]> get(String key) {
 
-        Pair<STATUS, String> status = new Pair<Storage.STATUS, String>(STATUS.UNIDENTIFIABLE, null);
+        Pair<STATUS, String[]> status = new Pair<Storage.STATUS, String[]>(STATUS.UNIDENTIFIABLE, null);
         String sql = "SELECT value FROM "+this.name+" WHERE key = '" + key + "'";
         Storage.connect();
 
@@ -73,15 +76,19 @@ public class Cluster {
 
             fetchData: {
 
-                while (rs.next()) { status = new Pair<Storage.STATUS, String>(STATUS.VALUE, rs.getString("value")); break fetchData;};
-                status = new Pair<Storage.STATUS,String>(STATUS.EMPTY, "");
+                String[] values = new String[capacity];
+                for (int i = 0; i < this.capacity; i++) {
+                    values[i] = rs.getString("value" + i);
+                }
+                while (rs.next()) { status = new Pair<Storage.STATUS, String[]>(STATUS.VALUE, values); break fetchData;};
+                status = new Pair<Storage.STATUS,String[]>(STATUS.EMPTY, null);
             }
 
         } catch (SQLException e) {
          
             System.out.println("[ERROR] SQL Exception error\n"+e.getMessage());
             Storage.logData("Failed to fetch key: " + key + " in table: "+this.name+", " + e.getMessage());
-            status = new Pair<Storage.STATUS,String>(STATUS.ERROR, null);
+            status = new Pair<Storage.STATUS,String[]>(STATUS.ERROR, null);
         }
 
         Storage.close();

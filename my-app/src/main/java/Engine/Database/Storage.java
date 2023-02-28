@@ -208,4 +208,24 @@ public class Storage {
         close();
     }
 
+    public static Cluster GetCluster(String name){
+
+        //Find the capacity by selecting
+        connect();
+
+        int count = 0;
+        try(Statement stmt = conn.createStatement()){
+
+            ResultSet rs = stmt.executeQuery("SELECT * FROM name");
+            //Get result set size
+            count = rs.getMetaData().getColumnCount();
+
+        }catch (SQLException e) {
+
+            return null;
+        }
+        close();
+
+        return new Cluster(name, count-1);
+    }
 }
