@@ -146,7 +146,7 @@ public class Transform extends Component{
         RectCollider collider =  (RectCollider) obj.getComponent("RectCollider");
 
         if(collider!=null)
-            collider.resizeCollider(scale.times((Camera.getInstance() == null ? 1 : Camera.getSize())));
+            collider.resizeCollider(scale);
     }
 
     //////////////////////////////////////////////////////////////

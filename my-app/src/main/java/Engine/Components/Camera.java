@@ -15,29 +15,11 @@ public class Camera extends Component{
     public static Transform position;
     public static Object target;
 
-    private static int size = 1;
-
-    public static void setSize(int size){ 
-        
-        if(size <= 0){System.out.println("[ERROR] Invalid camera size");return;} 
-        Camera.size = size; 
-
-        for(Iterator<Object> objec = Object.objects.iterator(); objec.hasNext();){
-            Transform t = (Transform) objec.next().getComponent("Transform");
-
-            if(t!=null) t.updateCollider();
-        }
-
-        setOffset(Camera.calculateIdealCameraOffset());
-    }
-    public static int getSize() {return Camera.size; }
-
     public static Camera gameCamera = null;  
     public static Camera getInstance() { return gameCamera; } 
 
-    public static Vec2 ViewPort = null;
-
     private static Vec2 offset = new Vec2();
+    public static Vec2 viewport = new Vec2(1,1);
 
     public Camera(Transform position, Object target){
 
@@ -48,7 +30,7 @@ public class Camera extends Component{
 
         gameCamera = this;
 
-        calculateViewPort();
+        calculateOffset();
     }
 
     public static Vec2 getOffset(){ return offset; }
@@ -59,7 +41,7 @@ public class Camera extends Component{
         position.position.sumWith(offset);
     }
 
-    public static void calculateViewPort(){ 
+    public static void calculateOffset(){ 
 
         if(RoomHandler.getCurrentRoom() == null){
 
@@ -70,21 +52,18 @@ public class Camera extends Component{
         int w = Window.width;
         int h = Window.height;
 
-        int cRoomTileSizeX = RoomHandler.getCurrentRoom().tileset.sizeX;
-        int cRoomTileSizeY = RoomHandler.getCurrentRoom().tileset.sizeY;
-
-        ViewPort = new Vec2((int)(w / cRoomTileSizeX), (int)(h / cRoomTileSizeY));
+        offset = new Vec2(w/2, h/2);
     }
 
     public static Vec2 calculateIdealCameraOffset(){
 
-        BufferedImage sprite = ((ImageRenderer) target.getComponent("ImageRenderer")).getImage();
-        Transform tar = (Transform) target.getComponent("Transform");
+        BufferedImage sprite = ((ImageRenderer) target.getComponent(ImageRenderer.class)).getImage();
+        Transform tar = (Transform) target.transform;
 
         float centerX = (Window.width / 2) - (sprite.getWidth() * tar.scale.x);
         float centerY = (Window.height / 2) - (sprite.getHeight() * tar.scale.y);
 
-        return new Vec2(centerX / size, centerY / size);
+        return new Vec2(centerX / offset.x, centerY / offset.y);
     }
 
     public static Vec2 getViewPortOffset() {
@@ -108,8 +87,8 @@ public class Camera extends Component{
 
         if(Camera.getInstance() == null) return windowPoint;
 
-        int x = (int)((Camera.position.position.x * size) + windowPoint.x);
-        int y = (int)((Camera.position.position.y * size) + windowPoint.y);
+        int x = (int)((Camera.position.position.x * viewport.x) + windowPoint.x);
+        int y = (int)((Camera.position.position.y * viewport.y) + windowPoint.y);
 
         return new Vec2(-x, -y);
     }

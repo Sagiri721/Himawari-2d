@@ -109,7 +109,7 @@ public class Window extends JFrame implements ComponentListener{
             width = getWidth();
             height = getHeight();
 
-            Camera.calculateViewPort();
+            Camera.calculateOffset();
         }
     }
 

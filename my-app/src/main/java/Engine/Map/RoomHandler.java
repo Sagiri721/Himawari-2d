@@ -141,18 +141,18 @@ public class RoomHandler {
                 */
 
                 //System.out.println(Camera.ViewPort.y + (int) Camera.getViewPortOffset().y + viewportOffset.x);
-                for(int i = (int) Camera.getViewPortOffset().x; i < Camera.ViewPort.y + (int) Camera.getViewPortOffset().x + viewportOffset.y; i++){
-                    for(int j = (int) Camera.getViewPortOffset().y; j < Camera.ViewPort.x + (int) Camera.getViewPortOffset().y + viewportOffset.x; j++) {
+                for(int i = (int) Camera.getViewPortOffset().x; i < Camera.getOffset().y + (int) Camera.getViewPortOffset().x + viewportOffset.y; i++){
+                    for(int j = (int) Camera.getViewPortOffset().y; j < Camera.getOffset().x + (int) Camera.getViewPortOffset().y + viewportOffset.x; j++) {
 
                         if(j > currentRoom.roomData.getWidth()){
                             break;
                         }
 
                         g.drawImage(currentRoom.tileset.getFrame(currentRoom.roomData.getTile(j, i)), 
-                        (int) (j * currentRoom.tileset.width - Camera.position.position.x + Camera.getOffset().x) * Camera.getSize(), 
-                        (int) (i * currentRoom.tileset.height - Camera.position.position.y + Camera.getOffset().y) * Camera.getSize(), 
-                        Camera.getSize() * currentRoom.tileset.width,
-                        Camera.getSize() * currentRoom.tileset.height, 
+                        (int) (j * currentRoom.tileset.width - Camera.position.position.x + Camera.getOffset().x) * (int) Camera.viewport.x, 
+                        (int) (i * currentRoom.tileset.height - Camera.position.position.y + Camera.getOffset().y) * (int) Camera.viewport.y, 
+                        (int) Camera.viewport.x * currentRoom.tileset.width,
+                        (int) Camera.viewport.y * currentRoom.tileset.height, 
                 null);
                     }
 
