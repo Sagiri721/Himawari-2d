@@ -119,10 +119,13 @@ public class Debugging {
             g.setColor(debugColor);
             if(path == null) return;
 
+            if(path.pathSize() <= 1) return;
+
             Vec2 point = Camera.calculateWindowTowindowPoint(path.getKnot(0).inverse()).sumWith(Camera.getOffset());
-            Vec2[] points = path.getKnots();
+            Vec2[] points = path.getKnots().toArray(new Vec2[path.pathSize()]);
             for (int i = points.length-1; i > 0; i--) {
-                
+
+                if(points[i]==null) continue;
                 g.drawLine((int) (point.x + points[i].x), (int) (point.y +points[i].y), (int) (point.x + points[i-1].x), (int) (point.y + points[i-1].y));
             }
         }

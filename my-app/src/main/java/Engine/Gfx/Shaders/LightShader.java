@@ -12,7 +12,8 @@ import Engine.Utils.Geom.Vec2;
 public class LightShader implements ShaderInterface {
 
     public static float intensity = 0.6f, radius = 100;
- 
+    public static String target = "";
+
     private Vec2 position = new Vec2();
 
     @Override
@@ -37,7 +38,7 @@ public class LightShader implements ShaderInterface {
     @Override
     public void graphicsUpdate() {
       
-        Object t = Object.FindObject("Ball");
+        Object t = Object.FindObject(target);
         if(t != null) {
 
             ImageRenderer renderer = (ImageRenderer) t.getComponent(ImageRenderer.class);

@@ -1,6 +1,7 @@
 package Engine.Map;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -13,11 +14,13 @@ import Engine.Components.ImageRenderer.scaleAlgorithm;
 import Engine.Entity.Object;
 import Engine.Gfx.ImageUtil;
 import Engine.Gfx.Sprite;
+import Engine.Utils.StdBehaviour;
 import Engine.Utils.Window;
 import Engine.Utils.Geom.Vec2;
 
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.awt.Graphics2D;
 
 public class RoomHandler {
@@ -175,6 +178,9 @@ public class RoomHandler {
         RoomHandler.currentRoom = newRoom;
         System.out.println("[ROOM LOADED] A new room was loaded by the name of " + newRoom.name);
         Object.clearNonStatic();
+
+        callRoomLoaded();
+
         
         new Thread(new Runnable(){
 
@@ -199,6 +205,16 @@ public class RoomHandler {
         }).run();
 
         return true;
+    }
+
+    public static void callRoomLoaded(){
+
+        Object[] objs = (Object.objects).toArray(new Object[Object.objects.size()]);
+        for (Object object : objs) {
+            
+            StdBehaviour behaviour = object.getBehaviour();
+            behaviour.RoomLoaded(currentRoom);
+        }
     }
 }
 

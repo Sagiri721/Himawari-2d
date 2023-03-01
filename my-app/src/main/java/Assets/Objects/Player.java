@@ -7,6 +7,7 @@ import Engine.Entity.Object;
 import Engine.Gfx.Animation;
 import Engine.Gfx.Sprite;
 import Engine.Input.Input;
+import Engine.Map.Room;
 import Engine.Utils.Renderer;
 import Engine.Utils.StdBehaviour;
 import Engine.Utils.Geom.Vec2;
@@ -99,5 +100,11 @@ public class Player extends Object implements StdBehaviour {
     @Override
     public void ReceiveMessage(String origin) {
         
+    }
+
+    @Override
+    public void RoomLoaded(Room room) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'RoomLoaded'");
     }
 }

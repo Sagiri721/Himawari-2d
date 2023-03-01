@@ -14,6 +14,7 @@ Assets\Objects\Player.class
 Engine\Entity\Hierarchy.class
 Engine\Utils\Renderer.class
 Engine\Physics\Physics.class
+Engine\Utils\MergePathMethod.class
 Engine\Components\Component.class
 Engine\Gfx\Debugging.class
 Engine\Input\Input$MouseButtons.class
@@ -24,12 +25,12 @@ Assets\Objects\Ball.class
 Engine\Sound\Sound.class
 Engine\Gfx\Fonts.class
 Engine\Sound\Sound$1.class
+Engine\Utils\Path$1.class
 Engine\HimawariCore.class
 Engine\Input\Input.class
 Assets\Objects\GameCamera.class
 Engine\Map\RoomHandler$1.class
 Engine\Utils\Exporter$EngineData.class
-Engine\Gfx\Shaders\EngineShaders.class
 Engine\Map\RoomData.class
 Engine\Gfx\Animation.class
 Engine\Gfx\ImageUtil.class
@@ -60,6 +61,7 @@ Engine\Utils\Geom\Shape.class
 Engine\Utils\ObjectLoader.class
 Engine\Database\Cluster.class
 Engine\Components\Camera.class
+Engine\Gfx\Shaders\ShaderFactory.class
 Engine\Map\TileSet.class
 Engine\Components\ImageRenderer$scaleAlgorithm.class
 Engine\Gfx\Debugging$type.class

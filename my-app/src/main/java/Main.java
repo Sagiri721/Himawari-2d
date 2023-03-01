@@ -1,9 +1,9 @@
+import java.awt.Color;
+
 import Engine.HimawariCore;
-import Engine.Database.Storage;
 import Engine.Gfx.Debugging;
 import Engine.Gfx.ShaderPane;
-import Engine.Gfx.Shaders.EngineShaders;
-import Engine.Gfx.Shaders.LightShader;
+import Engine.Gfx.Shaders.ShaderFactory;
 import Engine.Map.Room;
 import Engine.Map.RoomData;
 import Engine.Utils.Geom.Vec2;
@@ -43,6 +43,6 @@ public class Main extends HimawariCore{
         //Storage.put("Pontos", String.valueOf(1));
 
         //Storage.CreateCluster("newCluster", (byte) 4);
-
+        //ShaderPane.LoadShader(ShaderFactory.createGradientShader(Color.BLUE, Color.GREEN));
     }
 }

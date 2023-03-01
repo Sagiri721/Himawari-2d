@@ -3,6 +3,7 @@ package Assets.Objects;
 import Engine.Entity.Object;
 import Engine.Gfx.*;
 import Engine.Input.Input;
+import Engine.Map.Room;
 import Engine.Map.TileSet;
 import Engine.Utils.StdBehaviour;
 import Engine.Utils.Geom.Vec2;
@@ -60,5 +61,11 @@ public class WallChild extends Object implements StdBehaviour {
     @Override
     public void ReceiveMessage(String origin) { 
 
+    }
+
+    @Override
+    public void RoomLoaded(Room room) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'RoomLoaded'");
     }
 }

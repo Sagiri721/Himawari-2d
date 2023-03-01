@@ -3,6 +3,7 @@ package Assets.Objects;
 import Engine.Entity.Object;
 import Engine.Gfx.*;
 import Engine.Input.Input;
+import Engine.Map.Room;
 import Engine.Map.TileSet;
 import Engine.Utils.StdBehaviour;
 import Engine.Utils.Geom.Vec2;
@@ -66,5 +67,10 @@ public class Wall extends Object implements StdBehaviour {
     public void ReceiveMessage(String message) { 
 
         transform.rotate(45);
+    }
+
+    @Override
+    public void RoomLoaded(Room room) {
+     
     }
 }

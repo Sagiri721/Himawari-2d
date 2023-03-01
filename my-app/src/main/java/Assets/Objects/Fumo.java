@@ -9,6 +9,8 @@ import Engine.Gfx.Animation;
 import Engine.Gfx.Debugging;
 import Engine.Gfx.Sprite;
 import Engine.Input.Input;
+import Engine.Map.Room;
+import Engine.Utils.MergePathMethod;
 import Engine.Utils.Path;
 import Engine.Utils.Renderer;
 import Engine.Utils.StdBehaviour;
@@ -38,12 +40,17 @@ public class Fumo extends Object implements StdBehaviour {
         addComponent(renderer);
 
         path = new Path(transform.position, new Vec2[] {new Vec2(0, 50), new Vec2(100, 100), new Vec2(150, 3)});
+        Path temPath = new Path(new Vec2[] {new Vec2(100, 50), new Vec2(150, 50), new Vec2(100, 100), new Vec2(150, 3)});
+
+        path.mergePaths(temPath, MergePathMethod.INTERCEPTION);
+        path.loop = false;
     }
 
     // Called every frame
     @Override
     public void Update(float deltaTime) {
 
+        //path.followPath(transform);
     }
 
     @Override
@@ -56,5 +63,10 @@ public class Fumo extends Object implements StdBehaviour {
     @Override
     public void ReceiveMessage(String origin) {
         
+    }
+
+    @Override
+    public void RoomLoaded(Room room) {
+     
     }
 }

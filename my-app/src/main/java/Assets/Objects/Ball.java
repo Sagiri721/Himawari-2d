@@ -130,4 +130,9 @@ public class Ball extends Object implements StdBehaviour {
     public void ReceiveMessage(String origin) {
         
     }
+
+    @Override
+    public void RoomLoaded(Room room) {
+        
+    }
 }

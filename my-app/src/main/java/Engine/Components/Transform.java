@@ -13,7 +13,6 @@ public class Transform extends Component{
     public float angle;
     public Vec2 scale;
 
-    public Vec2 pivotPoint = new Vec2();
     protected Object obj;
 
     public Transform(Object o){
@@ -178,7 +177,7 @@ public class Transform extends Component{
 
         this.angle = angle;
         
-        /*
+        
         if(this.angle > 360){
 
             this.angle = 0 + (this.angle-360);
@@ -187,11 +186,6 @@ public class Transform extends Component{
 
             this.angle = 360 - (this.angle-360);
             setAngle(this.angle);
-        }*/
-    }
-
-    public void setPivotPoint(Vec2 point){
-
-        this.pivotPoint = point;
+        }
     }
 }
