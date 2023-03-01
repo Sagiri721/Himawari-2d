@@ -9,6 +9,7 @@ import Engine.Gfx.Animation;
 import Engine.Gfx.Debugging;
 import Engine.Gfx.Sprite;
 import Engine.Input.Input;
+import Engine.Input.Input.Keys;
 import Engine.Map.Room;
 import Engine.Utils.MergePathMethod;
 import Engine.Utils.Path;

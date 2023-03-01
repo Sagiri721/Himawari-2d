@@ -131,9 +131,9 @@ public class Debugging {
         }
     }
 
-    public static void printOut(String text){
+    public static void printOut(Object text){
 
-        System.out.println("[USER MESSAGE] " + text);
+        System.out.println("[USER MESSAGE] " + text.toString());
     }
 
     public static void sendMessage(String title, String content, int messageType){

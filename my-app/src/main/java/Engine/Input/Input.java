@@ -30,6 +30,13 @@ public class Input {
         return KeyboardReader.keys[key.ordinal()];
     }
 
+    public static boolean isKeyJustPressed(Input.Keys key) {
+
+        boolean value = KeyboardReader.keys2[key.ordinal()];
+        if (value) KeyboardReader.keys2[key.ordinal()] = false;
+        return value;
+    }
+
     public static enum MouseButtons{
 
         LEFT,

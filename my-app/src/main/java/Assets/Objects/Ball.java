@@ -86,7 +86,7 @@ public class Ball extends Object implements StdBehaviour {
 
             Vec2 movement = new Vec2(Input.axisX, 0);
 
-            if(Input.isKeyPressed(Keys.Z) && grounded){
+            if(Input.isKeyJustPressed(Keys.Z) && grounded){
 
                 //System.out.println("?");
                 b.ApplyForce(new Vec2(0, -20));
@@ -114,13 +114,9 @@ public class Ball extends Object implements StdBehaviour {
     public void DrawGUI(Graphics2D g) {
 
         //Debugging.drawDebugGrid(new Vec2(5, 5), new Vec2(100, 100), 5, 5, g);
-        Debugging.setDebugColor(Color.black);
         Widget.drawText(String.valueOf(Renderer.getFPS()) + "fps", 5, 10, g);
 
-        Widget.setColor(Color.PINK);
-
         //Debugging.drawRay(Physics.CastRay(transform.position, Vec2.DOWN, 5), g);
-        RayHit hit = Physics.CastRay(transform.position, Vec2.DOWN, 70, this);
 
         //System.out.println(hit.collider.getName());
         //Debugging.drawDebugLine(transform.position, transform.position.sumWith(Vec2.DOWN.times(408)), g);
