@@ -1,5 +1,6 @@
 package Engine.Entity;
 
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,14 +15,14 @@ import Engine.Utils.Geom.Vec2;
 /**
  * Standard class for all the objects that take part in the game
  */
-public class Object{
+public class Object implements Serializable{
 
     public Node node = null;
 
     /**
      * List of all existing objects at a certain point in time
      */
-    public static List<Object> objects = new ArrayList<Object>();
+    transient public static List<Object> objects = new ArrayList<Object>();
 
     public static int maxLayer = 0;
 
@@ -138,6 +139,8 @@ public class Object{
 
         return false;
     }
+
+    public static Object[] getObjects() {return objects.toArray(new Object[objects.size()]); }
 
     /** 
      * Find an object by its idetifier

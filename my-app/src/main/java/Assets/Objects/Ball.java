@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 
 import Engine.Components.*;
 import Engine.Components.ImageRenderer.scaleAlgorithm;
+import Engine.Database.GameSerializer;
 import Engine.Entity.Object;
 import Engine.Gfx.Animation;
 import Engine.Gfx.Debugging;
@@ -105,6 +106,9 @@ public class Ball extends Object implements StdBehaviour {
             if(Input.axisX > 0 && renderer.isFlippedX){
                 renderer.flipX();
             }
+
+            if(Input.isKeyJustPressed(Keys.H)) GameSerializer.serializeObjects();
+            if(Input.isKeyJustPressed(Keys.J)) GameSerializer.deserializeData();
 
             transform.translate(movement.times(300).times(deltaTime), collider);
         }

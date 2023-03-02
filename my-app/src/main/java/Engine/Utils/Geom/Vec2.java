@@ -1,8 +1,9 @@
 package Engine.Utils.Geom;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
-public class Vec2 implements Comparator<Vec2> {
+public class Vec2 implements Comparator<Vec2>, Serializable {
 
     public static final Vec2 ZERO = new Vec2();
     public static final Vec2 ONE = new Vec2(1, 1);

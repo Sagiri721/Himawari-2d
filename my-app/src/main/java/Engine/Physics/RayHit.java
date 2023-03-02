@@ -1,10 +1,12 @@
 package Engine.Physics;
 
+import java.io.Serializable;
+
 import Engine.Components.RectCollider;
 import Engine.Entity.Object;
 import Engine.Utils.Geom.Vec2;
 
-public class RayHit {
+public class RayHit implements Serializable {
 
     public Object collider = null;
     public RectCollider colliderComponent = null;

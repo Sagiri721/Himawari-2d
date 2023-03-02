@@ -19,8 +19,6 @@ import Engine.Utils.Window;
 import Engine.Utils.Geom.Vec2;
 
 import java.awt.image.BufferedImage;
-import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.awt.Graphics2D;
 
 public class RoomHandler {
@@ -36,6 +34,7 @@ public class RoomHandler {
 
     public static Room getCurrentRoom(){return currentRoom;}
     public static Room getRoom(int index){return rooms.get(index);}
+    public static Room[] getRooms(){return rooms.toArray(new Room[rooms.size()]);}
 
     public static int roomCount(){return rooms.size();}
 

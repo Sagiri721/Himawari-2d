@@ -1,9 +1,10 @@
 package Engine.Entity;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Node {
+public class Node implements Serializable{
     
     public Set<Node> children = new HashSet<Node>();
     public Node parent = null;

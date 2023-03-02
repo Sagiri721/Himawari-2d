@@ -1,17 +1,18 @@
 package Engine.Map;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
 import Engine.Gfx.Sprite;
 
-public class TileSet {
+public class TileSet implements Serializable {
 
-    public BufferedImage spriteSheet;
+    transient public BufferedImage spriteSheet;
     public int width, height;
 
     public int sizeX, sizeY;
 
-    BufferedImage[] sprites;
+    transient BufferedImage[] sprites;
 
     public TileSet(Sprite image, int width, int height) {
 

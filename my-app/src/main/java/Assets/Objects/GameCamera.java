@@ -52,9 +52,6 @@ public class GameCamera extends Object implements StdBehaviour{
     @Override
     public void ReceiveMessage(String origin) {}
     @Override
-    public void RoomLoaded(Room room) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'RoomLoaded'");
-    }
+    public void RoomLoaded(Room room) { }
     
 }

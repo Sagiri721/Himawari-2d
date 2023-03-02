@@ -9,15 +9,16 @@ import Engine.Utils.Window;
 import Engine.Utils.Geom.Vec2;
 
 import java.io.File;
+import java.io.Serializable;
 
-public class Sprite {
+public class Sprite implements Serializable {
     
     public static final String RelativeEngineResourcePath = System.getProperty("user.dir") + "/src/main/java/Engine/Assets/";
     //Image data
     public int width, height;
     
     //The image
-    public BufferedImage sprite;
+    transient public BufferedImage sprite;
     public File imageFile = null;
 
     public Sprite(BufferedImage image) { sprite = image; width = image.getWidth(); height = image.getHeight();}
@@ -83,25 +84,25 @@ public class Sprite {
         return null;
     }
 
-    public static BufferedImage[] getFramesOfHorizontal(BufferedImage image, int width, int height, int x, int y) {
+    public static Sprite[] getFramesOfHorizontal(BufferedImage image, int width, int height, int x, int y) {
 
-        BufferedImage[] frames = new BufferedImage[(image.getWidth() / width) - (x * width)];
+        Sprite[] frames = new Sprite[(image.getWidth() / width) - (x * width)];
 
         for(int i = 0; i < frames.length; i++){
 
-            frames[i] = image.getSubimage(x + (i * width), y, width, height);
+            frames[i] = new Sprite(image.getSubimage(x + (i * width), y, width, height));
         }
 
         return frames;
     }
 
-    public static BufferedImage[] getFramesOfVertical(BufferedImage image, int width, int height, int x, int y) {
+    public static Sprite[] getFramesOfVertical(BufferedImage image, int width, int height, int x, int y) {
 
-        BufferedImage[] frames = new BufferedImage[(image.getWidth() / width) - (x * width)];
+        Sprite[] frames = new Sprite[(image.getWidth() / width) - (x * width)];
 
         for(int i = 0; i < frames.length; i++){
 
-            frames[i] = image.getSubimage(x, y + (i * height), width, height);
+            frames[i] = new Sprite(image.getSubimage(x, y + (i * height), width, height));
         }
 
         return frames;
@@ -109,7 +110,7 @@ public class Sprite {
 
     public static Animation createAnimation(Sprite spriteSheet, int width, int height, int startX, int startY, boolean horizontal){
 
-        BufferedImage[] frames = null;
+        Sprite[] frames = null;
 
         if(horizontal)
             frames = getFramesOfHorizontal(spriteSheet.sprite, width, height, startX, startY);

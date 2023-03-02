@@ -3,6 +3,7 @@ package Engine.Map;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 
 import javax.imageio.ImageIO;
 
@@ -11,7 +12,7 @@ import Engine.Utils.Window;
 
 import java.awt.image.BufferedImage;
 
-public class Room {
+public class Room implements Serializable{
 
     public String name;
     public TileSet tileset;

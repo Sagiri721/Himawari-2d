@@ -3,6 +3,7 @@ package Engine.Map;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Scanner;
@@ -15,7 +16,7 @@ import Engine.Utils.Window;
 import Engine.Utils.Geom.Vec2;
 import Engine.Entity.Object;
 
-public class RoomData {
+public class RoomData implements Serializable{
     
     public String path;
 

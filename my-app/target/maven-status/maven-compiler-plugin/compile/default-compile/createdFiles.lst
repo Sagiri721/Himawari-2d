@@ -49,6 +49,7 @@ Engine\Map\Room.class
 Main.class
 Assets\Objects\WallChild.class
 Engine\Gfx\Widget$1.class
+Engine\Database\GameSerializer.class
 Engine\Components\Body.class
 Engine\Utils\Geom\Vec2.class
 Engine\Database\Storage.class
@@ -71,6 +72,7 @@ Engine\Map\RoomHandler$1$1.class
 Engine\HimawariCore$Windowmode.class
 Engine\Utils\Geom\Circle.class
 Engine\Utils\Exporter$ObjectAdaptation.class
+Engine\Utils\PathEndListener.class
 Engine\Entity\Node.class
 Engine\Gfx\Widget.class
 Engine\Input\MouseReader.class

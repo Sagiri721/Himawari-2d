@@ -1,5 +1,6 @@
 package Engine.Utils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,7 +11,7 @@ import java.util.stream.Collectors;
 import Engine.Components.Transform;
 import Engine.Utils.Geom.Vec2;
 
-public class Path {
+public class Path implements Serializable {
  
     private Vec2 myPathPoint;
     private int myPointIndex = 0;
@@ -20,6 +21,7 @@ public class Path {
     public boolean loop = true;
     public float speed = 1;
     
+    private PathEndListener pathListener = null;
     private List<Vec2> knots;
 
     public Path(Vec2 origin, Vec2[] knots){
@@ -61,6 +63,9 @@ public class Path {
     public void appendStartKnot(Vec2 knot) {knots.add(0, knot);}
     public void appendStartVertices(Vec2[] knot) {knots.addAll(0, Arrays.asList(knot));}
 
+    public void addPathEndListener(PathEndListener listener){ pathListener = listener; }
+    public void removePathEndListener(){ pathListener = null; }
+
     public void invertPath(){
 
         Collections.reverse(knots);
@@ -71,7 +76,7 @@ public class Path {
     public void followPath(Transform t) {
 
         if(stopped) return;
-        if(segmentSize==-1) segmentSize = knots.get(myPointIndex).subtractWith(knots.get(myPointIndex+1)).thisMagnitude();
+        if(segmentSize==-1) {segmentSize = knots.get(myPointIndex).subtractWith(knots.get(myPointIndex+1)).thisMagnitude(); if(pathListener!=null)pathListener.pathStart(); }
 
         t.position = myPathPoint;
 
@@ -86,12 +91,14 @@ public class Path {
                 if(!loop){
 
                     stopped = true;
+                    if(pathListener!=null) pathListener.pathEnd();
                     return;
                 }
                 myPathPoint = knots.get(0).copy();
                 myPointIndex = 0;
                 distanceTraveled = 0;
                 segmentSize = knots.get(myPointIndex).subtractWith(knots.get(myPointIndex+1)).thisMagnitude();
+                if(pathListener!=null) pathListener.pathEnd();
                 return;
             }
 
@@ -99,6 +106,7 @@ public class Path {
             distanceTraveled = 0;
             myPathPoint = knots.get(myPointIndex).copy();
             segmentSize = knots.get(myPointIndex).subtractWith(knots.get(myPointIndex+1)).thisMagnitude();
+            if(pathListener!=null) pathListener.pathMoved(myPathPoint);
         }
     }
 
@@ -110,6 +118,7 @@ public class Path {
         stopped = false;
 
         segmentSize = knots.get(myPointIndex).subtractWith(knots.get(myPointIndex+1)).thisMagnitude();
+        if(pathListener!=null) pathListener.pathStart();
     }
 
     public float getRelativeDistanceTraveled(){return distanceTraveled; }

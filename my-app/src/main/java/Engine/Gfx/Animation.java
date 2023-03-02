@@ -1,15 +1,16 @@
 package Engine.Gfx;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public class Animation {
+public class Animation implements Serializable{
     
-    BufferedImage[] frames;
+    Sprite[] frames;
     int startX, startY, width, height;
 
     public int endFrame = 0;
 
-    protected Animation(BufferedImage[] frames, int startX, int startY, int width, int height) {
+    protected Animation(Sprite[] frames, int startX, int startY, int width, int height) {
 
         this.frames = frames;
         this.startX = startX;
@@ -20,5 +21,5 @@ public class Animation {
         endFrame = frames.length;
     }
     
-    public BufferedImage getFrame(int index){ return frames[index]; }
+    public BufferedImage getFrame(int index){ return frames[index].sprite; }
 }

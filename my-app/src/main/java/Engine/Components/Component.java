@@ -1,3 +1,5 @@
 package Engine.Components;
 
-public class Component {}
+import java.io.Serializable;
+
+public class Component implements Serializable {}
