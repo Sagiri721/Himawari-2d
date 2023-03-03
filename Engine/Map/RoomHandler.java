@@ -1,12 +1,20 @@
 package Engine.Map;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import Engine.Components.Camera;
 import Engine.Components.ImageRenderer.scaleAlgorithm;
+import Engine.Entity.Object;
 import Engine.Gfx.ImageUtil;
 import Engine.Gfx.Sprite;
+import Engine.Utils.StdBehaviour;
 import Engine.Utils.Window;
 import Engine.Utils.Geom.Vec2;
 
@@ -26,6 +34,7 @@ public class RoomHandler {
 
     public static Room getCurrentRoom(){return currentRoom;}
     public static Room getRoom(int index){return rooms.get(index);}
+    public static Room[] getRooms(){return rooms.toArray(new Room[rooms.size()]);}
 
     public static int roomCount(){return rooms.size();}
 
@@ -131,18 +140,18 @@ public class RoomHandler {
                 */
 
                 //System.out.println(Camera.ViewPort.y + (int) Camera.getViewPortOffset().y + viewportOffset.x);
-                for(int i = (int) Camera.getViewPortOffset().x; i < Camera.ViewPort.y + (int) Camera.getViewPortOffset().x + viewportOffset.y; i++){
-                    for(int j = (int) Camera.getViewPortOffset().y; j < Camera.ViewPort.x + (int) Camera.getViewPortOffset().y + viewportOffset.x; j++) {
+                for(int i = (int) Camera.getViewPortOffset().x; i < Camera.getOffset().y + (int) Camera.getViewPortOffset().x + viewportOffset.y; i++){
+                    for(int j = (int) Camera.getViewPortOffset().y; j < Camera.getOffset().x + (int) Camera.getViewPortOffset().y + viewportOffset.x; j++) {
 
                         if(j > currentRoom.roomData.getWidth()){
                             break;
                         }
 
                         g.drawImage(currentRoom.tileset.getFrame(currentRoom.roomData.getTile(j, i)), 
-                        (int) (j * currentRoom.tileset.width - Camera.position.position.x + Camera.getOffset().x) * Camera.getSize(), 
-                        (int) (i * currentRoom.tileset.height - Camera.position.position.y + Camera.getOffset().y) * Camera.getSize(), 
-                        Camera.getSize() * currentRoom.tileset.width,
-                        Camera.getSize() * currentRoom.tileset.height, 
+                        (int) (j * currentRoom.tileset.width - Camera.position.position.x + Camera.getOffset().x) * (int) Camera.viewport.x, 
+                        (int) (i * currentRoom.tileset.height - Camera.position.position.y + Camera.getOffset().y) * (int) Camera.viewport.y, 
+                        (int) Camera.viewport.x * currentRoom.tileset.width,
+                        (int) Camera.viewport.y * currentRoom.tileset.height, 
                 null);
                     }
 
@@ -151,6 +160,59 @@ public class RoomHandler {
                     }
                 }
             }
+        }
+    }
+
+    private static boolean saveBlock = false;
+    private static int blockTime = 300; //300 milis
+    private static long start = 0;
+
+    public static boolean gotoRoom(Room newRoom){
+
+        if(saveBlock){
+
+            System.out.println("[WARNING] Room loading is self-repairing, wait " + (System.currentTimeMillis() - start) + " more milliseconds");
+            return false;
+        }
+        RoomHandler.currentRoom = newRoom;
+        System.out.println("[ROOM LOADED] A new room was loaded by the name of " + newRoom.name);
+        Object.clearNonStatic();
+
+        callRoomLoaded();
+
+        
+        new Thread(new Runnable(){
+
+            @Override
+            public void run() {
+                
+                System.out.println("[ROOM LOADED] Unpacking room objects");
+                newRoom.loadObjects();
+                saveBlock = true;
+
+                // Unlock the process
+                Timer timer = new Timer();
+                start = System.currentTimeMillis();
+                timer.schedule(new TimerTask() {
+
+                    @Override
+                    public void run() { saveBlock = false; }
+                    
+                }, blockTime);
+            }
+
+        }).run();
+
+        return true;
+    }
+
+    public static void callRoomLoaded(){
+
+        Object[] objs = (Object.objects).toArray(new Object[Object.objects.size()]);
+        for (Object object : objs) {
+            
+            StdBehaviour behaviour = object.getBehaviour();
+            behaviour.RoomLoaded(currentRoom);
         }
     }
 }

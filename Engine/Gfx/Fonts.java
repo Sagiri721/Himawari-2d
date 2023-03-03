@@ -1,6 +1,7 @@
 package Engine.Gfx;
 
 import java.io.File;
+import java.io.Serializable;
 
 import Engine.Utils.Window;
 import Engine.Utils.Geom.Vec2;
@@ -9,7 +10,7 @@ import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.Graphics2D;
 
-public class Fonts {
+public class Fonts implements Serializable {
 
     private Font font = null;
     private Animation letters = null;
@@ -50,7 +51,7 @@ public class Fonts {
 
         font = null;
 
-        letters = Sprite.createAnimation(new Sprite(map.tileset.spriteSheet), map.tileset.width, map.tileset.height,
+        letters = Sprite.createAnimation(new Sprite(map.tileset.spriteSheet.sprite), map.tileset.width, map.tileset.height,
                 startX, startY,
                 horizontal);
         this.map = map;

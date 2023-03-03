@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Set;
 
 import org.json.simple.JSONObject;
@@ -14,7 +15,7 @@ import java.awt.image.BufferedImage;
 
 import Engine.Map.TileSet;
 
-public class FontMap {
+public class FontMap implements Serializable {
 
     TileSet tileset = null;
 
@@ -65,6 +66,6 @@ public class FontMap {
 
     public BufferedImage getLetter(int x) {
 
-        return tileset.spriteSheet.getSubimage(x, 0, tileset.width, tileset.height);
+        return tileset.spriteSheet.sprite.getSubimage(x, 0, tileset.width, tileset.height);
     }
 }

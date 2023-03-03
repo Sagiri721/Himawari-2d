@@ -4,9 +4,15 @@ import java.awt.Color;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLayer;
+import javax.swing.JPanel;
+import javax.swing.plaf.LayerUI;
 
 import Engine.Components.Camera;
+import Engine.Gfx.ShaderInterface;
+import Engine.Gfx.ShaderPane;
 import Engine.Input.KeyboardReader;
 import Engine.Input.MouseReader;
 import Engine.Utils.Geom.Vec2;
@@ -24,10 +30,12 @@ public class Window extends JFrame implements ComponentListener{
     private static Color background = null;
 
     public static boolean focus = true;
-    private static Window window;
+    protected static Window window;
+    protected static ShaderPane myShader;
+    protected static JLayer<JComponent> layer;
 
     //Local class data
-    Renderer gameRenderer = new Renderer();
+    Renderer gameRenderer;
     KeyboardReader reader = new KeyboardReader();
     MouseReader mouseReader = new MouseReader();
 
@@ -46,6 +54,7 @@ public class Window extends JFrame implements ComponentListener{
         Window.height = height;
 
         Window.name = name;
+        Window.window = this;
 
         setTitle(name);
         setSize(width, height);
@@ -58,15 +67,22 @@ public class Window extends JFrame implements ComponentListener{
         addKeyListener(reader);
         addMouseListener(mouseReader);
         requestFocus();
+
         //Add a renderer
-        add(gameRenderer);
+        gameRenderer = new Renderer();
+        //Apply shaders
+        Window.myShader = new ShaderPane();
+        LayerUI<JComponent> layerUI = Window.myShader;
+        JLayer<JComponent> jlayer = new JLayer<JComponent>(gameRenderer, layerUI);
+        Window.layer = jlayer;
+
+        add(jlayer);
 
         //Define a background color
         if(Window.background != null) {setBackground(background);}
 
         setVisible(true);
 
-        Window.window = this;
 
         addComponentListener(this);
     }
@@ -93,7 +109,7 @@ public class Window extends JFrame implements ComponentListener{
             width = getWidth();
             height = getHeight();
 
-            Camera.calculateViewPort();
+            Camera.calculateOffset();
         }
     }
 

@@ -8,6 +8,7 @@ public static Object LoadObjectOfName(String name, Vec2 position, float angle, V
 			Object obj = null;
 			switch (name){
 case "Ball" : obj = new Ball(); break;
+case "Fumo" : obj = new Fumo(); break;
 case "GameCamera" : obj = new GameCamera(); break;
 case "Player" : obj = new Player(); break;
 case "Wall" : obj = new Wall(); break;

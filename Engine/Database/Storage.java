@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import Engine.Gfx.Sprite;
 import javafx.util.Pair;
 
+import java.io.ObjectInputFilter.Status;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -169,6 +170,7 @@ public class Storage {
         
         } catch (SQLException e) {
             System.out.println("[ERROR] Error outputing to logs");
+            e.printStackTrace();
         }
 
         close();
@@ -198,4 +200,32 @@ public class Storage {
         return cl;
     }
 
+    public static void RunSQL(String sql) throws SQLException {
+
+        connect();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.executeUpdate();
+        close();
+    }
+
+    public static Cluster GetCluster(String name){
+
+        //Find the capacity by selecting
+        connect();
+
+        int count = 0;
+        try(Statement stmt = conn.createStatement()){
+
+            ResultSet rs = stmt.executeQuery("SELECT * FROM name");
+            //Get result set size
+            count = rs.getMetaData().getColumnCount();
+
+        }catch (SQLException e) {
+
+            return null;
+        }
+        close();
+
+        return new Cluster(name, count-1);
+    }
 }

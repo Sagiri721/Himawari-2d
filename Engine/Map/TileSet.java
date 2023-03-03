@@ -1,21 +1,22 @@
 package Engine.Map;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
 import Engine.Gfx.Sprite;
 
-public class TileSet {
+public class TileSet implements Serializable {
 
-    public BufferedImage spriteSheet;
+    transient public Sprite spriteSheet;
     public int width, height;
 
     public int sizeX, sizeY;
 
-    BufferedImage[] sprites;
+    transient Sprite[] sprites;
 
     public TileSet(Sprite image, int width, int height) {
 
-        this.spriteSheet = image.sprite;
+        this.spriteSheet = image;
         this.width = width;
         this.height = height;
 
@@ -24,26 +25,26 @@ public class TileSet {
 
     private void cropFrames() {
 
-        sizeX = spriteSheet.getWidth() / width;
-        sizeY = spriteSheet.getHeight() / height;
+        sizeX = spriteSheet.sprite.getWidth() / width;
+        sizeY = spriteSheet.sprite.getHeight() / height;
 
-        sprites = new BufferedImage[sizeX * sizeY];
+        sprites = new Sprite[sizeX * sizeY];
 
         for (int i = 0; i < sizeX; i++) {
             for (int j = 0; j < sizeY; j++) {
 
-                sprites[j + (i * sizeY)] = spriteSheet.getSubimage(i * width, j * height, width, height);
+                sprites[j + (i * sizeY)] = new Sprite(spriteSheet.sprite.getSubimage(i * width, j * height, width, height));
             }
         }
     }
 
     public BufferedImage getFrame(int index) {
 
-        return sprites[index];
+        return sprites[index].sprite;
     }
 
     public BufferedImage getFrame(int x, int y) {
 
-        return sprites[x + (y * sizeY)];
+        return sprites[x + (y * sizeY)].sprite;
     }
 }

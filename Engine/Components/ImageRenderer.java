@@ -22,9 +22,10 @@ public class ImageRenderer extends Component{
     private float alpha = 1;
     public boolean isFlippedX = false, isFlippedY = false;
     public boolean visible = true;
+    public Vec2 pivotPoint = new Vec2();
     public void setVisible(boolean visible) { this.visible = visible;}
 
-    private Engine.Entity.Object object;
+    private Object object;
     private Sprite sprite = null;
     private Sprite currentSprite = null;
 

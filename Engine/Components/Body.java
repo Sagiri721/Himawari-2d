@@ -8,14 +8,14 @@ import Engine.Utils.Geom.Vec2;
 public class Body extends Component{
     
     //Physics variables
-    private float mass = 1;
     private Transform transform;
     private RectCollider collider;
-
+    
     private Vec2 gravity = new Vec2();
     private Vec2 totalForce = new Vec2();
-
+    
     public float drag = 0.1f;
+    public float mass = 1;
 
     public Body(Transform transform, RectCollider collider, float mass){
 

@@ -7,6 +7,7 @@ import java.awt.event.*;
 public class KeyboardReader implements KeyListener {
 
     protected static boolean[] keys = new boolean[61];
+    protected static boolean[] keys2 = new boolean[61];
     public static int limit = 1;
 
     public static void mapAxis(Keys LEFT, Keys RIGHT, Keys UP, Keys DOWN) {
@@ -158,6 +159,8 @@ public class KeyboardReader implements KeyListener {
         } else if (e.getKeyCode() == KeyEvent.VK_F12) {
             keys[60] = true;
         }
+
+        keys2 = keys;
     }
 
     @Override
@@ -293,6 +296,7 @@ public class KeyboardReader implements KeyListener {
         } else if (e.getKeyCode() == KeyEvent.VK_F12) {
             keys[60] = false;
         }
-    }
 
+        keys2 = keys;
+    }
 }

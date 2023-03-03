@@ -97,8 +97,6 @@ public class RectCollider extends Component{
         for(int i = 0; i < objs.size(); i++){
             Object o = objs.get(i);
 
-            System.out.println(o);
-
             if(o == obj){
 
                 RectCollider r = (RectCollider) obj.getComponent(RectCollider.class);
