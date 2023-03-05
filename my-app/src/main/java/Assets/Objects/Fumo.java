@@ -43,15 +43,14 @@ public class Fumo extends Object implements StdBehaviour {
         path = new Path(transform.position, new Vec2[] {new Vec2(0, 50), new Vec2(100, 100), new Vec2(150, 3)});
         Path temPath = new Path(new Vec2[] {new Vec2(100, 50), new Vec2(150, 50), new Vec2(100, 100), new Vec2(150, 3)});
 
-        path.mergePaths(temPath, MergePathMethod.INTERCEPTION);
-        path.loop = false;
+        path.loop = true;
     }
 
     // Called every frame
     @Override
     public void Update(float deltaTime) {
 
-        //path.followPath(transform);
+        path.followPath(transform);
     }
 
     @Override

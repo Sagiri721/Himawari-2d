@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import Engine.Components.ImageRenderer;
 import Engine.Entity.Object;
 import Engine.Gfx.Sprite;
 import Engine.Map.RoomHandler;
@@ -48,7 +49,14 @@ public class GameSerializer {
             FileInputStream fileInputStream = new FileInputStream(Sprite.RelativeEngineResourcePath + "states/"+name+"-objects.dat");
             ObjectInputStream in = new ObjectInputStream(fileInputStream);
 
-            List<Object> objects = Arrays.asList((Object[]) in.readObject());
+            List<Object> objects = (List<Object>) in.readObject();
+
+            for (Object object : objects) {
+                ImageRenderer r = (ImageRenderer) object.getComponent(ImageRenderer.class);
+                if(r!= null) r.getSprite().reloadSprites();
+            }
+            
+            Object.objects = objects;
 
         } catch (Exception e) {
             

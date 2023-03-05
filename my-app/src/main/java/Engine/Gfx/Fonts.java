@@ -51,7 +51,7 @@ public class Fonts implements Serializable {
 
         font = null;
 
-        letters = Sprite.createAnimation(new Sprite(map.tileset.spriteSheet), map.tileset.width, map.tileset.height,
+        letters = Sprite.createAnimation(new Sprite(map.tileset.spriteSheet.sprite), map.tileset.width, map.tileset.height,
                 startX, startY,
                 horizontal);
         this.map = map;

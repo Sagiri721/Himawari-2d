@@ -66,6 +66,6 @@ public class FontMap implements Serializable {
 
     public BufferedImage getLetter(int x) {
 
-        return tileset.spriteSheet.getSubimage(x, 0, tileset.width, tileset.height);
+        return tileset.spriteSheet.sprite.getSubimage(x, 0, tileset.width, tileset.height);
     }
 }

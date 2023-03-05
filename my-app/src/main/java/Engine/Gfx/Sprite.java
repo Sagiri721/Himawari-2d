@@ -9,6 +9,7 @@ import Engine.Utils.Window;
 import Engine.Utils.Geom.Vec2;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 
 public class Sprite implements Serializable {
@@ -22,9 +23,7 @@ public class Sprite implements Serializable {
     public File imageFile = null;
 
     public Sprite(BufferedImage image) { sprite = image; width = image.getWidth(); height = image.getHeight();}
-
     public Sprite(String path, int x, int y, int w, int h) {imageFile = new File(Window.RelativeResourcePath + "Sprites/" + path); BufferedImage image = getBufferedImageFromFile(path); sprite = image.getSubimage(x, y, w, h); width = sprite.getWidth(); height = sprite.getHeight(); }
-
     public Sprite(String path) { imageFile = new File(Window.RelativeResourcePath + "Sprites/" + path); sprite = getBufferedImageFromFile(path); width = sprite.getWidth(); height = sprite.getHeight(); }
 
     public Sprite(int i) { 
@@ -124,6 +123,12 @@ public class Sprite implements Serializable {
 
         width = (int) dimensions.x;
         height = (int) dimensions.y;
-        return new Sprite(ImageUtil.resizeImage((int) dimensions.x, (int) dimensions.y, scaleAlgorithm.SMOOTH, sprite));
+        sprite = ImageUtil.resizeImage((int) dimensions.x, (int) dimensions.y, scaleAlgorithm.SMOOTH, sprite);
+        return this;
+    }
+
+    public void reloadSprites() throws IOException{
+        System.out.println(imageFile.getAbsolutePath());
+        sprite = ImageIO.read(imageFile);
     }
 }

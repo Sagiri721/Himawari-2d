@@ -140,7 +140,7 @@ public class Object implements Serializable{
         return false;
     }
 
-    public static Object[] getObjects() {return objects.toArray(new Object[objects.size()]); }
+    public static List<Object> getObjects() { return Object.objects; }
 
     /** 
      * Find an object by its idetifier
