@@ -6,6 +6,7 @@ import Engine.Gfx.ShaderPane;
 import Engine.Gfx.Shaders.ShaderFactory;
 import Engine.Map.Room;
 import Engine.Map.RoomData;
+import Engine.Networking.ServerConnection;
 import Engine.Utils.Geom.Vec2;
 
 public class Main extends HimawariCore{
@@ -44,5 +45,7 @@ public class Main extends HimawariCore{
 
         //Storage.CreateCluster("newCluster", (byte) 4);
         //ShaderPane.LoadShader(ShaderFactory.createGradientShader(Color.BLUE, Color.GREEN));
+
+        ServerConnection.openConnection("localhost:3000");
     }
 }

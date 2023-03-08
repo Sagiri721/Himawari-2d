@@ -14,9 +14,11 @@ Assets\Objects\Player.class
 Engine\Entity\Hierarchy.class
 Engine\Utils\Renderer.class
 Engine\Physics\Physics.class
+Engine\Networking\ServerConnection.class
 Engine\Utils\MergePathMethod.class
 Engine\Components\Component.class
 Engine\Gfx\Debugging.class
+Engine\Networking\MessageHandler.class
 Engine\Input\Input$MouseButtons.class
 Engine\Utils\AlarmFunctionality.class
 Engine\Utils\Window.class
@@ -28,6 +30,7 @@ Engine\Sound\Sound$1.class
 Engine\Utils\Path$1.class
 Engine\HimawariCore.class
 Engine\Input\Input.class
+Engine\Networking\Client.class
 Assets\Objects\GameCamera.class
 Engine\Map\RoomHandler$1.class
 Engine\Utils\Exporter$EngineData.class
@@ -43,6 +46,7 @@ Engine\Gfx\ShaderInterface.class
 Engine\Utils\Exporter.class
 Engine\Utils\Path.class
 Assets\Objects\Fumo.class
+Engine\Networking\ServerConnection$1.class
 Engine\Sound\SupportedFileFormats.class
 Engine\Database\Storage$STATUS.class
 Engine\Map\Room.class
