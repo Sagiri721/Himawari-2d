@@ -1,5 +1,6 @@
 Engine\Utils\Renderer$1.class
 Engine\Utils\Alarm$1.class
+Engine\Networking\LobbyEventListener.class
 Engine\Components\Transform.class
 Engine\Gfx\ShaderPane.class
 Engine\Utils\Geom\Rectangle.class
@@ -34,6 +35,7 @@ Engine\Networking\Client.class
 Assets\Objects\GameCamera.class
 Engine\Map\RoomHandler$1.class
 Engine\Utils\Exporter$EngineData.class
+Engine\Utils\Window$1.class
 Engine\Map\RoomData.class
 Engine\Gfx\Animation.class
 Engine\Gfx\ImageUtil.class
@@ -49,6 +51,7 @@ Assets\Objects\Fumo.class
 Engine\Networking\ServerConnection$1.class
 Engine\Sound\SupportedFileFormats.class
 Engine\Database\Storage$STATUS.class
+Main$1.class
 Engine\Map\Room.class
 Main.class
 Assets\Objects\WallChild.class

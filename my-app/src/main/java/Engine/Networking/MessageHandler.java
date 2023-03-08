@@ -10,7 +10,7 @@ public class MessageHandler {
         if(message.contains(":")){
 
             String prefix = message.split(":")[0];
-            String contents = message.substring(message.indexOf(":"));
+            String contents = message.substring(message.indexOf(":")+1);
 
             switch(prefix) {
 
@@ -18,11 +18,25 @@ public class MessageHandler {
 
                     //Set client id
                     myCLient.setClientID(contents);
+                    ServerConnection.listener.onConnectionEstablished();
                 }
+
+                case "join":
+
+                    ServerConnection.listener.clientJoined(contents);
+                break;
+                case "left":
+
+                    ServerConnection.listener.clientLeft(contents);
+                break;
+                default:
+
+                    System.out.println("[SERVER SIDE MESSAGE ERROR] could not parse: " + message);
+                break;
             }
         }else {
 
-            System.out.println("[SERVER SIDE MESSAGE] could not interpret: " + message);
+            System.out.println("[SERVER SIDE MESSAGE ERROR] could not interpret: " + message);
         }
     }
 }

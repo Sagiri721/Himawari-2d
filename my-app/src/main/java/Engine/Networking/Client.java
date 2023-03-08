@@ -8,7 +8,7 @@ import java.util.concurrent.CompletionStage;
 public class Client implements WebSocket.Listener {
     
     private MessageHandler handler;
-    private WebSocket ws;
+    protected WebSocket ws;
 
     private String ID;
     protected void setClientID(String ID) {this.ID = ID;}
@@ -30,5 +30,14 @@ public class Client implements WebSocket.Listener {
         
         if(handler != null) handler.handleMessage(data.toString());
         return WebSocket.Listener.super.onText(webSocket, data, last);
+    }
+
+    public CompletionStage<?> onClose(WebSocket webSocket, int statusCode, String reason) {
+
+        System.out.println("[WEBSOCKET] Connection closed | reason: " + reason);
+        //Send closed client signal
+        webSocket.sendText("closed:" + ID, true);
+
+        return WebSocket.Listener.super.onClose(webSocket, 0, reason);
     }
 }

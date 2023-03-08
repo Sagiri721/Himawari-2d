@@ -4,18 +4,34 @@ import java.net.URI;
 
 public class ServerConnection {
 
-    private static String connectionURL;
-    private static Client connection;
+    public static String connectionURL;
+    private static Client connection = null;
+    
+    protected static LobbyEventListener listener = null;
 
-    public static void openConnection(String url){
+    public static boolean isConnectionOpen(){
+        return connection != null;
+    }
+    public static String getSessionID(){return connection.getClientID(); }
+
+    public static void openConnection(String url, LobbyEventListener listener){
+
+        if(connection != null){
+
+            System.out.println("[CONNECTION WARNING] Connection already open");
+            return;
+        }
 
         String socketURI = "ws://" + url + "/lobby";
         
         try {
             
             final Client clientEndPoint = new Client(new URI(socketURI)) {};
+            
             ServerConnection.connection = clientEndPoint;
             ServerConnection.connectionURL = socketURI;
+
+            ServerConnection.listener = listener;
 
         } catch (Exception e) {
             
@@ -24,4 +40,17 @@ public class ServerConnection {
         }
     }
     
+    public static void closeConnection() {
+
+        if(connection == null){
+
+            System.out.println("[CONNECTION WARNING] Connection already closed");
+            return;
+        }
+
+        listener.onDisconnection();
+        connection.ws.sendText("closed:" + connection.getClientID(), true);
+        connection.ws.abort();
+        connection = null;
+    }
 }

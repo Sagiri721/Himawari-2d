@@ -6,6 +6,7 @@ import Engine.Components.*;
 import Engine.Entity.Object;
 import Engine.Gfx.Animation;
 import Engine.Gfx.Sprite;
+import Engine.Gfx.Widget;
 import Engine.Input.Input;
 import Engine.Map.Room;
 import Engine.Utils.Renderer;
@@ -19,6 +20,7 @@ public class Player extends Object implements StdBehaviour {
         objects.add(this);
     }
 
+    public static String text = ":)";
     ImageRenderer renderer;
     RectCollider collider;
     Object wall = Object.FindObject("Wall");
@@ -95,6 +97,7 @@ public class Player extends Object implements StdBehaviour {
 
         //Widget.drawHealthBar(new Vec2(5,5), new Vec2(120, 20), am, 100, Color.WHITE, Color.black, Color.RED, Color.green, Direction.RIGHT, true, g);
         g.drawString("fps: " + Renderer.getFPS(), 0, 15);
+     
     }
 
     @Override

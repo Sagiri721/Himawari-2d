@@ -7,6 +7,74 @@
 const int PORT = 3000;
 //Client vector
 std::vector<Client> clientList;
+std::vector<std::tuple<std::string, crow::websocket::connection*>> connectionObserver;
+
+std::vector<std::string> split(std::string str, char delim = ' ') {
+	std::vector<std::string> result;
+	size_t start = 0;
+	while (start < str.length()) {
+		size_t pos = str.find(delim, start);
+		if (pos == std::string::npos) pos = str.length();
+		result.push_back(str.substr(start, pos - start));
+		start = pos + 1;
+	}
+	return result;
+}
+
+constexpr unsigned int str2int(const char* str, int h = 0)
+{
+	return !str[h] ? 5381 : (str2int(str, h + 1) * 33) ^ str[h];
+}
+
+void sendMessageToAll(std::string self = NULL, std::string message="") {
+	
+	if (message == "") return;
+	for (std::tuple<std::string, crow::websocket::connection*> kvp : connectionObserver) {
+
+		if (!self.empty() && std::get<0>(kvp) == self) continue;
+
+		std::get<1>(kvp)->send_text(message);
+	}
+}
+
+void handleMessageReceived(std::string message) {
+	
+	if (message.find(':') != std::string::npos) {
+
+		std::string prefix = split(message, ':')[0];
+		std::string contents = message.substr(message.find(':')+2);
+
+		int index = 0;
+		std::string id;
+
+		switch (str2int(prefix.c_str()))
+		{
+			case str2int("closed"):
+
+				index = 0;
+				//Remove client from list
+				for(Client c: clientList)
+				{
+					if (c.compareId(contents)) break;
+					index++;
+				}
+
+				id = clientList[index].getId();
+				clientList.erase(clientList.begin() + index);
+				std::cout << contents + " disconnected (" + std::to_string(clientList.size()) + ") clients connected" << std::endl;
+				sendMessageToAll(id, ("left:" + id));
+
+			break;
+			default:
+				std::cout << "Couldn't parse client message " + message << std::endl;
+			break;
+		}
+	}
+	else {
+
+		std::cout << "Couldn't parse client message " + message << std::endl;
+	}
+}
 
 int main() {
 
@@ -50,7 +118,6 @@ int main() {
 		.onmessage([&](crow::websocket::connection&, const std::string& data, bool is_binary) {
 
 			std::cout << "Received a message" << std::endl;
-			std::cout << "Is binary? " << (is_binary ? "YES" : "NO") << std::endl;
 			std::cout << "Message: " << data << std::endl;
 		});
 
@@ -60,20 +127,29 @@ int main() {
 
 			// Keep track of new client
 			Client newClient(1);
-			std::cout << newClient.toString() << "(" + std::to_string(clientList.size()) + ") clients connected" << std::endl;
 
 			// Add client object to list
 			clientList.push_back(newClient);
+			std::tuple<std::string, crow::websocket::connection*> data = std::make_tuple(newClient.getId(), &conn);
+
+			std::cout << newClient.toString() << " (" + std::to_string(clientList.size()) + ") clients connected" << std::endl;
+
 			// Send back object id
 			conn.send_text("cid:" + newClient.getId());
+
+			//Send everyone information on the new joined client and then append the connection
+			sendMessageToAll(newClient.getId(), ("join:" + newClient.getId()));
+			connectionObserver.push_back(data);
 		})
 		.onclose([&](crow::websocket::connection& conn, const std::string& reason) {
 
 		})
 		.onmessage([&](crow::websocket::connection&, const std::string& data, bool is_binary) {
 
-
-		});;
+			if (!is_binary) {
+				handleMessageReceived(data);
+			}
+		});
 
 		CROW_ROUTE(app, "/control")([]() {
 

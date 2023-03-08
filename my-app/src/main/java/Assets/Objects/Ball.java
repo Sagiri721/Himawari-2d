@@ -18,6 +18,7 @@ import Engine.Input.Input.Keys;
 import Engine.Map.Room;
 import Engine.Map.RoomData;
 import Engine.Map.RoomHandler;
+import Engine.Networking.ServerConnection;
 import Engine.Physics.Physics;
 import Engine.Physics.RayHit;
 import Engine.Utils.Renderer;
@@ -27,6 +28,7 @@ import Engine.Utils.Geom.Vec2;
 
 public class Ball extends Object implements StdBehaviour {
 
+    public static String text = ":)";
     Body b;
     RectCollider collider;
     boolean updateable = false;
@@ -110,6 +112,11 @@ public class Ball extends Object implements StdBehaviour {
             if(Input.isKeyJustPressed(Keys.H)) GameSerializer.serializeObjects();
             if(Input.isKeyJustPressed(Keys.J)) GameSerializer.deserializeData();
 
+            if(Input.mousePressed(0)) {
+
+                ServerConnection.closeConnection();
+            }
+
             transform.translate(movement.times(300).times(deltaTime), collider);
         }
     }
@@ -119,7 +126,7 @@ public class Ball extends Object implements StdBehaviour {
 
         //Debugging.drawDebugGrid(new Vec2(5, 5), new Vec2(100, 100), 5, 5, g);
         Widget.drawText(String.valueOf(Renderer.getFPS()) + "fps", 5, 10, g);
-
+        Widget.drawText(text, 5, 30, g);
         //Debugging.drawRay(Physics.CastRay(transform.position, Vec2.DOWN, 5), g);
 
         //System.out.println(hit.collider.getName());

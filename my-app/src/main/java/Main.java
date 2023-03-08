@@ -1,11 +1,13 @@
 import java.awt.Color;
 
+import Assets.Objects.Ball;
 import Engine.HimawariCore;
 import Engine.Gfx.Debugging;
 import Engine.Gfx.ShaderPane;
 import Engine.Gfx.Shaders.ShaderFactory;
 import Engine.Map.Room;
 import Engine.Map.RoomData;
+import Engine.Networking.LobbyEventListener;
 import Engine.Networking.ServerConnection;
 import Engine.Utils.Geom.Vec2;
 
@@ -46,6 +48,29 @@ public class Main extends HimawariCore{
         //Storage.CreateCluster("newCluster", (byte) 4);
         //ShaderPane.LoadShader(ShaderFactory.createGradientShader(Color.BLUE, Color.GREEN));
 
-        ServerConnection.openConnection("localhost:3000");
+        ServerConnection.openConnection("localhost:3000", new LobbyEventListener() {
+
+            @Override
+            public void onConnectionEstablished() {
+             
+                System.out.println(ServerConnection.getSessionID());
+            }
+
+            @Override
+            public void onDisconnection() {
+                
+            }
+
+            @Override
+            public void clientJoined(String id) {
+             
+                Ball.text = id + " just joined the game";
+            }
+
+            @Override
+            public void clientLeft(String id) {
+                
+            }
+        });
     }
 }

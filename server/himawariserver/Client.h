@@ -1,4 +1,5 @@
 #include <iostream>
+#include "crow_all.h"
 
 class Client
 {
@@ -10,6 +11,7 @@ class Client
 		std::string defineId();
 		std::string getId();
 		std::string toString();
+
+		bool compareId(std::string ID);
 		Client(int lobby);
 };
-
