@@ -7,6 +7,7 @@ import Engine.Gfx.ShaderPane;
 import Engine.Gfx.Shaders.ShaderFactory;
 import Engine.Map.Room;
 import Engine.Map.RoomData;
+import Engine.Networking.Client;
 import Engine.Networking.LobbyEventListener;
 import Engine.Networking.ServerConnection;
 import Engine.Utils.Geom.Vec2;
@@ -53,7 +54,7 @@ public class Main extends HimawariCore{
             @Override
             public void onConnectionEstablished() {
              
-                System.out.println(ServerConnection.getSessionID());
+                Client.setName("Nome giro");
             }
 
             @Override
@@ -70,6 +71,12 @@ public class Main extends HimawariCore{
             @Override
             public void clientLeft(String id) {
                 
+            }
+
+            @Override
+            public void receivedMessage(String originID, String message) {
+                
+                System.out.println(message);
             }
         });
     }

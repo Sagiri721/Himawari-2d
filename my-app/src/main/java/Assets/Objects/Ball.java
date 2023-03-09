@@ -18,6 +18,7 @@ import Engine.Input.Input.Keys;
 import Engine.Map.Room;
 import Engine.Map.RoomData;
 import Engine.Map.RoomHandler;
+import Engine.Networking.Client;
 import Engine.Networking.ServerConnection;
 import Engine.Physics.Physics;
 import Engine.Physics.RayHit;
@@ -114,7 +115,8 @@ public class Ball extends Object implements StdBehaviour {
 
             if(Input.mousePressed(0)) {
 
-                ServerConnection.closeConnection();
+                //ServerConnection.closeConnection();
+                //Client.sendMessageToAllClients("OLAAAA");
             }
 
             transform.translate(movement.times(300).times(deltaTime), collider);

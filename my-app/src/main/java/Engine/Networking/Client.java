@@ -8,11 +8,19 @@ import java.util.concurrent.CompletionStage;
 public class Client implements WebSocket.Listener {
     
     private MessageHandler handler;
-    protected WebSocket ws;
+    protected static WebSocket ws;
 
-    private String ID;
-    protected void setClientID(String ID) {this.ID = ID;}
+    private static String ID, name;
+
+    protected void setClientID(String ID) {Client.ID = ID;}
     public String getClientID() {return ID;}
+    public String getClientName() {return name;}
+
+    public static void setName(String name){
+
+        Client.name = name;
+        Client.ws.sendText("set:from:" + ID + ":" + name, true);
+    }
 
     public Client(URI endPointURI) throws Exception{
 
@@ -39,5 +47,10 @@ public class Client implements WebSocket.Listener {
         webSocket.sendText("closed:" + ID, true);
 
         return WebSocket.Listener.super.onClose(webSocket, 0, reason);
+    }
+
+    public static void sendMessageToAllClients(String message){
+
+        ws.sendText("send:from:"+ ID + ":" + message, true);
     }
 }

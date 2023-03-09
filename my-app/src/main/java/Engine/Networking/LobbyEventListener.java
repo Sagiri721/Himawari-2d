@@ -7,4 +7,6 @@ public interface LobbyEventListener {
 
     public void clientJoined(String id);
     public void clientLeft(String id);
+
+    public void receivedMessage(String originID, String message);
 }

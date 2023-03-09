@@ -33,6 +33,22 @@ bool Client::compareId(std::string ID) {
 	return ID == Client::getId();
 }
 
+bool Client::hasName() {
+
+	return !Client::name.empty();
+}
+
+std::string Client::getName() {
+
+	return Client::name;
+}
+
+void Client::setName(std::string name) {
+
+	Client::name = name;
+
+}
+
 Client::Client(int lobby) {
 
 	Client::lobby = lobby;

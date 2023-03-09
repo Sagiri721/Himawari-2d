@@ -49,8 +49,8 @@ public class ServerConnection {
         }
 
         listener.onDisconnection();
-        connection.ws.sendText("closed:" + connection.getClientID(), true);
-        connection.ws.abort();
+        Client.ws.sendText("closed:" + connection.getClientID(), true);
+        Client.ws.abort();
         connection = null;
     }
 }
