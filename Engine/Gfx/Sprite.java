@@ -123,7 +123,8 @@ public class Sprite implements Serializable {
 
         width = (int) dimensions.x;
         height = (int) dimensions.y;
-        return new Sprite(ImageUtil.resizeImage((int) dimensions.x, (int) dimensions.y, scaleAlgorithm.SMOOTH, sprite));
+        sprite = ImageUtil.resizeImage((int) dimensions.x, (int) dimensions.y, scaleAlgorithm.SMOOTH, sprite);
+        return this;
     }
 
     public void reloadSprites() throws IOException{

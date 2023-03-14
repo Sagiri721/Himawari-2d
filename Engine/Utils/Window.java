@@ -1,5 +1,8 @@
 package Engine.Utils;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import java.awt.Color;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -7,17 +10,16 @@ import java.awt.event.ComponentListener;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLayer;
-import javax.swing.JPanel;
 import javax.swing.plaf.LayerUI;
 
 import Engine.Components.Camera;
-import Engine.Gfx.ShaderInterface;
 import Engine.Gfx.ShaderPane;
 import Engine.Input.KeyboardReader;
 import Engine.Input.MouseReader;
+import Engine.Networking.ServerConnection;
 import Engine.Utils.Geom.Vec2;
 
-public class Window extends JFrame implements ComponentListener{
+public class Window extends JFrame implements ComponentListener {
 
     public static String RelativeResourcePath = System.getProperty("user.dir") + "/src/main/java/Assets/"; 
     
@@ -81,8 +83,20 @@ public class Window extends JFrame implements ComponentListener{
         //Define a background color
         if(Window.background != null) {setBackground(background);}
 
-        setVisible(true);
+        //Add closing protocol
+        addWindowListener(new WindowAdapter() {
+           
+            public void windowClosing(WindowEvent e) {
+             
+                if(ServerConnection.isConnectionOpen()){
+                    ServerConnection.closeConnection();
+                }
+                
+                System.out.println("[GAME CLOSED]");
+            }
+        });
 
+        setVisible(true);
 
         addComponentListener(this);
     }

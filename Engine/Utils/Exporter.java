@@ -31,7 +31,7 @@ public class Exporter {
 
         List<String> objects = new ArrayList<String>();
 
-        File objectFolder = new File(System.getProperty("user.dir") + "/src/main/" + pack + "java/Assets/Objects");
+        File objectFolder = new File(System.getProperty("user.dir") + "/src/main/java/" + pack + "Assets/Objects");
         if (!objectFolder.exists() && !objectFolder.isDirectory()) {
 
             System.out.println("Export ERROR");
@@ -87,7 +87,7 @@ public class Exporter {
             models[i].components = set.toArray(new String[set.size()]);
 
             ImageRenderer renderer = (ImageRenderer) obj.getComponent(ImageRenderer.class);
-            if (renderer != null) {
+            if (renderer != null && renderer.getSprite() != null) {
 
                 models[i].image = renderer.getSprite().imageFile.getAbsolutePath();
                 models[i].visible = renderer.visible;
@@ -95,15 +95,20 @@ public class Exporter {
             }
 
             RectCollider collider = (RectCollider) obj.getComponent(RectCollider.class);
-            if(collider != null) {models[i].colliderDimensions = collider.bounds;}
+            if (collider != null) {
+                models[i].colliderDimensions = collider.bounds;
+            }
 
             Body body = (Body) obj.getComponent(Body.class);
-            if(body != null) {models[i].mass = body.mass; models[i].drag = body.drag;}
+            if (body != null) {
+                models[i].mass = body.mass;
+                models[i].drag = body.drag;
+            }
         }
 
         try (FileWriter fw = new FileWriter(
-                new File(System.getProperty("user.dir") + "/src/main/" + pack
-                        + "java/Engine/Assets/MyObjectDataDump.json"))) {
+                new File(System.getProperty("user.dir") + "/src/main/java/" + pack
+                        + "Engine/Assets/MyObjectDataDump.json"))) {
 
             fw.write(g.toJson(models));
 
@@ -113,7 +118,7 @@ public class Exporter {
 
         try (FileWriter fw = new FileWriter(
                 new File(
-                        System.getProperty("user.dir") + "/src/main/" + pack + "java/Engine/Assets/MyGameData.json"))) {
+                        System.getProperty("user.dir") + "/src/main/java/" + pack + "Engine/Assets/MyGameData.json"))) {
 
             fw.write(g.toJson(new EngineData()));
 
@@ -141,24 +146,26 @@ public class Exporter {
 
     static class ObjectAdaptation {
 
-        public ObjectAdaptation() {}
+        public ObjectAdaptation() {
+        }
 
-        public int id;
-        public String name, className;
-        public String[] components;
-        public Vec2 position, scale, spriteDimensions = null, colliderDimensions = null;
+        public Integer id = null;
+        public String name = null, className = null;
+        public String[] components = null;
+        public Vec2 position = null, scale = null, spriteDimensions = null, colliderDimensions = null;
         public Float angle = null, mass = null, drag = null;
 
-        public String tag;
-        public String image;
-        public byte layer;
-        public String parent;
-        public boolean active, visible, isStatic;
+        public String tag = null;
+        public String image = null;
+        public Byte layer = null;
+        public String parent = null;
+        public Boolean active = null, visible = null, isStatic = null;
     }
 
     static class EngineData {
 
-        public EngineData() {}
+        public EngineData() {
+        }
 
         int delay = Renderer.DELAY;
         boolean fixed = Renderer.fixedDelta;
