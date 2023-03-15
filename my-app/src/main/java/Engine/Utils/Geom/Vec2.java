@@ -38,8 +38,11 @@ public class Vec2 implements Comparator<Vec2>, Serializable {
     public Vec2 divide(float n){ return new Vec2(x / n, y / n); }
     public Vec2 sumWith(Vec2 other){ return new Vec2(other.x + x, other.y + y); }
     public Vec2 sumWith(float other){ return new Vec2(other + x, other + y); }
+    public float dotProduct(Vec2 other) { return x*other.x + y*other.y; }
 
     //Logic
+    public static Vec2 fromValue(float value) {return new Vec2(value, value); }
+
     public boolean equals(Vec2 pointB) { return (x == pointB.x && y == pointB.y);}
 
     public boolean greaterThan(Vec2 vecB) { return (x+y > vecB.x + vecB.y); }
@@ -89,6 +92,7 @@ public class Vec2 implements Comparator<Vec2>, Serializable {
     }
 
     public Vec2 copy() {return new Vec2(x, y);}
+
     //Mathematics
     public Vec2 abs() {return new Vec2(Math.abs(x), Math.abs(y)); }
     public Vec2 inverse(){ return new Vec2(-x, -y); }
@@ -104,6 +108,7 @@ public class Vec2 implements Comparator<Vec2>, Serializable {
 
     public Vec2 getThisMidway(){ return this.divide(2); }
     public Vec2 getMidway(Vec2 other){ return (other.subtractWith(this).getThisMidway()); }
+    
     //Misc
     @Override
     public String toString(){ return "X: " + x + " | Y: " + y; }

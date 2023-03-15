@@ -34,9 +34,16 @@ void sendMessageToAll(std::string self = NULL, std::string message = "") {
 	if (message == "") return;
 	for (std::tuple<std::string, crow::websocket::connection*> kvp : connectionObserver) {
 
-		if (!self.empty() && std::get<0>(kvp)._Equal(self)) continue;
+		try{
+			if (std::get<0>(kvp) == self) continue;
 
-		std::get<1>(kvp)->send_text(message);
+			std::cout << message << std::endl;
+			std::get<1>(kvp)->send_text(message);
+		}
+		catch (const std::exception& e) {
+
+			std::cout << e.what();
+		}
 	}
 }
 
@@ -54,18 +61,27 @@ void handleMessageReceived(std::string message) {
 		{
 			case str2int("send"): {
 
-				std::string origin = contents.substr(contents.find(':') + 1);
-				std::string message = origin.substr(origin.find(':') + 1);
+				try
+				{
 
-				origin = origin.substr(0, origin.find(':'));
+					std::string origin = contents.substr(contents.find(':') + 1);
+					std::string message = origin.substr(origin.find(':') + 1);
 
-				sendMessageToAll(origin, message);
+					origin = origin.substr(0, origin.find(':'));
+					
+					sendMessageToAll(origin, "from:"+ origin +":" + message);
+				}
+				catch (const std::exception& e)
+				{
+
+					std::cout << e.what();
+				}
 				break;
 			}
 			case str2int("closed"): {
 
 				index = 0;
-				std::string origin = message.substr(message.find(':') + 2);
+				std::string origin = message.substr(message.find(':') + 1);
 				//Remove client from list
 				for (Client c : clientList)
 				{
@@ -76,6 +92,8 @@ void handleMessageReceived(std::string message) {
 				std::cout << index;
 				// Might be a rejected client, also avoids crashes
 				if (clientList.size() == index) return;
+
+				std::get<1>(connectionObserver[index])->close();
 
 				clientList[index] = NULL;
 				id = clientList[index].getId();
@@ -164,47 +182,59 @@ int main() {
 	CROW_WEBSOCKET_ROUTE(app, "/testSocket")
 		.onopen([&](crow::websocket::connection& conn) {
 
-		std::cout << "Connection opened" << std::endl;
-			})
+			std::cout << "Connection opened" << std::endl;
+		})
 		.onclose([&](crow::websocket::connection& conn, const std::string& reason) {
 
-				std::cout << "Closed" << std::endl;
+			std::cout << "Closed" << std::endl;
 
-			})
+		})
 		.onmessage([&](crow::websocket::connection&, const std::string& data, bool is_binary) {
 
-		std::cout << "Received a message" << std::endl;
-		std::cout << "Message: " << data << std::endl;
-	});
+			std::cout << "Received a message" << std::endl;
+			std::cout << "Message: " << data << std::endl;
+		});
 
 	// Actual socket connection
 	CROW_WEBSOCKET_ROUTE(app, "/lobby")
 		.onopen([&](crow::websocket::connection& conn) {
 
-			if (clientList.size() == CLIENT_THRESHOLD - 1) {
+			try
+			{
 
-				std::cout << "As the client threshold was already met (" + std::to_string(CLIENT_THRESHOLD) + "), the new client that tried to join was rejected";
-				conn.send_text("X");
+				if (clientList.size() == CLIENT_THRESHOLD - 1) {
 
-				conn.close();
-				return;
+					std::cout << "As the client threshold was already met (" + std::to_string(CLIENT_THRESHOLD) + "), the new client that tried to join was rejected";
+					conn.send_text("X");
+
+					conn.close();
+					return;
+				}
+
+				// Keep track of new client
+				Client newClient(1);
+
+				//Send this object the previous joined info
+				for (Client c : clientList) conn.send_text("join:" + c.getId());
+
+				// Add client object to list
+				clientList.push_back(newClient);
+				std::tuple<std::string, crow::websocket::connection*> data = std::make_tuple(newClient.getId(), &conn);
+
+				std::cout << newClient.toString() << " (" + std::to_string(clientList.size()) + ") clients connected" << std::endl;
+
+				// Send back object id
+				conn.send_text("cid:" + newClient.getId());
+
+				//Send everyone information on the new joined client and then append the connection
+				sendMessageToAll(newClient.getId(), ("join:" + newClient.getId()));
+				connectionObserver.push_back(data);
 			}
+			catch (const std::exception& e)
+			{
 
-			// Keep track of new client
-			Client newClient(1);
-
-			// Add client object to list
-			clientList.push_back(newClient);
-			std::tuple<std::string, crow::websocket::connection*> data = std::make_tuple(newClient.getId(), &conn);
-
-			std::cout << newClient.toString() << " (" + std::to_string(clientList.size()) + ") clients connected" << std::endl;
-
-			// Send back object id
-			conn.send_text("cid:" + newClient.getId());
-
-			//Send everyone information on the new joined client and then append the connection
-			sendMessageToAll(newClient.getId(), ("join:" + newClient.getId()));
-			connectionObserver.push_back(data);
+				std::cout << e.what();
+			}
 		})
 		.onclose([&](crow::websocket::connection& conn, const std::string& reason) {
 

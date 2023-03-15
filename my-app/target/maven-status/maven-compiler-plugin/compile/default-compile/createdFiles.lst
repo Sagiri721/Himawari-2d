@@ -51,7 +51,6 @@ Assets\Objects\Fumo.class
 Engine\Networking\ServerConnection$1.class
 Engine\Sound\SupportedFileFormats.class
 Engine\Database\Storage$STATUS.class
-Main$1.class
 Engine\Map\Room.class
 Main.class
 Assets\Objects\WallChild.class
@@ -60,6 +59,7 @@ Engine\Database\GameSerializer.class
 Engine\Components\Body.class
 Engine\Utils\Geom\Vec2.class
 Engine\Database\Storage.class
+Engine\Gfx\ParticleEmitter$Particle.class
 Engine\Utils\StdBehaviour.class
 Engine\Components\ImageRenderer.class
 Engine\Gfx\Shaders\LightShader.class
@@ -83,3 +83,4 @@ Engine\Utils\PathEndListener.class
 Engine\Entity\Node.class
 Engine\Gfx\Widget.class
 Engine\Input\MouseReader.class
+Engine\Gfx\ParticleEmitter.class

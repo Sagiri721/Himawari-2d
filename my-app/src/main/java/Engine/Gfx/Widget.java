@@ -104,8 +104,10 @@ public class Widget {
 
     public static void drawSprite(Sprite sprite, Vec2 position, Graphics2D g){
 
-        if(show)
+        if(show){
+
             g.drawImage(sprite.sprite, (int)position.x, (int)position.y, null);
+        }
     }
 
     public static void drawSpriteExt(Sprite sprite, Vec2 position, Vec2 scale, Double angle, Graphics2D g){

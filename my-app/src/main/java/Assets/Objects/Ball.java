@@ -11,6 +11,7 @@ import Engine.Entity.Object;
 import Engine.Gfx.Animation;
 import Engine.Gfx.Debugging;
 import Engine.Gfx.ImageUtil;
+import Engine.Gfx.ParticleEmitter;
 import Engine.Gfx.Sprite;
 import Engine.Gfx.Widget;
 import Engine.Input.Input;
@@ -35,6 +36,8 @@ public class Ball extends Object implements StdBehaviour {
     boolean updateable = false;
     Animator animator;
     ImageRenderer renderer;
+
+    ParticleEmitter p;
 
     public Ball() {
         super("Ball");
@@ -77,6 +80,10 @@ public class Ball extends Object implements StdBehaviour {
         updateable = true;
 
         setStatic(true);
+
+        p = new ParticleEmitter(new Sprite(0), new Vec2(100,0), new Vec2(10, 5));
+        p.speedRate = 0.05f;
+        p.sizeRate = 0.01f;
     }
 
     // Called every frame
@@ -133,6 +140,8 @@ public class Ball extends Object implements StdBehaviour {
 
         //System.out.println(hit.collider.getName());
         //Debugging.drawDebugLine(transform.position, transform.position.sumWith(Vec2.DOWN.times(408)), g);
+
+        p.render(g);
     }
 
     @Override

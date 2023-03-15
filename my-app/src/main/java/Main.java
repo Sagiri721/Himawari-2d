@@ -48,36 +48,5 @@ public class Main extends HimawariCore{
 
         //Storage.CreateCluster("newCluster", (byte) 4);
         //ShaderPane.LoadShader(ShaderFactory.createGradientShader(Color.BLUE, Color.GREEN));
-
-        ServerConnection.openConnection("localhost:3000", new LobbyEventListener() {
-
-            @Override
-            public void onConnectionEstablished() {
-             
-                Client.setName("Nome giro");
-            }
-
-            @Override
-            public void onDisconnection() {
-                
-            }
-
-            @Override
-            public void clientJoined(String id) {
-             
-                Ball.text = id + " just joined the game";
-            }
-
-            @Override
-            public void clientLeft(String id) {
-                
-            }
-
-            @Override
-            public void receivedMessage(String originID, String message) {
-                
-                System.out.println(message);
-            }
-        });
     }
 }

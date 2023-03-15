@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.awt.Color;
 
 public class GameMaths {
@@ -39,14 +40,14 @@ public class GameMaths {
         return noise;
     }
 
-    public float lerp(float v0, float v1, float t) {
+    public static float lerp(float v0, float v1, float t) {
         
         return (1 - t) * v0 + t * v1;
     }
 
     public static int randomInteger(int lower, int highest){
 
-        return new Random().nextInt();
+        return ThreadLocalRandom.current().nextInt(lower, highest + 1);
     }
 
     public static Color generateRandomColor(){

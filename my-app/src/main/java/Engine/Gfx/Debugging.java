@@ -68,6 +68,15 @@ public class Debugging {
         }
     }
 
+    public static void drawDebugSprite(Sprite sprite, Vec2 position, Vec2 scale, Graphics2D g){
+
+        if(showDebug){
+
+            Vec2 point = Camera.calculateWindowTowindowPoint(position.inverse()).sumWith(Camera.getOffset());
+            g.drawImage(sprite.sprite, (int) point.x, (int) point.y, (int) scale.x , (int) scale.y, null);
+        }
+    }
+
     public static void drawDebugLine(Vec2 start, Vec2 end, Graphics2D g){
 
         if(showDebug){
