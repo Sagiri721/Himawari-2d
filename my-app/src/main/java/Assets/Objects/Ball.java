@@ -37,6 +37,7 @@ public class Ball extends Object implements StdBehaviour {
     Animator animator;
     ImageRenderer renderer;
 
+    RectCollider shell = null;
     ParticleEmitter p;
 
     public Ball() {
@@ -84,6 +85,9 @@ public class Ball extends Object implements StdBehaviour {
         p = new ParticleEmitter(new Sprite(0), new Vec2(100,0), new Vec2(10, 5));
         p.speedRate = 0.05f;
         p.sizeRate = 0.01f;
+
+        shell = (RectCollider) Object.FindObject("Fumo").getComponent(RectCollider.class);
+        collider.ignoreTag("fumo");       
     }
 
     // Called every frame
@@ -116,6 +120,8 @@ public class Ball extends Object implements StdBehaviour {
             if(Input.axisX > 0 && renderer.isFlippedX){
                 renderer.flipX();
             }
+
+            //if(shell !=null && shell.isCollidingWith(collider)) 
 
             if(Input.isKeyJustPressed(Keys.H)) GameSerializer.serializeObjects();
             if(Input.isKeyJustPressed(Keys.J)) GameSerializer.deserializeData();

@@ -21,6 +21,16 @@ public class ParticleEmitter {
 
     public boolean emitting = false;
 
+    public void startEmitting(){
+
+        emitting = true;
+    }
+
+    public void stopEmitting(){
+
+        emitting = false;
+    }
+
     public ParticleEmitter(Sprite particle, Vec2 origin, Vec2 direction){
 
         this.particle = particle;
@@ -57,7 +67,7 @@ public class ParticleEmitter {
 
     private void emission(){
 
-        if(particles.size() >= maxParticles) return;
+        if(particles.size() >= maxParticles || !emitting) return;
 
         Particle p = new Particle(lifetime, origin, fluctuation == 0 ? direction : calculateRandomDirection(), speed, particle.width);
         particles.add(p);

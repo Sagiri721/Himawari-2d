@@ -25,9 +25,9 @@ public class Main extends HimawariCore{
         Room r = new Room(null,  new RoomData("room1"));
         LoadRoom(r);
         
+        CreateObject("Fumo", new Vec2(30, 30), 0, new Vec2(1,1));
         CreateObject("Ball", new Vec2(0, 0), 0, new Vec2(1, 1));
         CreateObject("GameCamera", Vec2.ZERO, 0, Vec2.ZERO);
-        CreateObject("Fumo", new Vec2(30, 30), 0, new Vec2(1,1));
 
         /*
         Object obj = CreateObject("Wall", new Vec2(50, -50), 0, new Vec2(1,1));

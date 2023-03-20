@@ -23,7 +23,7 @@ public class Fumo extends Object implements StdBehaviour {
     Path path;
 
     public Fumo() {
-        super("Gumo");
+        super("Fumo");
     }
 
     @Override
@@ -35,14 +35,18 @@ public class Fumo extends Object implements StdBehaviour {
     // Called once the object is initialized
     @Override
     public void Start() {
-
+        
         Sprite s = new Sprite("fumo.png").getScaledSprite(new Vec2(64, 64));
         renderer = new ImageRenderer(s, this);
         addComponent(renderer);
+        
+        RectCollider collider = new RectCollider(transform, s.getSpriteBounds());
+        addComponent(collider);
 
         path = new Path(transform.position, new Vec2[] {new Vec2(0, 50), new Vec2(100, 100), new Vec2(150, 3)});
         Path temPath = new Path(new Vec2[] {new Vec2(100, 50), new Vec2(150, 50), new Vec2(100, 100), new Vec2(150, 3)});
 
+        setTag("fumo");
         path.loop = true;
     }
 
