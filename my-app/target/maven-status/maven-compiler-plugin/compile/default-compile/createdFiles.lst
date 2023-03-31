@@ -29,6 +29,7 @@ Engine\Sound\Sound.class
 Engine\Gfx\Fonts.class
 Engine\Sound\Sound$1.class
 Engine\Utils\Path$1.class
+Engine\Utils\Window$EngineData.class
 Engine\HimawariCore.class
 Engine\Input\Input.class
 Engine\Networking\Client.class

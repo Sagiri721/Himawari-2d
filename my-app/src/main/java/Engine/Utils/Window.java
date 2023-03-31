@@ -2,7 +2,12 @@ package Engine.Utils;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.charset.Charset;
+import java.nio.file.Paths;
 import java.awt.Color;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -12,12 +17,20 @@ import javax.swing.JFrame;
 import javax.swing.JLayer;
 import javax.swing.plaf.LayerUI;
 
+import com.google.common.io.Files;
+import com.google.gson.Gson;
+
 import Engine.Components.Camera;
 import Engine.Gfx.ShaderPane;
+import Engine.Gfx.Sprite;
+import Engine.Input.Input;
 import Engine.Input.KeyboardReader;
 import Engine.Input.MouseReader;
 import Engine.Networking.ServerConnection;
+import Engine.Physics.Physics;
 import Engine.Utils.Geom.Vec2;
+
+import java.awt.event.*;;
 
 public class Window extends JFrame implements ComponentListener {
 
@@ -41,10 +54,14 @@ public class Window extends JFrame implements ComponentListener {
     KeyboardReader reader = new KeyboardReader();
     MouseReader mouseReader = new MouseReader();
 
+    public static EngineData engineSettings = null;
+
     /**
      * Create a window in where game objects can be placed
      */
     public void initWindow(int width, int height, String name){
+
+        loadSettings();
 
         if(Window.WindowExists)
             return;
@@ -142,5 +159,65 @@ public class Window extends JFrame implements ComponentListener {
     public void componentHidden(ComponentEvent e) {
 
         focus = false;
+    }
+
+    public static class EngineData {
+
+        protected EngineData(){
+
+            this.delay=10;
+            this.fixed=false;
+            this.grav=1.0f;
+            this.cap=true;
+            this.capValue=60.0f;
+            this.details=1.0f;
+            this.ignore=true;
+            this.limit=1;
+            this.map= new char[]{'A', 'D', 'W', 'S', KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_UP, KeyEvent.VK_DOWN};
+        }
+
+        public int delay;
+        public boolean fixed;
+        public float grav;
+        public boolean cap;
+        public float capValue;
+        public float details;
+        public boolean ignore;
+        public int limit;
+        public char[] map;
+    }
+
+    private static void loadSettings(){
+
+        Gson g = new Gson();
+        EngineData defaultData = new Window.EngineData();
+
+        File dataFile = new File(Sprite.RelativeEngineResourcePath + "MyGameData.json");
+        if(dataFile.exists()){
+
+            Charset c = Charset.forName("US-ASCII");
+            try(Reader r = Files.newReader(dataFile, c)){
+
+                defaultData = g.fromJson(r, EngineData.class);
+
+            } catch (IOException e){}
+
+        }
+
+        // Set the settings to the default ones
+        Window.engineSettings = defaultData;        
+
+        // Define the actual variables
+        Renderer.DELAY = engineSettings.delay;
+        Renderer.fixedDelta = engineSettings.fixed;
+
+        Physics.G = engineSettings.grav;
+        Physics.accelearion_capped = engineSettings.cap;
+        Physics.acceleration_treshold = engineSettings.capValue;
+        Physics.raycast_detail = engineSettings.details;
+        Physics.ignoreSelf = engineSettings.ignore;
+
+        KeyboardReader.limit = engineSettings.limit;
+        Input.keyMap = engineSettings.map;
     }
 }
