@@ -108,7 +108,8 @@ public class Vec2 implements Comparator<Vec2>, Serializable {
 
     public Vec2 getThisMidway(){ return this.divide(2); }
     public Vec2 getMidway(Vec2 other){ return (other.subtractWith(this).getThisMidway()); }
-    
+    public Vec2 round(){return new Vec2(Math.round(this.x), Math.round(this.y));}
+
     //Misc
     @Override
     public String toString(){ return "X: " + x + " | Y: " + y; }
