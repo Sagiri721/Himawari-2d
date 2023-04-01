@@ -31,7 +31,12 @@ public class Alarm{
                     if(currentAlarm == null) return;
 
                     currentAlarm.getAlarm().alarmRun();
-                    if(currentAlarm.isRepeating()) { runAlarm(currentAlarm);}
+                    if(currentAlarm.isRepeating()){
+
+                        AlarmPack alarm = currentAlarm;
+                        cancelAlarm();
+                        Alarm.runAlarm(alarm);
+                    }
 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
