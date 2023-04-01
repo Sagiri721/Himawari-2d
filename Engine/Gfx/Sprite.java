@@ -25,6 +25,8 @@ public class Sprite implements Serializable {
     public Sprite(BufferedImage image) { sprite = image; width = image.getWidth(); height = image.getHeight();}
     public Sprite(String path, int x, int y, int w, int h) {imageFile = new File(Window.RelativeResourcePath + "Sprites/" + path); BufferedImage image = getBufferedImageFromFile(path); sprite = image.getSubimage(x, y, w, h); width = sprite.getWidth(); height = sprite.getHeight(); }
     public Sprite(String path) { imageFile = new File(Window.RelativeResourcePath + "Sprites/" + path); sprite = getBufferedImageFromFile(path); width = sprite.getWidth(); height = sprite.getHeight(); }
+  
+    public Vec2 getSpriteBounds(){return new Vec2(width, height);}
 
     public Sprite(int i) { 
         

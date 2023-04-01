@@ -3,6 +3,7 @@ package Engine.Components;
 import Engine.Utils.Geom.Rectangle;
 import Engine.Utils.Geom.Vec2;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,6 +15,15 @@ public class RectCollider extends Component{
     public Vec2 bounds;
     private Vec2 originalBounds;
     private Object object;
+    private List<String> ignoreMask = new ArrayList<String>();
+
+    public String[] getIgnoredTags(){return ignoreMask.toArray(new String[ignoreMask.size()]); }
+    public void ignoreTag(String tag){ ignoreMask.add(tag); }
+    public void regonizeTag(String tag){ ignoreMask.remove(tag); }
+
+    public int getIgnoreTagsCount(){return ignoreMask.size();}
+
+    public boolean isTagIgnored(String tag){ return ignoreMask.contains(tag); }
 
     public boolean solid = true;
 
@@ -100,8 +110,11 @@ public class RectCollider extends Component{
             if(o == obj){
 
                 RectCollider r = (RectCollider) obj.getComponent(RectCollider.class);
+                
                 if(r != null){
-
+                    
+                    if(!r.solid || isTagIgnored(o.getTag())) continue;
+                    
                     Transform t = o.transform;
                     
                     Rectangle rect = new Rectangle(t.position.x, t.position.y, r.bounds.x, r.bounds.y);
@@ -110,9 +123,7 @@ public class RectCollider extends Component{
                     if(myRect.Intersects(rect))
                         return true;
 
-                }else
-                    continue;
-
+                }
             }
         }
 
@@ -129,8 +140,10 @@ public class RectCollider extends Component{
                 continue;
 
             RectCollider r = (RectCollider) o.getComponent(RectCollider.class);
+            
             if(r != null){
-
+                
+            if(!r.solid || isTagIgnored(o.getTag())) continue;
                 Transform t = o.transform;
                 
                 Rectangle rect = new Rectangle(t.position.x, t.position.y, r.bounds.x, r.bounds.y);
@@ -151,5 +164,25 @@ public class RectCollider extends Component{
 
         Rectangle myRect = new Rectangle(transform.position.x, transform.position.y, bounds.x, bounds.y);
         return myRect.Contains(point);
+    }
+    
+    public boolean isCollidingWith(RectCollider collider){
+
+        Rectangle myRect = new Rectangle(transform.position.x, transform.position.y, bounds.x, bounds.y);
+        Rectangle otherRect = new Rectangle(collider.transform.position.x, collider.transform.position.y, collider.bounds.x, collider.bounds.y);
+        return myRect.Intersects(otherRect);
+    }
+
+    public double getCollisionArea(RectCollider collider){
+
+        Rectangle myRect = new Rectangle(transform.position.x, transform.position.y, bounds.x, bounds.y);
+        Rectangle otherRect = new Rectangle(collider.transform.position.x, collider.transform.position.y, collider.bounds.x, collider.bounds.y);
+
+        if(myRect.Intersects(otherRect)){
+
+            Rectangle difference = new Rectangle(myRect.x - otherRect.x, myRect.y - otherRect.y, myRect.width - otherRect.width, myRect.height - otherRect.height);
+            return difference.area();
+
+        }else return 0;
     }
 }

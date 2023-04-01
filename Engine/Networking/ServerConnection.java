@@ -12,7 +12,13 @@ public class ServerConnection {
     public static boolean isConnectionOpen(){
         return connection != null;
     }
-    public static String getSessionID(){return connection.getClientID(); }
+    public static String getSessionID(){
+        if (!isConnectionOpen())
+            return null;
+
+        return connection.getClientID(); 
+    
+    }
 
     public static void openConnection(String url, LobbyEventListener listener){
 
@@ -48,7 +54,7 @@ public class ServerConnection {
             return;
         }
 
-        listener.onDisconnection();
+        if(listener != null) listener.onDisconnection();
         Client.ws.sendText("closed:" + connection.getClientID(), true);
         Client.ws.abort();
         connection = null;

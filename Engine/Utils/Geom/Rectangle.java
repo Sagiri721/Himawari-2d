@@ -71,4 +71,10 @@ public class Rectangle extends Shape{
 
         return ("X: " + x + " | Y: " + y + " | W: " + width + " | H: " + height);
     }
+
+    @Override
+    public double area() {
+     
+        return width * height;
+    }
 }

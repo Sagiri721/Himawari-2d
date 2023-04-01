@@ -140,8 +140,14 @@ public class RoomHandler {
                 */
 
                 //System.out.println(Camera.ViewPort.y + (int) Camera.getViewPortOffset().y + viewportOffset.x);
-                for(int i = (int) Camera.getViewPortOffset().x; i < Camera.getOffset().y + (int) Camera.getViewPortOffset().x + viewportOffset.y; i++){
-                    for(int j = (int) Camera.getViewPortOffset().y; j < Camera.getOffset().x + (int) Camera.getViewPortOffset().y + viewportOffset.x; j++) {
+                int initialX = (int) Camera.getViewPortOffset().x;
+                int initialY = (int) Camera.getViewPortOffset().y;
+                
+                Vec2 tileOffset = Camera.getOffset().divide(new Vec2(Window.width / currentRoom.tileset.width, Window.height / currentRoom.tileset.height)).round();
+
+                for(int i = (int) Camera.getViewPortOffset().x; i < initialX + tileOffset.x + Window.width / currentRoom.tileset.width; i++){
+                    for(int j = (int) Camera.getViewPortOffset().y; j < initialY + tileOffset.x + Window.width / currentRoom.tileset.width; j++) {
+
 
                         if(j > currentRoom.roomData.getWidth()){
                             break;

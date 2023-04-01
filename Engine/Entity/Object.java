@@ -76,6 +76,17 @@ public class Object implements Serializable{
         return null;
     }
 
+    public Component[] getComponentsInChildren(Class comp){
+
+        List<Component> comps = new ArrayList<Component>();
+        for (Component c : components) {
+
+            if (c.getClass() == comp) comps.add(c);
+        }
+
+        return comps.toArray(new Component[comps.size()]);
+    }
+
     public void setName(String name){
         this.name = name;
     }

@@ -1,7 +1,5 @@
 package Engine.Networking;
 
-import Engine.Entity.Object;
-
 public class MessageHandler {
 
     private Client myCLient;
@@ -24,12 +22,8 @@ public class MessageHandler {
                 }
 
                 case "join":
-                    
-                    Object obj = null;
-                    DynamicObject dyo = DynamicObject.createObject(obj, contents);
 
-                    ServerConnection.listener.clientJoined(contents, dyo);
-
+                    ServerConnection.listener.clientJoined(contents);
                 break;
                 case "left":
 

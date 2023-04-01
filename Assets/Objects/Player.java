@@ -3,17 +3,8 @@ package Assets.Objects;
 import java.awt.Graphics2D;
 
 import Engine.Utils.StdBehaviour;
-
-public class Player extends Object implements StdBehaviour {
-
-
-package [package]Assets.Objects;
-
-import [package]Engine.Entity.*;
 import Engine.Entity.Object;
-
 import java.awt.Graphics2D;
-
 import Engine.Components.*;
 import Engine.Gfx.*;
 import Engine.Input.*;
@@ -71,5 +62,8 @@ public class Player extends Object implements StdBehaviour{
         return (StdBehaviour) this;
     }
     
-}
+    @Override
+    public void RoomLoaded(Room room) {
+    
+    }
 }

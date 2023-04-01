@@ -10,6 +10,7 @@ import Engine.Entity.Object;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.Arrays;
 import java.awt.Image;
 
 public class ImageRenderer extends Component{
@@ -23,7 +24,15 @@ public class ImageRenderer extends Component{
     public boolean isFlippedX = false, isFlippedY = false;
     public boolean visible = true;
     public Vec2 pivotPoint = new Vec2();
-    public void setVisible(boolean visible) { this.visible = visible;}
+    public void setVisible(boolean visible) { 
+    
+        this.visible = visible;
+        Component[] c = object.getComponentsInChildren(getClass());
+        for(ImageRenderer i : Arrays.copyOf(c, c.length, ImageRenderer[].class)){
+
+            i.setVisible(visible);
+        }
+    }
 
     private Object object;
     private Sprite sprite = null;
