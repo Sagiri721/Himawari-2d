@@ -3,7 +3,7 @@
   "fixed": false,
   "grav": 1.0,
   "cap": true,
-  "capValue": 60.0,
+  "capValue": 50.0,
   "details": 1.0,
   "ignore": true,
   "limit": 1,
