@@ -28,7 +28,16 @@ public class Alarm{
                 try {
                     TimeUnit.SECONDS.sleep((long) currentAlarm.getDelay());
                 
+                    if(currentAlarm == null) return;
+
                     currentAlarm.getAlarm().alarmRun();
+                    if(currentAlarm.isRepeating()){
+
+                        AlarmPack alarm = currentAlarm;
+                        cancelAlarm();
+                        Alarm.runAlarm(alarm);
+                    }
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                     
@@ -39,5 +48,11 @@ public class Alarm{
             }
             
         }).start();
+    }
+
+    public static void cancelAlarm(){
+
+        currentAlarm = null;
+        running = false;
     }
 }

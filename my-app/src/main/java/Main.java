@@ -1,7 +1,9 @@
 import java.awt.Color;
 
+import Assets.Objects.Alarm1;
 import Assets.Objects.Ball;
 import Engine.HimawariCore;
+import Engine.Database.Storage;
 import Engine.Entity.Object;
 import Engine.Gfx.Debugging;
 import Engine.Gfx.ShaderPane;
@@ -11,6 +13,8 @@ import Engine.Map.RoomData;
 import Engine.Networking.Client;
 import Engine.Networking.LobbyEventListener;
 import Engine.Networking.ServerConnection;
+import Engine.Utils.Alarm;
+import Engine.Utils.AlarmPack;
 import Engine.Utils.Geom.Vec2;
 
 public class Main extends HimawariCore{
@@ -36,16 +40,18 @@ public class Main extends HimawariCore{
         //obj.node.addChild(objOther);
         //player.getComponent(RectCollider.class);
 
-        Debugging.drawColliders = true;
 
         //Object.sendMessageTo("Paredezinha", null);
 
-        // Sound s = new Sound("idk but sounds decent.mp3", false);
+        // Sound s = new Sound("mp3", false);
         // s.play();
 
         //Storage.put("Pontos", String.valueOf(1));
 
         //Storage.CreateCluster("newCluster", (byte) 4);
-        //ShaderPane.LoadShader(ShaderFactory.createGradientShader(Color.BLUE, Color.GREEN));
+        //ShaderPane.LoadShader(ShaderFactory.createLightShader(1, 180, "Ball"));
+
+        AlarmPack p = new AlarmPack(new Alarm1(), 1, true);
+        Alarm.runAlarm(p);
     }
 }
