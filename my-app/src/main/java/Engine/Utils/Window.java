@@ -135,10 +135,10 @@ public class Window extends JFrame implements ComponentListener {
     @Override
     public void componentResized(ComponentEvent e) {
 
+        width = getWidth();
+        height = getHeight();
         if(Camera.getInstance() != null)
         {
-            width = getWidth();
-            height = getHeight();
 
             Camera.calculateOffset();
         }
