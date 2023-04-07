@@ -157,8 +157,8 @@ public class Transform extends Component{
         RectCollider collider = (RectCollider) obj.getComponent(RectCollider.class);
 
         if (collider != null) {
-
-            collider.resizeColliderSpecifics(scale.times(Vec2.fromValue(RoomHandler.currentRoom.tileset.width)));
+            
+            collider.resizeColliderSpecifics(scale.times(collider.bounds));
         }
     }
 

@@ -148,7 +148,6 @@ public class RoomHandler {
                 for(int i = (int) Camera.getViewPortOffset().x; i < (initialX + tileOffset.x + Window.width / currentRoom.tileset.width) / Camera.viewport.x; i++){
                     for(int j = (int) Camera.getViewPortOffset().y; j < (initialY + tileOffset.x + Window.width / currentRoom.tileset.width) / Camera.viewport.y; j++) {
 
-
                         if(j > currentRoom.roomData.getWidth()){
                             break;
                         }

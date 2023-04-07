@@ -36,13 +36,12 @@ public class RectCollider extends Component{
         
         bounds = scale;
     }
-
+    
     public RectCollider(Transform transform, Vec2 bounds) {
-
+        
         this.transform = transform;
-        this.bounds = bounds;
-
         this.originalBounds = bounds;
+        resizeColliderSpecifics(bounds);
 
         object = transform.obj;
     }

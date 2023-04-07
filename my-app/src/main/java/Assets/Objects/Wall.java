@@ -34,6 +34,7 @@ public class Wall extends Object implements StdBehaviour {
         Sprite sprite = new Sprite("square.png");
 
         rend = new ImageRenderer(sprite, this);
+
         collider = new RectCollider(transform, rend.getDimensions());
 
         setLayer(1);
