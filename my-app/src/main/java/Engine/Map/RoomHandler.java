@@ -145,8 +145,8 @@ public class RoomHandler {
                 
                 Vec2 tileOffset = Camera.getOffset().divide(new Vec2(Window.width / currentRoom.tileset.width, Window.height / currentRoom.tileset.height)).round();
 
-                for(int i = (int) Camera.getViewPortOffset().x; i < initialX + tileOffset.x + Window.width / currentRoom.tileset.width; i++){
-                    for(int j = (int) Camera.getViewPortOffset().y; j < initialY + tileOffset.x + Window.width / currentRoom.tileset.width; j++) {
+                for(int i = (int) Camera.getViewPortOffset().x; i < (initialX + tileOffset.x + Window.width / currentRoom.tileset.width) / Camera.viewport.x; i++){
+                    for(int j = (int) Camera.getViewPortOffset().y; j < (initialY + tileOffset.x + Window.width / currentRoom.tileset.width) / Camera.viewport.y; j++) {
 
 
                         if(j > currentRoom.roomData.getWidth()){
@@ -154,10 +154,10 @@ public class RoomHandler {
                         }
 
                         g.drawImage(currentRoom.tileset.getFrame(currentRoom.roomData.getTile(j, i)), 
-                        (int) (j * currentRoom.tileset.width - Camera.position.position.x + Camera.getOffset().x) * (int) Camera.viewport.x, 
-                        (int) (i * currentRoom.tileset.height - Camera.position.position.y + Camera.getOffset().y) * (int) Camera.viewport.y, 
-                        (int) Camera.viewport.x * currentRoom.tileset.width,
-                        (int) Camera.viewport.y * currentRoom.tileset.height, 
+                        (int) ((j * currentRoom.tileset.width - Camera.position.position.x + Camera.getOffset().x) * Camera.viewport.x), 
+                        (int) ((i * currentRoom.tileset.height - Camera.position.position.y + Camera.getOffset().y) * Camera.viewport.y), 
+                        (int) (Camera.viewport.x * currentRoom.tileset.width),
+                        (int) (Camera.viewport.y * currentRoom.tileset.height), 
                 null);
                     }
 

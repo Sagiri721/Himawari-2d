@@ -37,8 +37,8 @@ public class Camera extends Component{
 
     public static void setOffset(Vec2 offset){
         
-        Camera.offset = offset;
-        position.position.sumWith(offset);
+        Camera.offset = offset.divide(viewport);
+        position.position = position.position.sumWith(offset);
     }
 
     public static void calculateOffset(){ 
@@ -87,8 +87,8 @@ public class Camera extends Component{
 
         if(Camera.getInstance() == null) return windowPoint;
 
-        int x = (int)((Camera.position.position.x * viewport.x) + windowPoint.x);
-        int y = (int)((Camera.position.position.y * viewport.y) + windowPoint.y);
+        int x = (int)((Camera.position.position.x) + windowPoint.x) * (int) viewport.x;
+        int y = (int)((Camera.position.position.y) + windowPoint.y) * (int) viewport.y;
 
         return new Vec2(-x, -y);
     }
@@ -97,9 +97,15 @@ public class Camera extends Component{
 
         if(Camera.getInstance() == null) return windowPoint;
 
-        int x = (int)(windowPoint.x - Camera.position.position.x);
-        int y = (int)(windowPoint.y - Camera.position.position.y);
+        int x = (int)((windowPoint.x - Camera.position.position.x) * viewport.x);
+        int y = (int)((windowPoint.y - Camera.position.position.y) * viewport.y);
 
         return new Vec2(-x, -y);
+    }
+
+    public static void setViewport(float x, float y) {
+
+        viewport = viewport.times(new Vec2(x, y));
+        offset = offset.divide(new Vec2(x, y));
     }
 }

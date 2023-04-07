@@ -31,7 +31,7 @@ public class RectCollider extends Component{
 
         bounds = originalBounds.times(scale);
     }
-
+    
     public void resizeColliderSpecifics(Vec2 scale){
         
         bounds = scale;

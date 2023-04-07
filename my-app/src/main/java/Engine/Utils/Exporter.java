@@ -149,7 +149,7 @@ public class Exporter {
         public ObjectAdaptation() {
         }
 
-        public Integer id = null;
+        public Integer id = 0;
         public String name = null, className = null;
         public String[] components = null;
         public Vec2 position = null, scale = null, spriteDimensions = null, colliderDimensions = null;

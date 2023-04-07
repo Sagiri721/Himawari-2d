@@ -92,8 +92,8 @@ public class Renderer extends JPanel implements ActionListener {
 
                         Transform t = o.transform;
                         boolean camera = Camera.getInstance() != null;
-                        int x = camera ? (int) (t.position.x - Camera.position.position.x + Camera.getOffset().x) : (int) t.position.x;
-                        int y = camera ? (int) (t.position.y - Camera.position.position.y + Camera.getOffset().y) : (int) t.position.y;
+                        int x = camera ? (int) ((t.position.x - Camera.position.position.x + Camera.getOffset().x) * Camera.viewport.x) : (int) t.position.x;
+                        int y = camera ? (int) ((t.position.y - Camera.position.position.y + Camera.getOffset().y) * Camera.viewport.y) : (int) t.position.y;
 
                         if (t != null) {
 
@@ -105,8 +105,8 @@ public class Renderer extends JPanel implements ActionListener {
                             if(r.isFlippedY) fnImg = ImageUtil.flipImageVertical(fnImg);
 
                             g2d.drawImage(fnImg, x,  y,
-                                    (int)((r.getImage().getWidth() * (int) t.scale.x)),
-                                    (int)((r.getImage().getHeight() * (int) t.scale.y)),
+                                    (int)(((r.getImage().getWidth() * t.scale.x)) * Camera.viewport.x),
+                                    (int)(((r.getImage().getHeight() * t.scale.y)) * Camera.viewport.y),
                                     null);
                         }
                         
@@ -123,8 +123,12 @@ public class Renderer extends JPanel implements ActionListener {
                         if(c != null && t != null){
                             
                             g2d.setColor(Color.RED);
-                            g2d.drawRect((int) (int) (t.position.x - Camera.position.position.x + Camera.getOffset().x),
-                            (int) (t.position.y - Camera.position.position.y + Camera.getOffset().y), (int) c.bounds.x, (int) c.bounds.y);
+                            g2d.drawRect(
+                                (int) ((t.position.x - Camera.position.position.x + Camera.getOffset().x) * Camera.viewport.x),
+                                (int) ((t.position.y - Camera.position.position.y + Camera.getOffset().y) * Camera.viewport.y), 
+                                (int) (c.bounds.x * Camera.viewport.x), 
+                                (int) (c.bounds.y * Camera.viewport.y)
+                                );
                         }
 
                         g2d.setColor(Color.WHITE);

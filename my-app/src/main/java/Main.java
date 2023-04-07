@@ -3,6 +3,7 @@ import java.awt.Color;
 import Assets.Objects.Alarm1;
 import Assets.Objects.Ball;
 import Engine.HimawariCore;
+import Engine.Components.Camera;
 import Engine.Database.Storage;
 import Engine.Entity.Object;
 import Engine.Gfx.Debugging;
@@ -34,9 +35,7 @@ public class Main extends HimawariCore{
         Object player= CreateObject("Ball", new Vec2(0, 0), 0, new Vec2(1, 1));
         CreateObject("GameCamera", Vec2.ZERO, 0, Vec2.ZERO);
 
-        Object obj = CreateObject("Wall", new Vec2(50, -50), 0, new Vec2(1,1));
         //Object objOther = CreateObject("WallChild", new Vec2(50, -100), 0, new Vec2(1,1));
-        player.node.addChild(obj);
         //obj.node.addChild(objOther);
         //player.getComponent(RectCollider.class);
 
@@ -51,7 +50,8 @@ public class Main extends HimawariCore{
         //Storage.CreateCluster("newCluster", (byte) 4);
         //ShaderPane.LoadShader(ShaderFactory.createLightShader(1, 180, "Ball"));
 
-        AlarmPack p = new AlarmPack(new Alarm1(), 1, true);
-        Alarm.runAlarm(p);
+        Debugging.drawColliders = true;
+
+        Camera.setViewport(1.5f, 1);
     }
 }

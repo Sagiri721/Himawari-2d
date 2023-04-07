@@ -131,7 +131,7 @@ public class Ball extends Object implements StdBehaviour {
                 //ServerConnection.closeConnection();
                 //Client.sendMessageToAllClients("OLAAAA");
 
-                renderer.setVisible(false);
+                //renderer.setVisible(false);
             }
 
             transform.translate(movement.times(300).times(deltaTime), collider);
