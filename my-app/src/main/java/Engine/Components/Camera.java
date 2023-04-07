@@ -83,22 +83,12 @@ public class Camera extends Component{
         return viewPos;
     }
 
-    public static Vec2 calculateWindowTowindowPoint(Vec2 windowPoint){
-
-        if(Camera.getInstance() == null) return windowPoint;
-
-        int x = (int)((Camera.position.position.x) + windowPoint.x) * (int) viewport.x;
-        int y = (int)((Camera.position.position.y) + windowPoint.y) * (int) viewport.y;
-
-        return new Vec2(-x, -y);
-    }
-
     public static Vec2 calculateWorldToWindowPosition(Vec2 windowPoint){
 
         if(Camera.getInstance() == null) return windowPoint;
 
-        int x = (int)((windowPoint.x - Camera.position.position.x) * viewport.x);
-        int y = (int)((windowPoint.y - Camera.position.position.y) * viewport.y);
+        int x = (int)(((Camera.position.position.x) + windowPoint.x));
+        int y = (int)(((Camera.position.position.y) + windowPoint.y));
 
         return new Vec2(-x, -y);
     }

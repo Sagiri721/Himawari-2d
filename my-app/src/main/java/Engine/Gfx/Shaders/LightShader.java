@@ -43,7 +43,7 @@ public class LightShader implements ShaderInterface {
 
             ImageRenderer renderer = (ImageRenderer) t.getComponent(ImageRenderer.class);
             if(renderer == null) return;
-            position.setValues(Camera.calculateWindowTowindowPoint(t.transform.position.inverse()).sumWith(Camera.getOffset()).sumWith(renderer.getDimensions().divide(2)));
+            position.setValues(Camera.calculateWorldToWindowPosition(t.transform.position.inverse()).sumWith(Camera.getOffset()).sumWith(renderer.getDimensions().divide(2)));
         }
     }
 }

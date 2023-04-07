@@ -163,6 +163,8 @@ public class Ball extends Object implements StdBehaviour {
         p.render(g);
 
         f.drawText("Miau auusa, sadhsadad fdsjfdsfg", g, new Vec2(20, 20));
+
+        Debugging.drawDebugText("UAUAUAUA", 50, 50, g);
     }
 
     @Override
