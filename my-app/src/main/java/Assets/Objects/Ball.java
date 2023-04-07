@@ -10,6 +10,8 @@ import Engine.Database.GameSerializer;
 import Engine.Entity.Object;
 import Engine.Gfx.Animation;
 import Engine.Gfx.Debugging;
+import Engine.Gfx.FontMap;
+import Engine.Gfx.Fonts;
 import Engine.Gfx.ImageUtil;
 import Engine.Gfx.ParticleEmitter;
 import Engine.Gfx.Sprite;
@@ -19,6 +21,7 @@ import Engine.Input.Input.Keys;
 import Engine.Map.Room;
 import Engine.Map.RoomData;
 import Engine.Map.RoomHandler;
+import Engine.Map.TileSet;
 import Engine.Networking.Client;
 import Engine.Networking.ServerConnection;
 import Engine.Physics.Physics;
@@ -36,6 +39,9 @@ public class Ball extends Object implements StdBehaviour {
     boolean updateable = false;
     Animator animator;
     ImageRenderer renderer;
+
+    FontMap map;
+    Fonts f;
 
     RectCollider shell = null;
     ParticleEmitter p;
@@ -87,7 +93,12 @@ public class Ball extends Object implements StdBehaviour {
         p.sizeRate = 0.01f;
 
         shell = (RectCollider) Object.FindObject("Fumo").getComponent(RectCollider.class);
-        collider.ignoreTag("fumo");       
+        collider.ignoreTag("fumo");
+        
+        TileSet tile = new TileSet(new Sprite("tile.png"), 16, 16);
+        map = new FontMap(tile);
+
+        f = new Fonts(0, 0, true, map);
     }
 
     // Called every frame
@@ -150,6 +161,8 @@ public class Ball extends Object implements StdBehaviour {
         //Debugging.drawDebugLine(transform.position, transform.position.sumWith(Vec2.DOWN.times(408)), g);
 
         p.render(g);
+
+        f.drawText("Miau auusa, sadhsadad fdsjfdsfg", g, new Vec2(20, 20));
     }
 
     @Override

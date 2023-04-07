@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -21,13 +22,23 @@ public class FontMap implements Serializable {
 
     // Map hash
     char[] keys;
-    long[] values;
+    int[] values;
 
-    public FontMap(String mapPath, TileSet tilesetPath) {
+    public FontMap(TileSet tileset) {
+
+        this.tileset = tileset;
+
+        // Create default map
+        String letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        this.keys = letters.toCharArray();
+        values = IntStream.range(0, keys.length).toArray();
+    }
+
+    public FontMap(String letterOrder, TileSet tilesetPath) {
 
         tileset = tilesetPath;
-
-        openFontMap(new File("D:/TIAGO/program/himawari/my-app/src/main/java/Assets/Fonts/FontMaps/map01.json"));
+        this.keys = letterOrder.toCharArray();
+        this.values = IntStream.range(0, letterOrder.length()).toArray();
     }
 
     private void openFontMap(File map) {
@@ -46,13 +57,13 @@ public class FontMap implements Serializable {
             Set<String> keyset = obj.keySet();
 
             keys = new char[keyset.size()];
-            values = new long[keyset.size()];
+            values = new int[keyset.size()];
 
             int i = 0;
             for (String key : keyset) {
 
                 keys[i] = key.charAt(0);
-                values[i] = (long) obj.get(key);
+                values[i] = (int) obj.get(key);
             }
 
         } catch (FileNotFoundException e) {
@@ -66,6 +77,6 @@ public class FontMap implements Serializable {
 
     public BufferedImage getLetter(int x) {
 
-        return tileset.spriteSheet.sprite.getSubimage(x, 0, tileset.width, tileset.height);
+        return tileset.spriteSheet.sprite.getSubimage(x * tileset.width, 0, tileset.width, tileset.height);
     }
 }
