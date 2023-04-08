@@ -5,6 +5,7 @@ import java.util.Iterator;
 import Engine.Entity.Object;
 import Engine.Map.RoomHandler;
 import Engine.Utils.GameMaths;
+import Engine.Utils.Renderer;
 import Engine.Utils.Window;
 import Engine.Utils.Geom.Vec2;
 
@@ -52,7 +53,7 @@ public class Camera extends Component{
         int w = Window.width;
         int h = Window.height;
 
-        offset = new Vec2(w/2, h/2);
+        offset = new Vec2(w/2, h/2).times(viewport).times(Vec2.ONE.divide(Renderer.getViewportScale()));
     }
 
     public static Vec2 calculateIdealCameraOffset(){

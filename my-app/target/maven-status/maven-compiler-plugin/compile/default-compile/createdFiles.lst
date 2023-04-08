@@ -67,6 +67,8 @@ Engine\Gfx\Shaders\LightShader.class
 Engine\Gfx\Sprite.class
 Engine\Physics\RayHit.class
 Engine\Utils\Geom\Shape.class
+Engine\Utils\Renderer$2.class
+Engine\Utils\Renderer$ViewportBehaviour.class
 Engine\Utils\ObjectLoader.class
 Engine\Database\Cluster.class
 Engine\Components\Camera.class

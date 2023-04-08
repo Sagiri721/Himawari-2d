@@ -32,6 +32,8 @@ public class Renderer extends JPanel implements ActionListener {
     public static int DELAY = 10;
     public static boolean fixedDelta = false; 
 
+    public static Color clearColor = Color.WHITE;
+
     private static JLayeredPane layers = null;
 
     // Handle framing and delta time
@@ -39,6 +41,23 @@ public class Renderer extends JPanel implements ActionListener {
     private static int fps = 0;
     private int counter = 0;
     private long startSec = 0, endTime = 0, deltaf = 0, deltai = 0;
+
+    public static enum ViewportBehaviour{
+        EXPAND,
+        AUTO_FIT,
+        MAINTAIN_AR_FIT
+    }
+
+    private static ViewportBehaviour viewportDisplay = ViewportBehaviour.AUTO_FIT;
+    protected static Vec2 viewportScale = Vec2.ONE;
+    public static Vec2 getViewportScale(){ return viewportScale; }
+
+    public static void setViewportBehaviour(ViewportBehaviour behaviour){
+
+        Renderer.viewportDisplay = behaviour;
+    }
+
+    public static ViewportBehaviour getViewportBehaviour(){ return viewportDisplay; }
 
     public Renderer() {
 
@@ -55,6 +74,19 @@ public class Renderer extends JPanel implements ActionListener {
          * Draw the graphics of the game
          */
         Graphics2D g2d = (Graphics2D) g;
+
+        switch (viewportDisplay) {
+            case AUTO_FIT:
+                
+                Renderer.viewportScale = new Vec2(Window.width / Window.defaultSize.x, Window.height / Window.defaultSize.y);
+                g2d.scale(Renderer.viewportScale.x, Renderer.viewportScale.y);
+                break;
+            default:
+                break;
+        }
+
+        g2d.setColor(clearColor);
+        g2d.fillRect(0, 0, (int) (Window.width * 1/Renderer.viewportScale.x), (int) (Window.height * 1/Renderer.viewportScale.y));
 
         RoomHandler.render(g2d);
         renderImages(g2d);

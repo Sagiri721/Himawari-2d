@@ -52,6 +52,6 @@ public class Main extends HimawariCore{
 
         Debugging.drawColliders = true;
 
-        Camera.setViewport(1.5f, 1f);
+        Camera.setViewport(1f, 1f);
     }
 }
