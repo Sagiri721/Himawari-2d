@@ -48,7 +48,7 @@ public class Renderer extends JPanel implements ActionListener {
         MAINTAIN_AR_FIT
     }
 
-    private static ViewportBehaviour viewportDisplay = ViewportBehaviour.AUTO_FIT;
+    private static ViewportBehaviour viewportDisplay = ViewportBehaviour.MAINTAIN_AR_FIT;
     protected static Vec2 viewportScale = Vec2.ONE;
     public static Vec2 getViewportScale(){ return viewportScale; }
 
@@ -79,6 +79,12 @@ public class Renderer extends JPanel implements ActionListener {
             case AUTO_FIT:
                 
                 Renderer.viewportScale = new Vec2(Window.width / Window.defaultSize.x, Window.height / Window.defaultSize.y);
+                g2d.scale(Renderer.viewportScale.x, Renderer.viewportScale.y);
+                break;
+            case MAINTAIN_AR_FIT:
+
+                int calculatedHeight = (int) (Window.width * Window.aspectRatio);
+                Renderer.viewportScale = new Vec2(Window.width / Window.defaultSize.x, calculatedHeight / Window.defaultSize.y);
                 g2d.scale(Renderer.viewportScale.x, Renderer.viewportScale.y);
                 break;
             default:
