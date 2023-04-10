@@ -81,7 +81,7 @@ public class Ball extends Object implements StdBehaviour {
         addComponent(collider);
         addComponent(animator);
 
-        b = new Body(transform, collider, 1);
+        b = new Body(transform, collider, 1f);
         addComponent(b);
 
         updateable = true;

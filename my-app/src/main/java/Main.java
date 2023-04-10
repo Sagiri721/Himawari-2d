@@ -16,6 +16,9 @@ import Engine.Networking.LobbyEventListener;
 import Engine.Networking.ServerConnection;
 import Engine.Utils.Alarm;
 import Engine.Utils.AlarmPack;
+import Engine.Utils.Clock;
+import Engine.Utils.Clock.ClockPrecision;
+import Engine.Utils.Clock.ClockType;
 import Engine.Utils.Geom.Vec2;
 
 public class Main extends HimawariCore{
@@ -53,5 +56,8 @@ public class Main extends HimawariCore{
         Debugging.drawColliders = true;
 
         Camera.setViewport(1f, 1f);
+
+        //Clock c = new Clock(100, ClockType.COUNTDOWN, ClockPrecision.SECONDS);
+        //c.startClock();
     }
 }

@@ -1,5 +1,6 @@
 Engine\Utils\Renderer$1.class
 Engine\Utils\Alarm$1.class
+Engine\Utils\Clock$ClockEvent.class
 Engine\Networking\LobbyEventListener.class
 Engine\Components\Transform.class
 Engine\Gfx\ShaderPane.class
@@ -15,6 +16,7 @@ Assets\Objects\Player.class
 Engine\Entity\Hierarchy.class
 Engine\Utils\Renderer.class
 Engine\Physics\Physics.class
+Engine\Utils\Clock.class
 Engine\Networking\ServerConnection.class
 Engine\Utils\MergePathMethod.class
 Engine\Components\Component.class
@@ -46,6 +48,7 @@ Engine\Components\RectCollider.class
 Engine\Map\RoomHandler.class
 Engine\Gfx\Shaders\Vignette.class
 Engine\Gfx\ShaderInterface.class
+Engine\Utils\Clock$ClockType.class
 Engine\Utils\Exporter.class
 Engine\Utils\Path.class
 Assets\Objects\Fumo.class
@@ -78,12 +81,14 @@ Engine\Components\ImageRenderer$scaleAlgorithm.class
 Engine\Gfx\Debugging$type.class
 Engine\Input\KeyboardReader.class
 Engine\Input\Input$Keys.class
+Engine\Utils\Clock$1.class
 Engine\Map\RoomHandler$1$1.class
 Engine\HimawariCore$Windowmode.class
 Engine\Utils\Geom\Circle.class
 Engine\Utils\Exporter$ObjectAdaptation.class
 Engine\Utils\PathEndListener.class
 Engine\Entity\Node.class
+Engine\Utils\Clock$ClockPrecision.class
 Engine\Gfx\Widget.class
 Engine\Input\MouseReader.class
 Engine\Gfx\ParticleEmitter.class

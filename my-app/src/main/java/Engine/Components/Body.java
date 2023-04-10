@@ -3,6 +3,7 @@ package Engine.Components;
 import Engine.Entity.Object;
 import Engine.Input.Input;
 import Engine.Physics.Physics;
+import Engine.Utils.Renderer;
 import Engine.Utils.Geom.Vec2;
 
 public class Body extends Component{
@@ -20,8 +21,7 @@ public class Body extends Component{
     public Body(Transform transform, RectCollider collider, float mass){
 
         this.transform = transform;
-        //this.mass = mass;
-        this.mass = 1;
+        this.mass = mass;
 
         this.collider = collider;
     }
@@ -30,7 +30,7 @@ public class Body extends Component{
 
         if(transform == null || mass <= 0 || collider == null ) return;
 
-        gravity = Vec2.DOWN.times(Physics.G);
+        gravity = Vec2.DOWN.times(Physics.G * mass);
 
         ApplyForce(gravity);
 
@@ -43,7 +43,7 @@ public class Body extends Component{
         // Cap acceleration
         if(Physics.accelearion_capped) totalForce = totalForce.clampY(-Physics.acceleration_treshold, Physics.acceleration_treshold);
 
-        transform.translate(totalForce.times(deltaTime).times(mass * 60), collider);   
+        transform.translate(totalForce.times(deltaTime).times(mass * Renderer.getFPS()), collider);   
         //System.out.println(totalForce.toString());
     }
 

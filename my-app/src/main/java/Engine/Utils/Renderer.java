@@ -48,7 +48,7 @@ public class Renderer extends JPanel implements ActionListener {
         MAINTAIN_AR_FIT
     }
 
-    private static ViewportBehaviour viewportDisplay = ViewportBehaviour.MAINTAIN_AR_FIT;
+    private static ViewportBehaviour viewportDisplay = ViewportBehaviour.AUTO_FIT;
     protected static Vec2 viewportScale = Vec2.ONE;
     public static Vec2 getViewportScale(){ return viewportScale; }
 
