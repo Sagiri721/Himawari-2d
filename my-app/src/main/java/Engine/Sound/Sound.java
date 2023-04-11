@@ -10,9 +10,11 @@ import java.io.Serializable;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 
 import com.google.common.io.Files;
 
+import Engine.Utils.GameMaths;
 import Engine.Utils.Window;
 import javazoom.jl.decoder.Bitstream;
 import javazoom.jl.decoder.BitstreamException;
@@ -36,6 +38,19 @@ public class Sound implements Serializable {
     private SupportedFileFormats format;
 
     private float length = 0f;
+
+    private static float globalGain = 0;
+
+    public static float getGlobalGain() {return Sound.globalGain; }
+
+    /**
+     * Sets the relative volume of all clips
+     * @param percentage value between 1 and 100
+     */
+    public static void setGlobalGain(float gain) {
+
+        Sound.globalGain = gain;
+    }
 
     public Sound(String path, boolean looping){
 
@@ -61,6 +76,13 @@ public class Sound implements Serializable {
                 clip = AudioSystem.getClip();
                 inputStream = AudioSystem.getAudioInputStream(file);
                 clip.open(inputStream);
+
+                // Volume            
+                if(Sound.globalGain != 0){
+
+                    FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                    gainControl.setValue(globalGain);
+                }
     
                 length = clip.getMicrosecondLength() / 1000000;
     
@@ -110,6 +132,7 @@ public class Sound implements Serializable {
             
                 //Play mp3 sound
                 try {
+
                     player.play();
                 } catch (JavaLayerException e) {
                     e.printStackTrace();

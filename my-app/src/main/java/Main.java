@@ -14,6 +14,7 @@ import Engine.Map.RoomData;
 import Engine.Networking.Client;
 import Engine.Networking.LobbyEventListener;
 import Engine.Networking.ServerConnection;
+import Engine.Sound.Sound;
 import Engine.Utils.Alarm;
 import Engine.Utils.AlarmPack;
 import Engine.Utils.Clock;
@@ -59,5 +60,10 @@ public class Main extends HimawariCore{
 
         //Clock c = new Clock(100, ClockType.COUNTDOWN, ClockPrecision.SECONDS);
         //c.startClock();
+
+        Sound.setGlobalGain(-20);
+
+        Sound s = new Sound("only.wav", false);
+        s.play();
     }
 }
