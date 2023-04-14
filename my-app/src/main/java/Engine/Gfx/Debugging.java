@@ -48,7 +48,7 @@ public class Debugging {
         if(showDebug){
             
             g.setColor(debugColor);
-            Vec2 point = Camera.calculateWorldToWindowPosition(new Vec2((int)-rect.x, (int)-rect.y));
+            Vec2 point = Camera.calculateWorldToWindowPosition(new Vec2((int)rect.x, (int)rect.y));
             if(drawType==type.HOLLOW) g.drawRect((int)point.x, (int)point.y, (int)rect.width, (int)rect.height);
             else g.fillRect(
                 (int)(point.x * Camera.viewport.x), 

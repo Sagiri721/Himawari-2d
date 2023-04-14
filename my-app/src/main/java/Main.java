@@ -1,25 +1,13 @@
-import java.awt.Color;
 
-import Assets.Objects.Alarm1;
-import Assets.Objects.Ball;
 import Engine.HimawariCore;
 import Engine.Components.Camera;
-import Engine.Database.Storage;
+import Engine.Components.RectCollider;
 import Engine.Entity.Object;
 import Engine.Gfx.Debugging;
-import Engine.Gfx.ShaderPane;
-import Engine.Gfx.Shaders.ShaderFactory;
 import Engine.Map.Room;
 import Engine.Map.RoomData;
-import Engine.Networking.Client;
-import Engine.Networking.LobbyEventListener;
-import Engine.Networking.ServerConnection;
 import Engine.Sound.Sound;
-import Engine.Utils.Alarm;
-import Engine.Utils.AlarmPack;
-import Engine.Utils.Clock;
-import Engine.Utils.Clock.ClockPrecision;
-import Engine.Utils.Clock.ClockType;
+import Engine.Utils.Renderer;
 import Engine.Utils.Geom.Vec2;
 
 public class Main extends HimawariCore{
@@ -55,15 +43,12 @@ public class Main extends HimawariCore{
         //ShaderPane.LoadShader(ShaderFactory.createLightShader(1, 180, "Ball"));
 
         Debugging.drawColliders = true;
+        Renderer.colliderInterest = (RectCollider) player.getComponent(RectCollider.class);
 
         Camera.setViewport(1f, 1f);
 
         //Clock c = new Clock(100, ClockType.COUNTDOWN, ClockPrecision.SECONDS);
         //c.startClock();
 
-        Sound.setGlobalGain(-20);
-
-        Sound s = new Sound("only.wav", false);
-        s.play();
     }
 }

@@ -29,6 +29,7 @@ import Engine.Physics.RayHit;
 import Engine.Utils.Renderer;
 import Engine.Utils.StdBehaviour;
 import Engine.Utils.Window;
+import Engine.Utils.Geom.Rectangle;
 import Engine.Utils.Geom.Vec2;
 
 public class Ball extends Object implements StdBehaviour {
@@ -44,7 +45,6 @@ public class Ball extends Object implements StdBehaviour {
     Fonts f;
 
     RectCollider shell = null;
-    ParticleEmitter p;
 
     public Ball() {
         super("Ball");
@@ -87,10 +87,6 @@ public class Ball extends Object implements StdBehaviour {
         updateable = true;
 
         setStatic(true);
-
-        p = new ParticleEmitter(new Sprite(0), new Vec2(100,0), new Vec2(10, 5));
-        p.speedRate = 0.05f;
-        p.sizeRate = 0.01f;
 
         shell = (RectCollider) Object.FindObject("Fumo").getComponent(RectCollider.class);
         collider.ignoreTag("fumo");
@@ -159,8 +155,6 @@ public class Ball extends Object implements StdBehaviour {
 
         //System.out.println(hit.collider.getName());
         //Debugging.drawDebugLine(transform.position, transform.position.sumWith(Vec2.DOWN.times(408)), g);
-
-        p.render(g);
 
         f.drawText("Miau auusa, sadhsadad fdsjfdsfg", g, new Vec2(20, 20));
 

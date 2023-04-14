@@ -42,6 +42,8 @@ public class Renderer extends JPanel implements ActionListener {
     private int counter = 0;
     private long startSec = 0, endTime = 0, deltaf = 0, deltai = 0;
 
+    public static RectCollider colliderInterest = null;
+
     public static enum ViewportBehaviour{
         EXPAND,
         AUTO_FIT,
@@ -155,10 +157,14 @@ public class Renderer extends JPanel implements ActionListener {
 
                     if(Debugging.drawColliders){
 
+                        
                         Transform t = (Transform) o.getComponent(Transform.class);
                         RectCollider c = (RectCollider) o.getComponent(RectCollider.class);
-
+                        
+                        
                         if(c != null && t != null){
+                            
+                            if(colliderInterest != null && !colliderInterest.isColliderOfInterest(c)) continue;
                             
                             g2d.setColor(Color.RED);
                             g2d.drawRect(

@@ -90,6 +90,7 @@ public class Transform extends Component{
         }
 
         position = newPosition;
+        collider.updateInterestStack();
         return res;
     }
 
@@ -160,6 +161,12 @@ public class Transform extends Component{
             
             collider.resizeColliderSpecifics(scale.times(collider.bounds));
         }
+    }
+
+    public Vec2 getDeadCenter(){
+
+        ImageRenderer renderer = (ImageRenderer) obj.getComponent(ImageRenderer.class);
+        return renderer == null ? position : position.sumWith(renderer.getDimensions().divide(2));
     }
 
     //////////////////////////////////////////////////////////////
