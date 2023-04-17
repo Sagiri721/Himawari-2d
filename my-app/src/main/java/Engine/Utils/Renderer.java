@@ -24,6 +24,7 @@ import Engine.Gfx.Debugging;
 import Engine.Gfx.ImageUtil;
 import Engine.Input.Input;
 import Engine.Map.RoomHandler;
+import Engine.Utils.Geom.Rectangle;
 import Engine.Utils.Geom.Vec2;
 
 public class Renderer extends JPanel implements ActionListener {
@@ -102,6 +103,17 @@ public class Renderer extends JPanel implements ActionListener {
 
     public void renderImages(Graphics2D g2d) {
 
+        Rectangle screen = null;
+        if(Camera.getInstance() != null) {
+            
+            screen = new Rectangle(
+                Camera.position.position.x - Camera.getOffset().x, 
+                Camera.position.position.y - Camera.getOffset().y, 
+                Window.width, 
+                Window.height
+            );
+        }
+
         for (int i = 0; i <= Object.maxLayer; i++) {
 
             //Convert the current objects array to a copy for the rendering time to avoid concurent modifications
@@ -121,6 +133,15 @@ public class Renderer extends JPanel implements ActionListener {
                     g2d.setColor(Color.BLACK);
 
                     ImageRenderer r = (ImageRenderer) o.getComponent(ImageRenderer.class);
+                    
+                    // Don't draw images outside of screen
+                    if(r != null && screen != null){
+                        
+                        Rectangle spriteBounds = new Rectangle(o.transform.position.x, o.transform.position.y, r.getDimensions().x, r.getDimensions().y);
+                        if(!spriteBounds.Intersects(screen)){
+                            continue;
+                        }
+                    }
 
                     // Draw every sprite that needs to be drawn
                     if (r != null && r.hasImage() && r.visible) {

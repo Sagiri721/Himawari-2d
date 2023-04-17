@@ -69,6 +69,7 @@ Engine\Components\ImageRenderer.class
 Engine\Gfx\Shaders\LightShader.class
 Engine\Gfx\Sprite.class
 Engine\Physics\RayHit.class
+Engine\Utils\GameMaths$EloScore.class
 Engine\Utils\Geom\Shape.class
 Engine\Utils\Renderer$2.class
 Engine\Utils\Renderer$ViewportBehaviour.class

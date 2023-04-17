@@ -17,7 +17,7 @@ public class RectCollider extends Component{
     private List<String> ignoreMask = new ArrayList<String>();
 
     private List<Object> interestStack = new ArrayList<Object>();
-    private int interestRange = 300;
+    private int interestRange = 500;
     private Rectangle interestRectangle = new Rectangle();
 
     public String[] getIgnoredTags(){return ignoreMask.toArray(new String[ignoreMask.size()]); }
