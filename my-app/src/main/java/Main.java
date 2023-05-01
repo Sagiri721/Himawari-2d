@@ -7,7 +7,11 @@ import Engine.Gfx.Debugging;
 import Engine.Map.Room;
 import Engine.Map.RoomData;
 import Engine.Sound.Sound;
+import Engine.Utils.Clock;
 import Engine.Utils.Renderer;
+import Engine.Utils.Clock.ClockEvent;
+import Engine.Utils.Clock.ClockPrecision;
+import Engine.Utils.Clock.ClockType;
 import Engine.Utils.Geom.Vec2;
 
 public class Main extends HimawariCore{
@@ -46,9 +50,6 @@ public class Main extends HimawariCore{
         Renderer.colliderInterest = (RectCollider) player.getComponent(RectCollider.class);
 
         Camera.setViewport(1f, 1f);
-
-        //Clock c = new Clock(100, ClockType.COUNTDOWN, ClockPrecision.SECONDS);
-        //c.startClock();
 
     }
 }
