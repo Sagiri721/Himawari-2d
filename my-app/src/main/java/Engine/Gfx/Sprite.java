@@ -50,6 +50,14 @@ public class Sprite implements Serializable {
         width = sprite.getWidth(); height = sprite.getHeight();
     }
 
+    public Sprite() {
+
+        sprite = getBufferedImageFromEngineFile("empty.png");
+        width = 0;
+        height = 0;
+    }
+
+
     public static Sprite getImageFromEngineFile(String path){
 
         try{
