@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 import Engine.Components.Camera;
 import Engine.Gfx.ShaderPane;
 import Engine.Gfx.Sprite;
+import Engine.Input.ControllerReader;
 import Engine.Input.Input;
 import Engine.Input.KeyboardReader;
 import Engine.Input.MouseReader;
@@ -92,6 +93,7 @@ public class Window extends JFrame implements ComponentListener {
         //Add input readers
         addKeyListener(reader);
         addMouseListener(mouseReader);
+        ControllerReader.initControllerEnvironment();
         requestFocus();
 
         //Add a renderer

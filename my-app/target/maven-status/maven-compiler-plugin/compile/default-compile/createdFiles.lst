@@ -74,6 +74,7 @@ Engine\Utils\Geom\Shape.class
 Engine\Utils\Renderer$2.class
 Engine\Utils\Renderer$ViewportBehaviour.class
 Engine\Utils\ObjectLoader.class
+Engine\Input\ControllerReader.class
 Engine\Database\Cluster.class
 Engine\Components\Camera.class
 Engine\Gfx\Shaders\ShaderFactory.class

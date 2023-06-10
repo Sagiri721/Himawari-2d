@@ -12,7 +12,7 @@ import Engine.Utils.Geom.Vec2;
 public class LightShader implements ShaderInterface {
 
     public static float intensity = 0.6f, radius = 100;
-    public static String target = "";
+    public static String target = "Ball";
 
     private Vec2 position = new Vec2();
 

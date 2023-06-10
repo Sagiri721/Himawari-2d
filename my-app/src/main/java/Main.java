@@ -1,9 +1,14 @@
 
+import java.awt.Color;
+
 import Engine.HimawariCore;
 import Engine.Components.Camera;
 import Engine.Components.RectCollider;
 import Engine.Entity.Object;
 import Engine.Gfx.Debugging;
+import Engine.Gfx.ShaderPane;
+import Engine.Gfx.Shaders.LightShader;
+import Engine.Gfx.Shaders.ShaderFactory;
 import Engine.Map.Room;
 import Engine.Map.RoomData;
 import Engine.Sound.Sound;
@@ -35,7 +40,6 @@ public class Main extends HimawariCore{
         //obj.node.addChild(objOther);
         //player.getComponent(RectCollider.class);
 
-
         //Object.sendMessageTo("Paredezinha", null);
 
         // Sound s = new Sound("mp3", false);
@@ -44,7 +48,7 @@ public class Main extends HimawariCore{
         //Storage.put("Pontos", String.valueOf(1));
 
         //Storage.CreateCluster("newCluster", (byte) 4);
-        //ShaderPane.LoadShader(ShaderFactory.createLightShader(1, 180, "Ball"));
+        ShaderPane.LoadShader(new LightShader());
 
         Debugging.drawColliders = true;
         Renderer.colliderInterest = (RectCollider) player.getComponent(RectCollider.class);

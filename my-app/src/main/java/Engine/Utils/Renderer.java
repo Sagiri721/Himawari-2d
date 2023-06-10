@@ -189,8 +189,8 @@ public class Renderer extends JPanel implements ActionListener {
                             
                             g2d.setColor(Color.RED);
                             g2d.drawRect(
-                                (int) ((t.position.x - Camera.position.position.x + Camera.getOffset().x) * Camera.viewport.x),
-                                (int) ((t.position.y - Camera.position.position.y + Camera.getOffset().y) * Camera.viewport.y), 
+                                (int) ((t.position.x - Camera.position.position.x + Camera.getOffset().x + c.offset.x) * Camera.viewport.x) ,
+                                (int) ((t.position.y - Camera.position.position.y + Camera.getOffset().y + c.offset.y) * Camera.viewport.y), 
                                 (int) (c.bounds.x * Camera.viewport.x), 
                                 (int) (c.bounds.y * Camera.viewport.y)
                                 );

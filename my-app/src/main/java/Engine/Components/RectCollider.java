@@ -15,6 +15,7 @@ public class RectCollider extends Component{
     private Vec2 originalBounds;
     private Object object;
     private List<String> ignoreMask = new ArrayList<String>();
+    public Vec2 offset = new Vec2();
 
     private List<Object> interestStack = new ArrayList<Object>();
     private int interestRange = 500;
@@ -67,7 +68,8 @@ public class RectCollider extends Component{
                     Transform t = o.transform;
                     
                     Rectangle rect = new Rectangle(t.position.x, t.position.y, r.bounds.x, r.bounds.y);
-                    Rectangle myRect = new Rectangle(transform.position.x, transform.position.y, bounds.x, bounds.y);
+                    Rectangle myRect = new Rectangle(transform.position.x + offset.x, transform.position.y + offset.y,
+                            bounds.x, bounds.y);
 
                     if(myRect.Intersects(rect))
                         return true;
@@ -95,7 +97,8 @@ public class RectCollider extends Component{
                 Transform t = o.transform;
                 
                 Rectangle rect = new Rectangle(t.position.x, t.position.y, r.bounds.x, r.bounds.y);
-                Rectangle myRect = new Rectangle(transform.position.x, transform.position.y, bounds.x, bounds.y);
+                Rectangle myRect = new Rectangle(transform.position.x + offset.x, transform.position.y + offset.y,
+                            bounds.x, bounds.y);
 
                 if(myRect.Intersects(rect)){
                     return true;
@@ -125,7 +128,7 @@ public class RectCollider extends Component{
                     Transform t = o.transform;
                     
                     Rectangle rect = new Rectangle(t.position.x, t.position.y, r.bounds.x, r.bounds.y);
-                    Rectangle myRect = new Rectangle(position.x, position.y, bounds.x, bounds.y);
+                    Rectangle myRect = new Rectangle(position.x + offset.x, position.y + offset.y, bounds.x, bounds.y);
 
                     if(myRect.Intersects(rect))
                         return true;
@@ -154,7 +157,7 @@ public class RectCollider extends Component{
                 Transform t = o.transform;
                 
                 Rectangle rect = new Rectangle(t.position.x, t.position.y, r.bounds.x, r.bounds.y);
-                Rectangle myRect = new Rectangle(position.x, position.y, bounds.x, bounds.y);
+                Rectangle myRect = new Rectangle(position.x + offset.x, position.y + offset.y, bounds.x, bounds.y);
 
                 if(myRect.Intersects(rect))
                     return true;
@@ -175,14 +178,16 @@ public class RectCollider extends Component{
     
     public boolean isCollidingWith(RectCollider collider){
 
-        Rectangle myRect = new Rectangle(transform.position.x, transform.position.y, bounds.x, bounds.y);
+        Rectangle myRect = new Rectangle(transform.position.x + offset.x, transform.position.y + offset.y,
+                            bounds.x, bounds.y);
         Rectangle otherRect = new Rectangle(collider.transform.position.x, collider.transform.position.y, collider.bounds.x, collider.bounds.y);
         return myRect.Intersects(otherRect);
     }
 
     public double getCollisionArea(RectCollider collider){
 
-        Rectangle myRect = new Rectangle(transform.position.x, transform.position.y, bounds.x, bounds.y);
+        Rectangle myRect = new Rectangle(transform.position.x + offset.x, transform.position.y + offset.y,
+                            bounds.x, bounds.y);
         Rectangle otherRect = new Rectangle(collider.transform.position.x, collider.transform.position.y, collider.bounds.x, collider.bounds.y);
 
         if(myRect.Intersects(otherRect)){
@@ -201,7 +206,7 @@ public class RectCollider extends Component{
         interestStack.clear();
 
         // Cast interest rectangle bounds
-        Vec2 deadCenter = transform.position.sumWith(bounds.divide(2));
+        Vec2 deadCenter = transform.position.sumWith(bounds.divide(2)).sumWith(offset);
 
         Rectangle interestRectangle = new Rectangle(
             deadCenter.x - interestRange, 
