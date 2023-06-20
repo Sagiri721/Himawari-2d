@@ -342,4 +342,18 @@ public class Object implements Serializable{
             objects.addAll(Arrays.asList(copy));
         }
     }
+
+    public void removeComponent(Class component){
+
+        Component[] comps = components.toArray(new Component[components.size()]);
+        for (Component component2 : comps) {
+            
+            if(component2.getClass() == component) components.remove(component2);
+        }
+    }
+
+    public void removeComponent(Component component){
+
+        components.remove(component);
+    }
 }
