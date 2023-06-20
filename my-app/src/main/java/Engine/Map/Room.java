@@ -4,11 +4,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
 import Engine.Gfx.Sprite;
 import Engine.Utils.Window;
+import Engine.Utils.Geom.Vec2;
 
 import java.awt.image.BufferedImage;
 
@@ -125,5 +128,33 @@ public class Room implements Serializable{
 
         File objects = new File("my-app\\src\\main\\java\\Assets\\Rooms\\" + name + "\\room-objects.txt");
         return objects.exists();
+    }
+
+    public List<Vec2> getAllPositionsWhere(int index, Space capture){
+
+        List<Vec2> positions = new ArrayList<Vec2>();
+        Vec2 multiplier = capture == Space.WORLD ? new Vec2(tileset.sizeX, tileset.sizeY) : Vec2.ONE;
+        
+        for (int i = 0; i < roomData.getWidth(); i++) {
+            for (int j = 0; j < roomData.getWidth(); j++) {
+
+                if(roomData.getTile(i, j) == index){
+
+                    Vec2 position = new Vec2(i, j).times(multiplier);
+                    positions.add(position);
+                }
+            }   
+        }
+
+        return positions;
+    }
+
+    public int getTileInPosition(Vec2 position){
+
+        Vec2 realPosition = position.divide(new Vec2(tileset.sizeX, tileset.sizeY));
+        return roomData.getTile(
+            Math.round(realPosition.x),
+            Math.round(realPosition.y)
+        );
     }
 }

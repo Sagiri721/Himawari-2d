@@ -27,14 +27,16 @@ public class Exporter {
 
     public static void main(String[] args) {
 
-        String pack = "";
+        String pack = "com/com/com/";
+        String art = "";
 
         List<String> objects = new ArrayList<String>();
 
-        File objectFolder = new File(System.getProperty("user.dir") + "/src/main/java/" + pack + "Assets/Objects");
+        File objectFolder = new File(
+                System.getProperty("user.dir") + "/" + art + "src/main/java/" + pack + "Assets/Objects");
         if (!objectFolder.exists() && !objectFolder.isDirectory()) {
 
-            System.out.println("Export ERROR");
+            System.out.println("Export ERROR, no such folder " + objectFolder.getAbsolutePath());
             return;
         }
 
@@ -107,7 +109,7 @@ public class Exporter {
         }
 
         try (FileWriter fw = new FileWriter(
-                new File(System.getProperty("user.dir") + "/src/main/java/" + pack
+                new File(System.getProperty("user.dir") + "/" + art + "src/main/java/" + pack
                         + "Engine/Assets/MyObjectDataDump.json"))) {
 
             fw.write(g.toJson(models));
@@ -118,7 +120,8 @@ public class Exporter {
 
         try (FileWriter fw = new FileWriter(
                 new File(
-                        System.getProperty("user.dir") + "/src/main/java/" + pack + "Engine/Assets/MyGameData.json"))) {
+                        System.getProperty("user.dir") + "/" + art + "src/main/java/" + pack
+                                + "Engine/Assets/MyGameData.json"))) {
 
             fw.write(g.toJson(new EngineData()));
 
