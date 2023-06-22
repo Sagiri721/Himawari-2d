@@ -163,9 +163,15 @@ public class Transform extends Component{
         }
     }
 
-    public Vec2 getDeadCenter(){
+    public Vec2 getDeadCenter() {
 
         ImageRenderer renderer = (ImageRenderer) obj.getComponent(ImageRenderer.class);
+        if (renderer == null) {
+
+            RectCollider collider = (RectCollider) obj.getComponent(RectCollider.class);
+            return collider == null ? position : position.sumWith(collider.bounds.divide(2));
+        }
+
         return renderer == null ? position : position.sumWith(renderer.getDimensions().divide(2));
     }
 

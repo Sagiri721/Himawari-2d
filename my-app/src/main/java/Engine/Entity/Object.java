@@ -179,6 +179,25 @@ public class Object implements Serializable{
         return null;
     }
 
+     /**
+     * Find an objects by their name
+     * @param name
+     * @return the object
+     */
+    public static List<Object> FindObjects(String name) {
+
+        name = name.replace(" ", "-");
+        List<Object> objects = new ArrayList<Object>();
+
+        for(Iterator<Object> inter = objects.iterator(); inter.hasNext();)  {
+            Object obj = inter.next();
+
+            if(obj.name.equals(name)) objects.add(obj);
+        }
+
+        return objects;
+    }
+
     /**
      * Given a certain component returns it's original object, mostly used in engine features and not of use to the average developer
      * 

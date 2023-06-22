@@ -172,30 +172,32 @@ public class RectCollider extends Component{
 
     public boolean isCollidingWith(Vec2 point){
 
-        Rectangle myRect = new Rectangle(transform.position.x, transform.position.y, bounds.x, bounds.y);
+        Rectangle myRect = new Rectangle(transform.position.x + offset.x, transform.position.y + offset.y, bounds.x, bounds.y);
         return myRect.Contains(point);
     }
     
-    public boolean isCollidingWith(RectCollider collider){
+ public boolean isCollidingWith(RectCollider collider) {
 
-        Rectangle myRect = new Rectangle(transform.position.x + offset.x, transform.position.y + offset.y,
-                            bounds.x, bounds.y);
-        Rectangle otherRect = new Rectangle(collider.transform.position.x, collider.transform.position.y, collider.bounds.x, collider.bounds.y);
+        Rectangle myRect = new Rectangle(transform.position.x + offset.x, transform.position.y + offset.y, bounds.x, bounds.y);
+        Rectangle otherRect = new Rectangle(collider.transform.position.x + collider.offset.x,
+                collider.transform.position.y + collider.offset.y,
+                collider.bounds.x, collider.bounds.y);
         return myRect.Intersects(otherRect);
     }
 
-    public double getCollisionArea(RectCollider collider){
+    public double getCollisionArea(RectCollider collider) {
 
-        Rectangle myRect = new Rectangle(transform.position.x + offset.x, transform.position.y + offset.y,
-                            bounds.x, bounds.y);
-        Rectangle otherRect = new Rectangle(collider.transform.position.x, collider.transform.position.y, collider.bounds.x, collider.bounds.y);
+        Rectangle myRect = new Rectangle(transform.position.x + offset.x, transform.position.y + offset.y, bounds.x, bounds.y);
+        Rectangle otherRect = new Rectangle(collider.transform.position.x + collider.offset.x,
+                collider.transform.position.y + collider.offset.y,
+                collider.bounds.x, collider.bounds.y);
 
-        if(myRect.Intersects(otherRect)){
+        if (myRect.Intersects(otherRect)) {
 
             Rectangle difference = new Rectangle(myRect.x - otherRect.x, myRect.y - otherRect.y, myRect.width - otherRect.width, myRect.height - otherRect.height);
             return difference.area();
 
-        }else return 0;
+        } else return 0;
     }
 
     protected void calculateInterestStack(){
