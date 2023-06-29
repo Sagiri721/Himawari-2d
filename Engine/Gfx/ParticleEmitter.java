@@ -35,6 +35,7 @@ public class ParticleEmitter {
 
         this.particle = particle;
         this.origin = origin;
+        this.direction = direction;
     }
 
     public void render(Graphics2D g) {
@@ -61,8 +62,10 @@ public class ParticleEmitter {
 
         double angle = Math.acos(Vec2.RIGHT.normalize().dotProduct(direction.normalize()) / (Vec2.RIGHT.thisMagnitude() * direction.thisMagnitude()));
         double newAngle = Math.toDegrees(angle) + GameMaths.randomInteger(-(int)fluctuation, (int)fluctuation);
-        
-        return new Vec2((float)Math.cos(Math.toRadians(newAngle)), (float)Math.sin(Math.toRadians(newAngle)));
+        double generalDirection = Math.atan(direction.y / direction.x) * 2;
+
+        return new Vec2((float) Math.cos(Math.toRadians(newAngle) + generalDirection),
+                (float) Math.sin(Math.toRadians(newAngle) + generalDirection));
     }
 
     private void emission(){
@@ -72,6 +75,8 @@ public class ParticleEmitter {
         Particle p = new Particle(lifetime, origin, fluctuation == 0 ? direction : calculateRandomDirection(), speed, particle.width);
         particles.add(p);
     }
+
+    public int particleCount() {return particles.size(); }
 
     public class Particle{
 

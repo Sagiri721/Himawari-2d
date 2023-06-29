@@ -5,6 +5,7 @@ import java.util.Iterator;
 import Engine.Entity.Object;
 import Engine.Map.RoomHandler;
 import Engine.Utils.GameMaths;
+import Engine.Utils.Renderer;
 import Engine.Utils.Window;
 import Engine.Utils.Geom.Vec2;
 
@@ -37,8 +38,8 @@ public class Camera extends Component{
 
     public static void setOffset(Vec2 offset){
         
-        Camera.offset = offset;
-        position.position.sumWith(offset);
+        Camera.offset = offset.divide(viewport);
+        position.position = position.position.sumWith(offset);
     }
 
     public static void calculateOffset(){ 
@@ -52,7 +53,7 @@ public class Camera extends Component{
         int w = Window.width;
         int h = Window.height;
 
-        offset = new Vec2(w/2, h/2);
+        offset = new Vec2(w/2, h/2).times(viewport).times(Vec2.ONE.divide(Renderer.getViewportScale()));
     }
 
     public static Vec2 calculateIdealCameraOffset(){
@@ -83,23 +84,19 @@ public class Camera extends Component{
         return viewPos;
     }
 
-    public static Vec2 calculateWindowTowindowPoint(Vec2 windowPoint){
-
-        if(Camera.getInstance() == null) return windowPoint;
-
-        int x = (int)((Camera.position.position.x * viewport.x) + windowPoint.x);
-        int y = (int)((Camera.position.position.y * viewport.y) + windowPoint.y);
-
-        return new Vec2(-x, -y);
-    }
-
     public static Vec2 calculateWorldToWindowPosition(Vec2 windowPoint){
 
         if(Camera.getInstance() == null) return windowPoint;
 
-        int x = (int)(windowPoint.x - Camera.position.position.x);
-        int y = (int)(windowPoint.y - Camera.position.position.y);
+        int x = (int)(((Camera.position.position.x) + windowPoint.x));
+        int y = (int)(((Camera.position.position.y) + windowPoint.y));
 
         return new Vec2(-x, -y);
+    }
+
+    public static void setViewport(float x, float y) {
+
+        viewport = viewport.times(new Vec2(x, y));
+        offset = offset.divide(new Vec2(x, y));
     }
 }

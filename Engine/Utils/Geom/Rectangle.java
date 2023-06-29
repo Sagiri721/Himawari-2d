@@ -44,6 +44,7 @@ public class Rectangle extends Shape{
     public boolean Intersects(Shape other) {
 
         if(other instanceof Rectangle){
+            
             //It's a Rectangle
             Rectangle rect = (Rectangle) other;
             

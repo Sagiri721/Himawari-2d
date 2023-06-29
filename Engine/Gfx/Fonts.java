@@ -16,6 +16,8 @@ public class Fonts implements Serializable {
     private Animation letters = null;
     private FontMap map = null;
 
+    public int letterPadding = 5;
+
     /**
      * Create a font instance of an actual font file
      */
@@ -65,18 +67,21 @@ public class Fonts implements Serializable {
             return;
         }
 
+        int letterindex = 0;
         for (char c : text.toCharArray()) {
 
+            int prevLetter = letterindex;
             for (int i = 0; i < map.keys.length; i++) {
 
-                if (Character.toLowerCase(map.keys[i]) == Character.toLowerCase(c)) {
+                if(map.keys[i] == c) {
 
-                    System.out.println(c);
-
-                    g.drawImage(map.getLetter((int) map.values[i]), (int) position.x, (int) position.y, null);
+                    g.drawImage(map.getLetter((int) map.values[i]), (int) position.x + letterindex * map.tileset.width + letterPadding, (int) position.y, null);
+                    letterindex++;
                     break;
                 }
             }
+
+            if(prevLetter == letterindex) letterindex++;
         }
 
     }

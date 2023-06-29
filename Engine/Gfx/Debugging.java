@@ -1,9 +1,14 @@
 package Engine.Gfx;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.text.StyleConstants.FontConstants;
 
 import Engine.Components.Camera;
 import Engine.Physics.RayHit;
@@ -16,6 +21,8 @@ public class Debugging {
  
     static Color debugColor = Color.BLACK;
     static boolean showDebug = true;
+
+    public static Font drawFont = new Font("Arial", Font.PLAIN, 12);
 
     public static boolean drawColliders = false;
 
@@ -41,9 +48,14 @@ public class Debugging {
         if(showDebug){
             
             g.setColor(debugColor);
-            Vec2 point = Camera.calculateWindowTowindowPoint(new Vec2((int)-rect.x, (int)-rect.y));
+            Vec2 point = Camera.calculateWorldToWindowPosition(new Vec2((int)rect.x, (int)rect.y));
             if(drawType==type.HOLLOW) g.drawRect((int)point.x, (int)point.y, (int)rect.width, (int)rect.height);
-            else g.fillRect((int)point.x, (int)point.y, (int)rect.width, (int)rect.height);
+            else g.fillRect(
+                (int)(point.x * Camera.viewport.x), 
+                (int)(point.y * Camera.viewport.y), 
+                (int)(rect.width + Camera.viewport.x), 
+                (int)(rect.height + Camera.viewport.y)
+            );
         }
     }
 
@@ -52,9 +64,14 @@ public class Debugging {
         if(showDebug){
             
             g.setColor(debugColor);
-            Vec2 point = Camera.calculateWindowTowindowPoint(new Vec2((int)-circle.x, (int)-circle.y));
+            Vec2 point = Camera.calculateWorldToWindowPosition(new Vec2((int)-circle.x, (int)-circle.y));
             if(drawType==type.HOLLOW) g.drawOval((int)point.x, (int)point.y, (int)circle.radius, (int)circle.radius);
-            else g.fillOval((int)point.x, (int)point.y, (int)circle.radius, (int)circle.radius);
+            else g.fillOval(
+                (int)(point.x * Camera.viewport.x), 
+                (int)(point.y * Camera.viewport.y), 
+                (int)(circle.radius + Camera.viewport.x), 
+                (int)(circle.radius + Camera.viewport.y)
+                );
         }
     }
     
@@ -63,8 +80,24 @@ public class Debugging {
         if(showDebug){
 
             g.setColor(debugColor);
-            Vec2 point = Camera.calculateWindowTowindowPoint(new Vec2((int)-x, (int)-y));
-            g.drawString(text, point.x, point.y);
+            Vec2 point = Camera.calculateWorldToWindowPosition(new Vec2((int)-x, (int)-y));
+
+            g.setFont(drawFont);
+            //Operate on font
+            if(!Camera.viewport.equals(Vec2.ONE)){
+
+                FontMetrics fm = g.getFontMetrics(UIManager.getFont("Label.font"));
+                int w = fm.stringWidth(text);
+                int h = fm.getHeight();
+
+                BufferedImage imgTex = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+                Graphics2D g2d = imgTex.createGraphics();
+
+                g2d.drawString(text, x * Camera.viewport.x, y * Camera.viewport.y);
+                g2d.dispose();
+
+            }else{ g.drawString(text, point.x, point.y); }
+
         }
     }
 
@@ -72,8 +105,13 @@ public class Debugging {
 
         if(showDebug){
 
-            Vec2 point = Camera.calculateWindowTowindowPoint(position.inverse()).sumWith(Camera.getOffset());
-            g.drawImage(sprite.sprite, (int) point.x, (int) point.y, (int) scale.x , (int) scale.y, null);
+            Vec2 point = Camera.calculateWorldToWindowPosition(position.inverse()).sumWith(Camera.getOffset());
+            g.drawImage(sprite.sprite, 
+            (int)(point.x * Camera.viewport.x),
+            (int)(point.y * Camera.viewport.y), 
+            (int)(scale.x * Camera.viewport.x), 
+            (int)(scale.y * Camera.viewport.y),
+            null);
         }
     }
 
@@ -84,7 +122,11 @@ public class Debugging {
             g.setColor(debugColor);
             Vec2 point1 = Camera.calculateWorldToWindowPosition(new Vec2((int)-start.x, (int)-start.y));
             Vec2 point2 = Camera.calculateWorldToWindowPosition(new Vec2((int)-end.x, (int)-end.y));
-            g.drawLine((int)point1.x, (int)point1.y, (int)point2.x, (int)point2.y);
+            g.drawLine(
+                (int)(point1.x * Camera.viewport.x), 
+                (int)(point1.y * Camera.viewport.y), 
+                (int)(point2.x * Camera.viewport.x), 
+                (int)(point2.y * Camera.viewport.y));
         }
     }
 
@@ -93,27 +135,31 @@ public class Debugging {
         if(showDebug){
 
             g.setColor(debugColor);
-            Vec2 point1 = Camera.calculateWindowTowindowPoint(new Vec2((int)-hit.getOrigin().x, (int)-hit.getOrigin().y));
-            Vec2 point2 = Camera.calculateWindowTowindowPoint(new Vec2((int)-hit.point.x, (int)-hit.point.y));
-            g.drawLine((int)point1.x, (int)point1.y, (int)point2.x, (int)point2.y);
+            Vec2 point1 = Camera.calculateWorldToWindowPosition(new Vec2((int)-hit.getOrigin().x, (int)-hit.getOrigin().y));
+            Vec2 point2 = Camera.calculateWorldToWindowPosition(new Vec2((int)-hit.point.x, (int)-hit.point.y));
+            g.drawLine(
+                (int)(point1.x * Camera.viewport.x), 
+                (int)(point1.y * Camera.viewport.y), 
+                (int)(point2.x * Camera.viewport.x), 
+                (int)(point2.y * Camera.viewport.y));
         }
     }
 
+    // IMPLEMENT WITH VIEWPORT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public static void drawDebugGrid(Vec2 start, Vec2 end, int tileWidth, int tileHeight, Graphics2D g){
 
         if(showDebug){
 
             g.setColor(debugColor);
 
-            Vec2 point1 = Camera.calculateWindowTowindowPoint(start);
-            Vec2 point2 = Camera.calculateWindowTowindowPoint(end);
+            Vec2 point1 = Camera.calculateWorldToWindowPosition(start);
+            Vec2 point2 = Camera.calculateWorldToWindowPosition(end);
 
             for(int i = 0; i < ((point2.x+1) - point1.x); i+=tileWidth){
             
                 g.drawLine((int)i, (int)point1.y, i, (int)(point1.y + (tileHeight * ((point2.y - point1.y) / tileHeight))));
             }
-            for
-            (int i = 0; i < ((end.x+1) - point1.x); i+=tileHeight){
+            for(int i = 0; i < ((end.x+1) - point1.x); i+=tileHeight){
 
                 g.drawLine((int)point1.x, i, (int)(int)(point1.x + (tileWidth * ((point2.x - point1.x) / tileWidth))), i);
             }
@@ -130,12 +176,16 @@ public class Debugging {
 
             if(path.pathSize() <= 1) return;
 
-            Vec2 point = Camera.calculateWindowTowindowPoint(path.getKnot(0).inverse()).sumWith(Camera.getOffset());
+            Vec2 point = Camera.calculateWorldToWindowPosition(path.getKnot(0).inverse()).sumWith(Camera.getOffset());
             Vec2[] points = path.getKnots().toArray(new Vec2[path.pathSize()]);
             for (int i = points.length-1; i > 0; i--) {
 
                 if(points[i]==null) continue;
-                g.drawLine((int) (point.x + points[i].x), (int) (point.y +points[i].y), (int) (point.x + points[i-1].x), (int) (point.y + points[i-1].y));
+                g.drawLine(
+                    (int) ((point.x + points[i].x) * Camera.viewport.x), 
+                    (int) ((point.y +points[i].y) * Camera.viewport.y), 
+                    (int) ((point.x + points[i-1].x) * Camera.viewport.x), 
+                    (int) ((point.y + points[i-1].y) * Camera.viewport.y));
             }
         }
     }

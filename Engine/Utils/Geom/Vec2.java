@@ -96,6 +96,7 @@ public class Vec2 implements Comparator<Vec2>, Serializable {
     //Mathematics
     public Vec2 abs() {return new Vec2(Math.abs(x), Math.abs(y)); }
     public Vec2 inverse(){ return new Vec2(-x, -y); }
+    public Vec2 flip() { return new Vec2(y, x); }
 
     public float magnitude(Vec2 point) { return (float) Math.sqrt((Math.pow(point.x - x, 2) + Math.pow(point.y - y, 2))); }
     public static float magnitude(Vec2 pointA, Vec2 pointB) { return (float) Math.sqrt((Math.pow(pointB.x - pointA.x, 2) + Math.pow(pointB.y - pointA.y, 2))); }

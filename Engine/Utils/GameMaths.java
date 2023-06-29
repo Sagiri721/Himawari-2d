@@ -5,6 +5,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+
+import javafx.util.Pair;
+
 import java.awt.Color;
 
 public class GameMaths {
@@ -20,12 +23,7 @@ public class GameMaths {
 
         return value;
     }
-
-    private static float Noise2D(float x, float y) {
-
-        return 0;
-    }
-
+    
     public static float[][] trueNoise(int side, float[] values) {
 
         float[][] noise = new float[side][side];
@@ -94,5 +92,42 @@ public class GameMaths {
 
         Arrays.sort(a);
         return a;
+    }
+
+    public static enum EloScore{
+
+        WIN(1f),
+        DRAW(0.5f),
+        LOSS(0f);
+
+        private float change = 0;
+        private EloScore(float change){
+
+            this.change = change;
+        }
+
+        private EloScore flipScore(){
+            if(change == 0.5f) return DRAW;
+            return change == 0 ? WIN : LOSS;
+        }
+    }
+
+    public static float K_FACTOR = 32f;
+
+    public static Pair<Double, Double> calculateEloRatingChange(float initialElo, float oponentElo, EloScore score1){
+
+        double R1 = Math.pow(10, initialElo / 400f);
+        double R2 = Math.pow(10, oponentElo / 400f);
+
+        double Expected1 = R1 / (R1 + R2);
+        double Expected2 = R2 / (R1 + R2);
+
+        EloScore S1 = score1;
+        EloScore S2 = score1.flipScore();
+
+        return new Pair<Double, Double>(
+            R1 + K_FACTOR*(S1.change - Expected1), 
+            R2 + K_FACTOR*(S2.change - Expected2)
+        );
     }
 }

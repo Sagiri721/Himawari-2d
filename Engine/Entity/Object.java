@@ -179,6 +179,25 @@ public class Object implements Serializable{
         return null;
     }
 
+     /**
+     * Find an objects by their name
+     * @param name
+     * @return the object
+     */
+    public static List<Object> FindObjects(String name) {
+
+        name = name.replace(" ", "-");
+        List<Object> objects = new ArrayList<Object>();
+
+        for(Iterator<Object> inter = objects.iterator(); inter.hasNext();)  {
+            Object obj = inter.next();
+
+            if(obj.name.equals(name)) objects.add(obj);
+        }
+
+        return objects;
+    }
+
     /**
      * Given a certain component returns it's original object, mostly used in engine features and not of use to the average developer
      * 
@@ -315,15 +334,15 @@ public class Object implements Serializable{
         }
     }
 
-    public static void sendMessageToAll(String className){
+    public static void sendMessageToAll(Class className, String message){
 
         for(Iterator<Object> inter = objects.iterator(); inter.hasNext();)  {
             Object obj = inter.next();
         
-            /*if(obj.getClass().toString()==){
+            if(obj.getClass() == className){
 
-                obj.getBehaviour().ReceiveMessage(this.name);
-            }*/
+                obj.getBehaviour().ReceiveMessage(message);
+            }
         }
     }
 
@@ -341,5 +360,19 @@ public class Object implements Serializable{
             //Repair array
             objects.addAll(Arrays.asList(copy));
         }
+    }
+
+    public void removeComponent(Class component){
+
+        Component[] comps = components.toArray(new Component[components.size()]);
+        for (Component component2 : comps) {
+            
+            if(component2.getClass() == component) components.remove(component2);
+        }
+    }
+
+    public void removeComponent(Component component){
+
+        components.remove(component);
     }
 }

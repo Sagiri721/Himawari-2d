@@ -23,9 +23,11 @@ import com.google.gson.Gson;
 import Engine.Components.Camera;
 import Engine.Gfx.ShaderPane;
 import Engine.Gfx.Sprite;
+import Engine.Input.ControllerReader;
 import Engine.Input.Input;
 import Engine.Input.KeyboardReader;
 import Engine.Input.MouseReader;
+import Engine.Map.RoomHandler;
 import Engine.Networking.ServerConnection;
 import Engine.Physics.Physics;
 import Engine.Utils.Geom.Vec2;
@@ -38,6 +40,9 @@ public class Window extends JFrame implements ComponentListener {
     
     //Static data
     public static int width, height;
+    protected static Vec2 defaultSize = Vec2.ONE;
+    protected static float aspectRatio = 1;
+
     public static String name;
 
     public static boolean WindowExists = false;
@@ -72,6 +77,9 @@ public class Window extends JFrame implements ComponentListener {
         Window.width = width;
         Window.height = height;
 
+        Window.defaultSize = new Vec2(width, height);
+        Window.aspectRatio = width / height;
+
         Window.name = name;
         Window.window = this;
 
@@ -85,6 +93,7 @@ public class Window extends JFrame implements ComponentListener {
         //Add input readers
         addKeyListener(reader);
         addMouseListener(mouseReader);
+        ControllerReader.initControllerEnvironment();
         requestFocus();
 
         //Add a renderer
@@ -121,7 +130,7 @@ public class Window extends JFrame implements ComponentListener {
     public void changeBackground(Color backColor){
 
         Window.background = backColor;
-        getContentPane().setBackground(backColor);
+        Renderer.clearColor = backColor;
     }
 
     public void closeWindow(){
@@ -135,13 +144,12 @@ public class Window extends JFrame implements ComponentListener {
     @Override
     public void componentResized(ComponentEvent e) {
 
-        if(Camera.getInstance() != null)
-        {
-            width = getWidth();
-            height = getHeight();
-
+        if(Camera.getInstance() != null){
+        
             Camera.calculateOffset();
         }
+        width = getWidth();
+        height = getHeight();
     }
 
     @Override

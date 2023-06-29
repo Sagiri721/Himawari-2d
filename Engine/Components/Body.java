@@ -3,6 +3,7 @@ package Engine.Components;
 import Engine.Entity.Object;
 import Engine.Input.Input;
 import Engine.Physics.Physics;
+import Engine.Utils.Renderer;
 import Engine.Utils.Geom.Vec2;
 
 public class Body extends Component{
@@ -17,11 +18,12 @@ public class Body extends Component{
     public float drag = 0.1f;
     public float mass = 1;
 
+    public boolean solid = true;
+
     public Body(Transform transform, RectCollider collider, float mass){
 
         this.transform = transform;
-        //this.mass = mass;
-        this.mass = 1;
+        this.mass = mass;
 
         this.collider = collider;
     }
@@ -30,21 +32,23 @@ public class Body extends Component{
 
         if(transform == null || mass <= 0 || collider == null ) return;
 
-        gravity = Vec2.DOWN.times(Physics.G);
+        gravity = Vec2.DOWN.times(Physics.G * mass);
 
         ApplyForce(gravity);
 
-        boolean willCollide = collider.willCollide(transform.position.sumWith(totalForce));
-        if(willCollide){
-
-            ApplyForce(totalForce.inverse());
-        }
-
+        
         // Cap acceleration
         if(Physics.accelearion_capped) totalForce = totalForce.clampY(-Physics.acceleration_treshold, Physics.acceleration_treshold);
-
-        transform.translate(totalForce.times(deltaTime).times(mass * 60), collider);   
-        //System.out.println(totalForce.toString());
+        
+        if(solid){
+            
+            boolean willCollide = collider.willCollide(transform.position.sumWith(totalForce));
+            if(willCollide){
+    
+                ApplyForce(totalForce.inverse());
+            }
+            transform.translate(totalForce.times(deltaTime).times(mass * Renderer.getFPS()), collider);   
+        }else transform.translate(totalForce.times(deltaTime).times(mass * Renderer.getFPS()));
     }
 
     public float calculateAcceleration(){
@@ -56,5 +60,10 @@ public class Body extends Component{
     public void ApplyForce(Vec2 force){
 
         totalForce = totalForce.sumWith(force);
+    }
+
+    public void resetForce() {
+
+        totalForce = Vec2.ZERO;
     }
 }

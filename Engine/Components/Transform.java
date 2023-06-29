@@ -3,6 +3,7 @@ package Engine.Components;
 import Engine.Utils.Geom.Vec2;
 import Engine.Entity.Node;
 import Engine.Entity.Object;
+import Engine.Map.RoomHandler;
 
 /**
  * The transform component hold information about position rotation and scale
@@ -42,111 +43,136 @@ public class Transform extends Component{
      * @param dir
      * @param collider
      */
-    public int translate(Vec2 dir, RectCollider collider){
+    public int translate(Vec2 dir, RectCollider collider) {
 
-        if(collider == null) return 0;
+        if (collider == null)
+            return 0;
         int res = 0;
 
-        //Dont move if going to collide
-        //Divide axis so we can collide with a single axis and keep moving
+        // Dont move if going to collide
+        // Divide axis so we can collide with a single axis and keep moving
         Vec2 newPositionX = position.sumWith(new Vec2(dir.x, 0));
-        Vec2 newPositionY = position.sumWith(new Vec2(0, dir.y)); 
+        Vec2 newPositionY = position.sumWith(new Vec2(0, dir.y));
 
         Vec2 newPosition = position.sumWith(dir);
-        
-        Object[] objs  = Object.objects.toArray(new Object[Object.objects.size()]);
-        for(Object o : objs){
 
-            RectCollider c = (RectCollider) o.getComponent("RectCollider");
-            if(c == null || c == collider || c.solid == false) continue;
+        Object[] objs = Object.objects.toArray(new Object[Object.objects.size()]);
+        for (Object o : objs) {
 
-            if(collider.willCollideWith(o, newPositionX)){
+            RectCollider c = (RectCollider) o.getComponent(RectCollider.class);
+            if (c == null || c == collider || c.solid == false)
+                continue;
+
+            if (collider.willCollideWith(o, newPositionX)) {
                 res = 2;
                 newPosition = newPositionY;
-            }    
-            
-            if(collider.willCollideWith(o, newPositionY)){
+            }
+
+            if (collider.willCollideWith(o, newPositionY)) {
                 newPosition = newPositionX;
                 res = 1;
-            }    
-        }    
-        
-        //Move children
-        for(Node n : obj.node.children){
+            }
+        }
 
-            if(!n.isConnected()) continue;
-            
-            Transform t = (Transform) n.object.getComponent("Transform");
-            RectCollider r = (RectCollider) n.object.getComponent("RectCollider");
+        // Move children
+        for (Node n : obj.node.children) {
 
-            if(r == null){t.translate(newPosition.subtractWith(position));}else
+            if (!n.isConnected())
+                continue;
+
+            Transform t = n.object.transform;
+            RectCollider r = (RectCollider) n.object.getComponent(RectCollider.class);
+
+            if (r == null) {
+                t.translate(newPosition.subtractWith(position));
+            } else
                 t.translate(newPosition.subtractWith(position), r);
         }
-        
+
         position = newPosition;
+        collider.updateInterestStack();
         return res;
     }
 
-    public void translate(Vec2 dir){
+    public void translate(Vec2 dir) {
 
-        //Dont move if going to collide
+        // Dont move if going to collide
         Vec2 newPosition = position.sumWith(dir);
 
-        //Move children
-        for(Node n : obj.node.children){
-            
-            if(!n.isConnected()) continue;
+        // Move children
+        for (Node n : obj.node.children) {
 
-            RectCollider c = (RectCollider) n.object.getComponent("RectCollider");
-            Transform t = (Transform) n.object.getComponent("Transform");
+            if (!n.isConnected())
+                continue;
 
-            if(c == null)t.translate(dir);
-            else t.translate(dir, c);
+            RectCollider c = (RectCollider) n.object.getComponent(RectCollider.class);
+            Transform t = n.object.transform;
+
+            if (c == null)
+                t.translate(dir);
+            else
+                t.translate(dir, c);
         }
-        
+
         position = newPosition;
     }
 
-    public void rotate(float angle){
+    public void rotate(float angle) {
 
-        setAngle(this.angle+angle);
+        setAngle(this.angle + angle);
 
-        //Rotate children
-        for(Node n : obj.node.children){
-            
-            if(!n.isConnected()) continue;
+        // Rotate children
+        for (Node n : obj.node.children) {
 
-            Transform t = (Transform) n.object.getComponent("Transform");
+            if (!n.isConnected())
+                continue;
+
+            Transform t = n.object.transform;
             t.rotate(angle);
         }
     }
 
-    public void lookAt(Object target){
+    public void lookAt(Object target) {
 
-        Transform targeTransform = (Transform) target.getComponent("Transform");
+        Transform targeTransform = target.transform;
         double h = targeTransform.position.magnitude(position);
         double x = targeTransform.position.y - position.y;
 
-        double angle = Math.toDegrees(Math.asin(x/h));
+        double angle = Math.toDegrees(Math.asin(x / h));
 
-        setAngle((float)angle);
-        
-        //Rotate children
-        for(Node n : obj.node.children){
-            
-            if(!n.isConnected()) continue;
-            
-            Transform t = (Transform) n.object.getComponent("Transform");
+        setAngle((float) angle);
+
+        // Rotate children
+        for (Node n : obj.node.children) {
+
+            if (!n.isConnected())
+                continue;
+
+            Transform t = n.object.transform;
             t.lookAt(target);
         }
     }
 
-    public void updateCollider(){
+    public void updateCollider() {
 
-        RectCollider collider =  (RectCollider) obj.getComponent("RectCollider");
+        RectCollider collider = (RectCollider) obj.getComponent(RectCollider.class);
 
-        if(collider!=null)
-            collider.resizeCollider(scale);
+        if (collider != null) {
+            
+            collider.resizeColliderSpecifics(scale.times(collider.bounds));
+        }
+    }
+
+    public Vec2 getDeadCenter() {
+
+        ImageRenderer renderer = (ImageRenderer) obj.getComponent(ImageRenderer.class);
+        if (renderer == null) {
+
+            RectCollider collider = (RectCollider) obj.getComponent(RectCollider.class);
+            return collider == null ? position : position.sumWith(collider.bounds.divide(2));
+        }
+
+        return renderer == null ? position : position.sumWith(renderer.getDimensions().divide(2));
     }
 
     //////////////////////////////////////////////////////////////

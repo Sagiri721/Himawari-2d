@@ -30,7 +30,13 @@ public class RayHit implements Serializable {
 
     private Vec2 calculateNormalVector() {
 
-        return null;
+        if(this.colliderComponent == null){
+
+            return this.point.inverse();
+        }else{
+
+            return (this.point.sumWith(this.colliderComponent.bounds.divide(2))).subtractWith(this.point).normalize();
+        }
     }
 
     public boolean isEmpty(){ return (collider == null || colliderComponent == null || point == null); }

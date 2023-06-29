@@ -4,11 +4,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
 import Engine.Gfx.Sprite;
 import Engine.Utils.Window;
+import Engine.Utils.Geom.Vec2;
 
 import java.awt.image.BufferedImage;
 
@@ -126,4 +129,41 @@ public class Room implements Serializable{
         File objects = new File("my-app\\src\\main\\java\\Assets\\Rooms\\" + name + "\\room-objects.txt");
         return objects.exists();
     }
+
+    public List<Vec2> getAllPositionsWhere(int index, Space capture){
+
+        List<Vec2> positions = new ArrayList<Vec2>();
+        Vec2 multiplier = capture == Space.WORLD ? new Vec2(tileset.width, tileset.height) : Vec2.ONE;
+        
+        for (int i = 0; i < roomData.getWidth(); i++) {
+            for (int j = 0; j < roomData.getHeight(); j++) {
+
+                if(roomData.getTile(i, j) == index){
+
+                    Vec2 position = new Vec2(i, j).times(multiplier);
+                    positions.add(position);
+                }
+            }   
+        }
+
+        return positions;
+    }
+
+    public int getTileInPosition(Vec2 position){
+
+        Vec2 realPosition = position.divide(new Vec2(tileset.width, tileset.height));
+        return roomData.getTile(
+            Math.round(realPosition.x),
+            Math.round(realPosition.y)
+        );
+    }
+
+    public Vec2 convertWorldToTilePosition(Vec2 wordPosition) {
+
+        Vec2 transformer = new Vec2(tileset.width, tileset.height);
+        return wordPosition.divide(transformer);
+    }
+
+    public int getIdFromTileset(int x, int y){ return y + (x * tileset.sizeY); }
+    public void changeTileAt(int x, int y, int newTile){ roomData.setTile(x, y, newTile); }
 }

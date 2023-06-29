@@ -23,7 +23,16 @@ public class Sprite implements Serializable {
     public File imageFile = null;
 
     public Sprite(BufferedImage image) { sprite = image; width = image.getWidth(); height = image.getHeight();}
-    public Sprite(String path, int x, int y, int w, int h) {imageFile = new File(Window.RelativeResourcePath + "Sprites/" + path); BufferedImage image = getBufferedImageFromFile(path); sprite = image.getSubimage(x, y, w, h); width = sprite.getWidth(); height = sprite.getHeight(); }
+    public Sprite(String path, int x, int y, int w, int h) {
+    
+        imageFile = new File(Window.RelativeResourcePath + "Sprites/" + path); 
+        BufferedImage image = getBufferedImageFromFile(path); 
+        
+        sprite = ImageUtil.resizeImage(image.getWidth(),image.getHeight(),scaleAlgorithm.SMOOTH,image.getSubimage(x, y, w, h));
+        
+        width = sprite.getWidth(); 
+        height = sprite.getHeight(); 
+    }
     public Sprite(String path) { imageFile = new File(Window.RelativeResourcePath + "Sprites/" + path); sprite = getBufferedImageFromFile(path); width = sprite.getWidth(); height = sprite.getHeight(); }
   
     public Vec2 getSpriteBounds(){return new Vec2(width, height);}
@@ -40,6 +49,14 @@ public class Sprite implements Serializable {
         sprite = getBufferedImageFromEngineFile("default-sprites.png").getSubimage(i * 32, 0, 32, 32);
         width = sprite.getWidth(); height = sprite.getHeight();
     }
+
+    public Sprite() {
+
+        sprite = getBufferedImageFromEngineFile("empty.png");
+        width = 0;
+        height = 0;
+    }
+
 
     public static Sprite getImageFromEngineFile(String path){
 
@@ -85,9 +102,9 @@ public class Sprite implements Serializable {
         return null;
     }
 
-    public static Sprite[] getFramesOfHorizontal(BufferedImage image, int width, int height, int x, int y) {
+    public static Sprite[] getFramesOfHorizontal(BufferedImage image, int width, int height, int x, int y, int count) {
 
-        Sprite[] frames = new Sprite[(image.getWidth() / width) - (x * width)];
+        Sprite[] frames = count <= 0 ? new Sprite[(image.getWidth() / width) - (x * width)] : new Sprite[count];
 
         for(int i = 0; i < frames.length; i++){
 
@@ -97,9 +114,9 @@ public class Sprite implements Serializable {
         return frames;
     }
 
-    public static Sprite[] getFramesOfVertical(BufferedImage image, int width, int height, int x, int y) {
+    public static Sprite[] getFramesOfVertical(BufferedImage image, int width, int height, int x, int y, int count) {
 
-        Sprite[] frames = new Sprite[(image.getWidth() / width) - (x * width)];
+        Sprite[] frames = count <= 0 ? new Sprite[(image.getHeight() / height) - (y * height)] : new Sprite[count];
 
         for(int i = 0; i < frames.length; i++){
 
@@ -114,9 +131,21 @@ public class Sprite implements Serializable {
         Sprite[] frames = null;
 
         if(horizontal)
-            frames = getFramesOfHorizontal(spriteSheet.sprite, width, height, startX, startY);
+            frames = getFramesOfHorizontal(spriteSheet.sprite, width, height, startX, startY, 0);
         else
-            frames = getFramesOfVertical(spriteSheet.sprite, width,height, startX, startY);
+            frames = getFramesOfVertical(spriteSheet.sprite, width,height, startX, startY, 0);
+        
+        return new Animation(frames, startX, startY, width, height);
+    }
+
+    public static Animation createAnimation(Sprite spriteSheet, int width, int height, int startX, int startY, boolean horizontal, int frameCount){
+
+        Sprite[] frames = null;
+
+        if(horizontal)
+            frames = getFramesOfHorizontal(spriteSheet.sprite, width, height, startX, startY, frameCount);
+        else
+            frames = getFramesOfVertical(spriteSheet.sprite, width,height, startX, startY, frameCount);
         
         return new Animation(frames, startX, startY, width, height);
     }

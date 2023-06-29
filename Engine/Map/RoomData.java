@@ -43,6 +43,17 @@ public class RoomData implements Serializable{
         }
     }
 
+    public void setTile(int x, int y, int newTile){
+
+        try {
+            
+            tiles[x][y] = newTile;
+        } catch (Exception e) {
+            
+            System.out.println("[INTERNAL ERROR] Tile out of bounds no such tile of position (" + x + ", " + y + ")");
+        }
+    }
+
     public int getWidth() { return effectiveWidth; }
     public int getHeight() { return effectiveHeight; }
 
