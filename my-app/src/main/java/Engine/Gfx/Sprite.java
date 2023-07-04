@@ -162,4 +162,9 @@ public class Sprite implements Serializable {
         System.out.println(imageFile.getAbsolutePath());
         sprite = ImageIO.read(imageFile);
     }
+
+    public Sprite getFromSpriteSheet(int width, int height, int startX, int startY) {
+
+        return new Sprite(sprite.getSubimage(startX, startY, width, height));
+    }
 }

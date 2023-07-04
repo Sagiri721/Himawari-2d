@@ -7,9 +7,11 @@ import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import com.google.common.io.Files;
 
+import Engine.Components.RectCollider;
 import Engine.Components.Transform;
 import Engine.Utils.ObjectLoader;
 import Engine.Utils.Window;
@@ -114,5 +116,17 @@ public class RoomData implements Serializable{
         }
 
         reader.close();
+
+        // Recalculate object collision interests
+        for (RectCollider collider : 
+            Object.objects.stream()
+            .map(collider -> (RectCollider) collider.getComponent(RectCollider.class))
+            .filter(obj -> obj != null)
+            .collect(Collectors.toList())) 
+        {
+            
+            if(collider == null) continue;
+            collider.calculateInterestStack();
+        }
     }
 }

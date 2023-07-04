@@ -59,18 +59,18 @@ public class Debugging {
         }
     }
 
-    public static void drawDebugCircle(Circle circle, Graphics2D g){
+     public static void drawDebugCircle(Circle circle, Graphics2D g){
 
         if(showDebug){
             
             g.setColor(debugColor);
             Vec2 point = Camera.calculateWorldToWindowPosition(new Vec2((int)-circle.x, (int)-circle.y));
-            if(drawType==type.HOLLOW) g.drawOval((int)point.x, (int)point.y, (int)circle.radius, (int)circle.radius);
+            if(drawType==type.HOLLOW) g.drawOval((int)point.x, (int)point.y, (int)(circle.radius * Camera.viewport.x), (int)(circle.radius * Camera.viewport.y));
             else g.fillOval(
                 (int)(point.x * Camera.viewport.x), 
                 (int)(point.y * Camera.viewport.y), 
-                (int)(circle.radius + Camera.viewport.x), 
-                (int)(circle.radius + Camera.viewport.y)
+                (int)(circle.radius * Camera.viewport.x), 
+                (int)(circle.radius * Camera.viewport.y)
                 );
         }
     }
@@ -86,20 +86,21 @@ public class Debugging {
             //Operate on font
             if(!Camera.viewport.equals(Vec2.ONE)){
 
-                FontMetrics fm = g.getFontMetrics(UIManager.getFont("Label.font"));
-                int w = fm.stringWidth(text);
-                int h = fm.getHeight();
+                // FontMetrics fm = g.getFontMetrics(UIManager.getFont("Label.font"));
+                // int w = fm.stringWidth(text);
+                // int h = fm.getHeight();
 
-                BufferedImage imgTex = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-                Graphics2D g2d = imgTex.createGraphics();
+                // BufferedImage imgTex = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+                // Graphics2D g2d = imgTex.createGraphics();
 
-                g2d.drawString(text, x * Camera.viewport.x, y * Camera.viewport.y);
-                g2d.dispose();
+                g.drawString(text, point.x, point.y);
+                //g.dispose();
 
             }else{ g.drawString(text, point.x, point.y); }
 
         }
     }
+
 
     public static void drawDebugSprite(Sprite sprite, Vec2 position, Vec2 scale, Graphics2D g){
 

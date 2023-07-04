@@ -88,8 +88,8 @@ public class Camera extends Component{
 
         if(Camera.getInstance() == null) return windowPoint;
 
-        int x = (int)(((Camera.position.position.x) + windowPoint.x));
-        int y = (int)(((Camera.position.position.y) + windowPoint.y));
+        int x = (int)(((Camera.position.position.x) + windowPoint.x - offset.x) * viewport.x);
+        int y = (int)(((Camera.position.position.y) + windowPoint.y - offset.y) * viewport.y);
 
         return new Vec2(-x, -y);
     }

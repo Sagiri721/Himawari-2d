@@ -50,7 +50,7 @@ public class RoomHandler {
 
     public static void render(Graphics2D g) {
 
-        if(hasRooms()){
+        if (hasRooms() && currentRoom != null) {
 
             //Draw background if exists 
             
@@ -219,6 +219,12 @@ public class RoomHandler {
             StdBehaviour behaviour = object.getBehaviour();
             behaviour.RoomLoaded(currentRoom);
         }
+    }
+
+    public static void unLoad() {
+
+        RoomHandler.currentRoom = null;
+        Object.clearNonStatic();
     }
 }
 

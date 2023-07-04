@@ -334,15 +334,15 @@ public class Object implements Serializable{
         }
     }
 
-    public static void sendMessageToAll(String className){
+    public static void sendMessageToAll(Class className, String message){
 
         for(Iterator<Object> inter = objects.iterator(); inter.hasNext();)  {
             Object obj = inter.next();
         
-            /*if(obj.getClass().toString()==){
+            if(obj.getClass() == className){
 
-                obj.getBehaviour().ReceiveMessage(this.name);
-            }*/
+                obj.getBehaviour().ReceiveMessage(message);
+            }
         }
     }
 

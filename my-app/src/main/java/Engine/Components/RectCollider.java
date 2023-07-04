@@ -200,7 +200,7 @@ public class RectCollider extends Component{
         } else return 0;
     }
 
-    protected void calculateInterestStack(){
+    public void calculateInterestStack(){
 
         if(transform == null) return;
 
